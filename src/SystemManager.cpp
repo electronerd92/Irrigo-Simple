@@ -9,4 +9,5 @@ SystemManager::SystemManager(MainSystem *mainSystem)
 
 void SystemManager::update()
 {
+    menu->update();
 }

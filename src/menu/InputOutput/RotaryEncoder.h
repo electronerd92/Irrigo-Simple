@@ -28,11 +28,11 @@ private:
 
     void handleRotation();
     void handleButton();
+    void update();
 
 public:
     RotaryEncoder();
     Command readCommand();
-    void update();
 };
 
 #endif // ROTARY_ENCODER_H

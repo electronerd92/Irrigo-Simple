@@ -1,6 +1,7 @@
 #include "Menu.h"
 #include "../Config.h"
 #include "MenuItems.hpp"
+#include "Debug.hpp"
 
 Menu::Menu(SystemManager *systemManager)
     : systemManager(systemManager),
@@ -28,7 +29,7 @@ void Menu::update()
     {
         currentMenuItem->executeCmd(cmd);
     }
-    updateScreen();
+    updateScreen(cmd);
 }
 
 void Menu::updateElementAndCursor(Command cmd)
@@ -84,16 +85,17 @@ void Menu::moveUp()
     }
 }
 
-void Menu::updateScreen()
+void Menu::updateScreen(Command cmd)
 {
     if (refreshScreen)
     {
         renderFullScreen();
     }
-    else
+    else if (cmd != Command::NONE)
     {
         updateCursorOnly();
     }
+
     blinker.update();
 }
 
@@ -120,6 +122,7 @@ void Menu::updateCursorOnly()
 
 void Menu::printCursor()
 {
+    debugLog("print cursor ...");
     lcd.print(F(">"), 0, cursor);
 }
 

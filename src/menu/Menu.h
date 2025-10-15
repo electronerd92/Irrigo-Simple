@@ -26,7 +26,7 @@ private:
     bool refreshScreen;
 
     void updateElementAndCursor(Command cmd);
-    void updateScreen();
+    void updateScreen(Command cmd);
     void printCursor();
     void moveDown(uint8_t maxElements);
     void moveUp();

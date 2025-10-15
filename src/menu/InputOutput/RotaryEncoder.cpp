@@ -63,6 +63,7 @@ void RotaryEncoder::handleButton()
 
 Command RotaryEncoder::readCommand()
 {
+    update();
     Command cmd = lastCommand;
     lastCommand = Command::NONE;
     return cmd;

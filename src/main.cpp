@@ -1,9 +1,16 @@
 #include <Arduino.h>
+#include <Wire.h>
+#include <SPI.h>
+#include "MainSystem.h"
 
-void setup() {
+MainSystem *mainSystem;
 
+void setup()
+{
+  mainSystem = new MainSystem();
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void loop()
+{
+  mainSystem->update();
 }
