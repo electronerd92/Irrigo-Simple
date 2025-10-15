@@ -14,4 +14,9 @@ const uint8_t ROTARY_PIN_A = 3;
 const uint8_t ROTARY_PIN_B = 2;
 const uint8_t ROTARY_BUTTON_PIN = 4;
 
+// Menu titles
+#define EDIT_STR "Edit"
+#define INFO_STR "Info"
+#define TIME_STR "Time"
+
 #endif // PROJECT_CONFIG_H

@@ -7,8 +7,9 @@
 class EditMenu : public MenuObj
 {
 private:
-    static constexpr uint8_t timeIndex = 0;
-    static constexpr uint8_t elementCount = 1;
+    static constexpr uint8_t titleIndex = 0;
+    static constexpr uint8_t timeIndex = 1;
+    static constexpr uint8_t elementCount = 2;
 
 public:
     EditMenu(Menu *menu);

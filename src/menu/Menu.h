@@ -40,6 +40,9 @@ public:
     MenuItems *getMenuItems();
     void setCurrentMenu(MenuObj *menuItem);
     uint8_t getElementIndex() const;
+
+    void printBackArrow(uint8_t row);
+    void printNextMenuArrow(uint8_t row);
 };
 
 #endif // MENU_H

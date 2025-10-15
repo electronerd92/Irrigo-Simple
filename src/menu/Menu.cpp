@@ -21,7 +21,7 @@ Menu::Menu(SystemManager *systemManager)
 void Menu::update()
 {
     Command cmd = rotaryEncoder.readCommand();
-    if (!blinker.getIsBlinking() && cmd != Command::SELECT)
+    if (!blinker.getIsBlinking() && (cmd == Command::RIGHT || cmd == Command::LEFT))
     {
         updateElementAndCursor(cmd);
     }
@@ -122,7 +122,6 @@ void Menu::updateCursorOnly()
 
 void Menu::printCursor()
 {
-    debugLog("print cursor ...");
     lcd.print(F(">"), 0, cursor);
 }
 
@@ -138,6 +137,14 @@ MenuItems *Menu::getMenuItems()
 
 void Menu::setCurrentMenu(MenuObj *menuItem)
 {
+    // TODO
+    /*
+    quando setto il menu passo ozionalmente l'emem index per la back function
+    In questo modo ritorno a dove ero prima
+    Il cursore punterà all'emento in modo che se l'emento è < LCDROW allora il cursore
+    sarà sull'elemento senno sarà al max
+    cursor = min (elementIndex, ldcRow)
+    */
     currentMenuItem = menuItem;
     elementIndex = 0;
     cursor = 0;
@@ -147,4 +154,14 @@ void Menu::setCurrentMenu(MenuObj *menuItem)
 uint8_t Menu::getElementIndex() const
 {
     return elementIndex;
+}
+
+void Menu::printBackArrow(uint8_t row)
+{
+    lcd.print(F("^"), LCD_COLUMNS - 1, row);
+}
+
+void Menu::printNextMenuArrow(uint8_t row)
+{
+    lcd.print(F("->"), LCD_COLUMNS - 2, row);
 }

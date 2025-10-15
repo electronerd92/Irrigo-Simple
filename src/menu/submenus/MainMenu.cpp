@@ -29,10 +29,11 @@ void MainMenu::printElement(uint8_t index, uint8_t row)
     switch (index)
     {
     case editIndex:
-        lcd->print(F("Edit"), 1, row);
+        lcd->print(F(EDIT_STR), 1, row);
+        menu->printNextMenuArrow(row);
         break;
     case infoIndex:
-        lcd->print(F("Info"), 1, row);
+        lcd->print(F(INFO_STR), 1, row);
         break;
 
     default:
