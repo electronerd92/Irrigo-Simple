@@ -16,5 +16,7 @@ private:
 public:
     SystemManager(MainSystem *mainSystem);
     void update();
+
+    DateTime getDateTime();
 };
 #endif // SYSTEM_MANAGER_H

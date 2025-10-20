@@ -9,14 +9,21 @@ const unsigned long LCD_TIME_ON = 60000;      // ms
 const unsigned long LCD_BLINK_INTERVAL = 500; // ms
 const uint8_t LCD_BLINK_BUFFER_SIZE = 9;      // 8 character buffer size + '\0'
 
+#define BUFFER_SIZE 20
+extern char lcdBuffer[BUFFER_SIZE];
+
 // Define pinout for the rotary
 const uint8_t ROTARY_PIN_A = 3;
 const uint8_t ROTARY_PIN_B = 2;
 const uint8_t ROTARY_BUTTON_PIN = 4;
 
 // Menu titles
-#define EDIT_STR "Edit"
+#define VALVES_STR "Valves"
+#define WATER_SOURCE_STR "Water Source"
+#define SENSORS_STR "Sensors"
+#define SETTINGS_STR "Settings"
 #define INFO_STR "Info"
-#define TIME_STR "Time"
+
+#define DATE_TIME_STR "Date/Time"
 
 #endif // PROJECT_CONFIG_H

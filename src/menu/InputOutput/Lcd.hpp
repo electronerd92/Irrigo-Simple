@@ -5,6 +5,13 @@
 #include <LiquidCrystal_I2C.h>
 #include "../../Config.h"
 
+enum class PrintFormat : byte
+{
+    NONE,
+    TITLE_WITH_BACK,
+    WITH_NEXT
+};
+
 class Lcd
 {
 private:
@@ -18,10 +25,31 @@ public:
     }
 
     template <typename T>
-    inline void print(const T &message, uint8_t col, uint8_t row)
+    inline void print(const T &message, uint8_t col, uint8_t row, PrintFormat format = PrintFormat::NONE)
     {
         lcd.setCursor(col, row);
-        lcd.print(message);
+        switch (format)
+        {
+        case PrintFormat::NONE:
+            lcd.print(message);
+            break;
+
+        case PrintFormat::TITLE_WITH_BACK:
+            lcd.write('[');
+            lcd.print(message);
+            lcd.write(']');
+            lcd.setCursor(LCD_COLUMNS - 1, row);
+            lcd.write('^');
+            break;
+        case PrintFormat::WITH_NEXT:
+            lcd.print(message);
+            lcd.setCursor(LCD_COLUMNS - 1, row);
+            lcd.write('>');
+            break;
+
+        default:
+            break;
+        }
     }
 
     template <typename T>

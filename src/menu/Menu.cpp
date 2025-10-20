@@ -3,6 +3,8 @@
 #include "MenuItems.hpp"
 #include "Debug.hpp"
 
+char lcdBuffer[BUFFER_SIZE]; 
+
 Menu::Menu(SystemManager *systemManager)
     : systemManager(systemManager),
       lcd(),
@@ -12,7 +14,7 @@ Menu::Menu(SystemManager *systemManager)
       currentMenuItem(nullptr),
       elementIndex(0),
       cursor(0),
-      refreshScreen(true)
+      refreshType(RefreshType::ClearAndFullScreen)
 {
     menuItems = new MenuItems(this);
     currentMenuItem = menuItems->getMainMenu();
@@ -60,10 +62,11 @@ void Menu::moveDown(uint8_t maxElements)
         if (cursor < LCD_ROWS - 1)
         {
             cursor++;
+            refreshType = RefreshType::CursorOnly;
         }
         else
         {
-            refreshScreen = true; // Need to scroll
+            refreshType = RefreshType::ClearAndFullScreen; // Need to scroll
         }
     }
 }
@@ -77,31 +80,47 @@ void Menu::moveUp()
         if (cursor > 0)
         {
             cursor--;
+            refreshType = RefreshType::CursorOnly;
         }
         else
         {
-            refreshScreen = true; // Need to scroll
+            refreshType = RefreshType::ClearAndFullScreen; // Need to scroll
         }
     }
 }
 
 void Menu::updateScreen(Command cmd)
 {
-    if (refreshScreen)
+    switch (refreshType)
     {
-        renderFullScreen();
-    }
-    else if (cmd != Command::NONE)
-    {
+    case RefreshType::ClearAndFullScreen:
+        renderFullScreen(true);
+        break;
+
+    case RefreshType::FullScreen:
+        renderFullScreen(false);
+        break;
+
+    case RefreshType::CursorOnly:
         updateCursorOnly();
+        break;
+
+    case RefreshType::None:
+    default:
+        break;
     }
 
+    refreshType = RefreshType::None; // reset after drawing
     blinker.update();
 }
 
-void Menu::renderFullScreen()
+void Menu::renderFullScreen(bool clearAll)
 {
-    lcd.clear();
+    if (clearAll)
+    {
+        lcd.clear();
+    }
+
     const uint8_t offset = elementIndex - cursor;
     for (uint8_t row = 0; row < LCD_ROWS; row++)
     {
@@ -111,7 +130,6 @@ void Menu::renderFullScreen()
         }
         currentMenuItem->printElement(offset + row, row);
     }
-    refreshScreen = false;
 }
 
 void Menu::updateCursorOnly()
@@ -122,7 +140,7 @@ void Menu::updateCursorOnly()
 
 void Menu::printCursor()
 {
-    lcd.print(F(">"), 0, cursor);
+    lcd.print('>', 0, cursor);
 }
 
 Lcd *Menu::getLcd()
@@ -135,20 +153,13 @@ MenuItems *Menu::getMenuItems()
     return menuItems;
 }
 
-void Menu::setCurrentMenu(MenuObj *menuItem)
+void Menu::setCurrentMenu(MenuObj *menuItem, uint8_t position)
 {
-    // TODO
-    /*
-    quando setto il menu passo ozionalmente l'emem index per la back function
-    In questo modo ritorno a dove ero prima
-    Il cursore punterà all'emento in modo che se l'emento è < LCDROW allora il cursore
-    sarà sull'elemento senno sarà al max
-    cursor = min (elementIndex, ldcRow)
-    */
+    //? Il cursore punterà all'elemento, limitandolo all'ultima row dell'lcd
     currentMenuItem = menuItem;
-    elementIndex = 0;
-    cursor = 0;
-    refreshScreen = true;
+    elementIndex = position;
+    cursor = min(position, LCD_ROWS - 1);
+    refreshType = RefreshType::ClearAndFullScreen;
 }
 
 uint8_t Menu::getElementIndex() const
@@ -156,12 +167,7 @@ uint8_t Menu::getElementIndex() const
     return elementIndex;
 }
 
-void Menu::printBackArrow(uint8_t row)
+DateTime Menu::getDateTime()
 {
-    lcd.print(F("^"), LCD_COLUMNS - 1, row);
-}
-
-void Menu::printNextMenuArrow(uint8_t row)
-{
-    lcd.print(F("->"), LCD_COLUMNS - 2, row);
+    return systemManager->getDateTime();
 }

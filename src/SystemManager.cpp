@@ -11,3 +11,8 @@ void SystemManager::update()
 {
     menu->update();
 }
+
+DateTime SystemManager::getDateTime()
+{
+    return mainSystem->getDateTime();
+}

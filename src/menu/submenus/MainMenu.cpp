@@ -1,7 +1,7 @@
 #include "MainMenu.h"
 #include "../MenuItems.hpp"
 
-MainMenu::MainMenu(Menu *menu) : MenuObj(menu, elementCount)
+MainMenu::MainMenu(Menu *menu) : MenuObj(menu, (uint8_t)MainMenuIndex::ELEMENT_COUNT)
 {
 }
 
@@ -12,10 +12,14 @@ void MainMenu::executeCmd(Command cmd)
 
     MenuItems *menuItems = menu->getMenuItems();
 
-    switch (menu->getElementIndex())
+    switch ((MainMenuIndex)menu->getElementIndex())
     {
-    case editIndex:
-        menu->setCurrentMenu(menuItems->getEditMenu());
+    case MainMenuIndex::VALVES:
+        menu->setCurrentMenu(menuItems->getValvesMenu());
+        break;
+
+    case MainMenuIndex::SETTINGS:
+        menu->setCurrentMenu(menuItems->getSettingsMenu());
         break;
 
     default:
@@ -26,13 +30,23 @@ void MainMenu::executeCmd(Command cmd)
 void MainMenu::printElement(uint8_t index, uint8_t row)
 {
     Lcd *lcd = menu->getLcd();
-    switch (index)
+    MainMenuIndex menuIndex = static_cast<MainMenuIndex>(index);
+
+    switch ((MainMenuIndex)menuIndex)
     {
-    case editIndex:
-        lcd->print(F(EDIT_STR), 1, row);
-        menu->printNextMenuArrow(row);
+    case MainMenuIndex::VALVES:
+        lcd->print(F(VALVES_STR), 1, row, PrintFormat::WITH_NEXT);
         break;
-    case infoIndex:
+    case MainMenuIndex::WATER_SOURCE:
+        lcd->print(F(WATER_SOURCE_STR), 1, row);
+        break;
+    case MainMenuIndex::SENSORS:
+        lcd->print(F(SENSORS_STR), 1, row);
+        break;
+    case MainMenuIndex::SETTINGS:
+        lcd->print(F(SETTINGS_STR), 1, row, PrintFormat::WITH_NEXT);
+        break;
+    case MainMenuIndex::INFO:
         lcd->print(F(INFO_STR), 1, row);
         break;
 

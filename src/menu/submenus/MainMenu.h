@@ -4,13 +4,19 @@
 #include <Arduino.h>
 #include "../MenuObj.hpp"
 
+enum class MainMenuIndex : uint8_t
+{
+    VALVES = 0,
+    WATER_SOURCE,
+    SENSORS,
+    SETTINGS,
+    INFO,
+    ELEMENT_COUNT
+};
+
 class MainMenu : public MenuObj
 {
 private:
-    static constexpr uint8_t editIndex = 0;
-    static constexpr uint8_t infoIndex = 1;
-    static constexpr uint8_t elementCount = 2;
-
 public:
     MainMenu(Menu *menu);
     void executeCmd(Command cmd) override;
