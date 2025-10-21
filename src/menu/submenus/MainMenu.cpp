@@ -10,16 +10,34 @@ void MainMenu::executeCmd(Command cmd)
     if (cmd != Command::SELECT)
         return;
 
+    handleSelectCommand();
+}
+
+void MainMenu::handleSelectCommand()
+{
+    const auto currentIndex = static_cast<MainMenuIndex>(menu->getElementIndex());
     MenuItems *menuItems = menu->getMenuItems();
 
-    switch ((MainMenuIndex)menu->getElementIndex())
+    switch (currentIndex)
     {
     case MainMenuIndex::VALVES:
-        menu->setCurrentMenu(menuItems->getValvesMenu());
+        navigateToValvesMenu(menuItems);
+        break;
+
+    case MainMenuIndex::WATER_SOURCE:
+        navigateToWaterSourceMenu(menuItems);
+        break;
+
+    case MainMenuIndex::SENSORS:
+        navigateToSensorsMenu(menuItems);
         break;
 
     case MainMenuIndex::SETTINGS:
-        menu->setCurrentMenu(menuItems->getSettingsMenu());
+        navigateToSettingsMenu(menuItems);
+        break;
+
+    case MainMenuIndex::INFO:
+        navigateToInfoMenu(menuItems);
         break;
 
     default:
@@ -27,12 +45,37 @@ void MainMenu::executeCmd(Command cmd)
     }
 }
 
+void MainMenu::navigateToValvesMenu(MenuItems *menuItems)
+{
+    menu->setCurrentMenu(menuItems->getValvesMenu());
+}
+
+void MainMenu::navigateToWaterSourceMenu(MenuItems *menuItems)
+{
+    // TODO: Implement water source functionality
+}
+
+void MainMenu::navigateToSensorsMenu(MenuItems *menuItems)
+{
+    // TODO: Implement sensors functionality
+}
+
+void MainMenu::navigateToSettingsMenu(MenuItems *menuItems)
+{
+    menu->setCurrentMenu(menuItems->getSettingsMenu());
+}
+
+void MainMenu::navigateToInfoMenu(MenuItems *menuItems)
+{
+    // TODO: Implement info functionality
+}
+
 void MainMenu::printElement(uint8_t index, uint8_t row)
 {
     Lcd *lcd = menu->getLcd();
-    MainMenuIndex menuIndex = static_cast<MainMenuIndex>(index);
+    const auto menuIndex = static_cast<MainMenuIndex>(index);
 
-    switch ((MainMenuIndex)menuIndex)
+    switch (menuIndex)
     {
     case MainMenuIndex::VALVES:
         lcd->print(F(VALVES_STR), 1, row, PrintFormat::WITH_NEXT);

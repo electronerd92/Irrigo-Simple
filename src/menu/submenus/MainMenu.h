@@ -17,6 +17,13 @@ enum class MainMenuIndex : uint8_t
 class MainMenu : public MenuObj
 {
 private:
+    void handleSelectCommand();
+    void navigateToValvesMenu(MenuItems *menuItems);
+    void navigateToWaterSourceMenu(MenuItems *menuItems);
+    void navigateToSensorsMenu(MenuItems *menuItems);
+    void navigateToSettingsMenu(MenuItems *menuItems);
+    void navigateToInfoMenu(MenuItems *menuItems);
+
 public:
     MainMenu(Menu *menu);
     void executeCmd(Command cmd) override;

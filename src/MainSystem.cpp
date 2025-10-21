@@ -12,7 +12,7 @@ void MainSystem::update()
     systemManager->update();
 }
 
-DateTime MainSystem::getDateTime()
+RTC_DS3231 *MainSystem::getRTC()
 {
-    return rtc.now();
+    return &rtc;
 }

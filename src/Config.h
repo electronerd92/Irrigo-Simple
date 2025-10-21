@@ -7,7 +7,7 @@ const uint8_t LCD_COLUMNS = 20;
 const uint8_t LCD_ROWS = 4;
 const unsigned long LCD_TIME_ON = 60000;      // ms
 const unsigned long LCD_BLINK_INTERVAL = 500; // ms
-const uint8_t LCD_BLINK_BUFFER_SIZE = 9;      // 8 character buffer size + '\0'
+const uint8_t LCD_BLINK_BUFFER_SIZE = 12;     // 8 character buffer size + '\0'
 
 #define BUFFER_SIZE 20
 extern char lcdBuffer[BUFFER_SIZE];
@@ -25,5 +25,7 @@ const uint8_t ROTARY_BUTTON_PIN = 4;
 #define INFO_STR "Info"
 
 #define DATE_TIME_STR "Date/Time"
+#define DATE_STR "Date:"
+#define TIME_STR "Time:"
 
 #endif // PROJECT_CONFIG_H

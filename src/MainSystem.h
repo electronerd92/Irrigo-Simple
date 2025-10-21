@@ -16,7 +16,6 @@ private:
 public:
     MainSystem();
     void update();
-
-    DateTime getDateTime();
+    RTC_DS3231 *getRTC();
 };
 #endif // MAIN_SYSTEM_H

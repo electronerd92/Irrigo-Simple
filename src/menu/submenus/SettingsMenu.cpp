@@ -10,19 +10,37 @@ void SettingsMenu::executeCmd(Command cmd)
     if (cmd != Command::SELECT)
         return;
 
+    handleSelectCommand();
+}
+
+void SettingsMenu::handleSelectCommand()
+{
+    const auto currentIndex = static_cast<SettingsMenuIndex>(menu->getElementIndex());
     MenuItems *menuItems = menu->getMenuItems();
 
-    switch ((SettingsMenuIndex)menu->getElementIndex())
+    switch (currentIndex)
     {
     case SettingsMenuIndex::BACK:
-        menu->setCurrentMenu(menuItems->getMainMenu(), (uint8_t)MainMenuIndex::SETTINGS);
+        navigateToMainMenu(menuItems);
         break;
+
     case SettingsMenuIndex::DATE_TIME:
-        menu->setCurrentMenu(menuItems->getDateTimeMenu());
+        navigateToDateTimeMenu(menuItems);
         break;
+
     default:
         break;
     }
+}
+
+void SettingsMenu::navigateToMainMenu(MenuItems *menuItems)
+{
+    menu->setCurrentMenu(menuItems->getMainMenu(), (uint8_t)MainMenuIndex::SETTINGS);
+}
+
+void SettingsMenu::navigateToDateTimeMenu(MenuItems *menuItems)
+{
+    menu->setCurrentMenu(menuItems->getDateTimeMenu());
 }
 
 void SettingsMenu::printElement(uint8_t index, uint8_t row)

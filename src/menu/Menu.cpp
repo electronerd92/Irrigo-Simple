@@ -3,7 +3,7 @@
 #include "MenuItems.hpp"
 #include "Debug.hpp"
 
-char lcdBuffer[BUFFER_SIZE]; 
+char lcdBuffer[BUFFER_SIZE];
 
 Menu::Menu(SystemManager *systemManager)
     : systemManager(systemManager),
@@ -14,7 +14,8 @@ Menu::Menu(SystemManager *systemManager)
       currentMenuItem(nullptr),
       elementIndex(0),
       cursor(0),
-      refreshType(RefreshType::ClearAndFullScreen)
+      refreshType(RefreshType::ClearAndFullScreen),
+      editingField(EditingField::None)
 {
     menuItems = new MenuItems(this);
     currentMenuItem = menuItems->getMainMenu();
@@ -143,9 +144,19 @@ void Menu::printCursor()
     lcd.print('>', 0, cursor);
 }
 
+SystemManager *Menu::getSystelManager()
+{
+    return systemManager;
+}
+
 Lcd *Menu::getLcd()
 {
     return &lcd;
+}
+
+Blinker *Menu::getBlinker()
+{
+    return &blinker;
 }
 
 MenuItems *Menu::getMenuItems()
@@ -160,6 +171,7 @@ void Menu::setCurrentMenu(MenuObj *menuItem, uint8_t position)
     elementIndex = position;
     cursor = min(position, LCD_ROWS - 1);
     refreshType = RefreshType::ClearAndFullScreen;
+    stopEditing();
 }
 
 uint8_t Menu::getElementIndex() const
@@ -170,4 +182,25 @@ uint8_t Menu::getElementIndex() const
 DateTime Menu::getDateTime()
 {
     return systemManager->getDateTime();
+}
+
+EditingField Menu::getEditingField() const
+{
+    return editingField;
+}
+
+bool Menu::getIsEditingElement(uint8_t index)
+{
+    return editingField != EditingField::None && index == elementIndex;
+}
+
+void Menu::incrementEditingField()
+{
+    editingField = (EditingField)(((uint8_t)editingField + 1) % (uint8_t)EditingField::Max);
+}
+
+void Menu::stopEditing()
+{
+    editingField = EditingField::None;
+    blinker.stopBlinking();
 }

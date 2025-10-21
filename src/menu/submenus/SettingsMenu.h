@@ -14,6 +14,10 @@ enum class SettingsMenuIndex : uint8_t
 class SettingsMenu : public MenuObj
 {
 private:
+    void handleSelectCommand();
+    void navigateToMainMenu(MenuItems *menuItems);
+    void navigateToDateTimeMenu(MenuItems *menuItems);
+
 public:
     SettingsMenu(Menu *menu);
     void executeCmd(Command cmd) override;

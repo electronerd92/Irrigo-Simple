@@ -18,6 +18,15 @@ enum class RefreshType : uint8_t
     ClearAndFullScreen // crear and redraw entire LCD
 };
 
+enum class EditingField : uint8_t
+{
+    None,
+    First,
+    Second,
+    Third,
+    Max
+};
+
 class Menu
 {
 private:
@@ -33,6 +42,8 @@ private:
     uint8_t cursor;
     RefreshType refreshType;
 
+    EditingField editingField;
+
     void updateElementAndCursor(Command cmd);
     void updateScreen(Command cmd);
     void printCursor();
@@ -44,10 +55,16 @@ private:
 public:
     Menu(SystemManager *systemManager);
     void update();
+    SystemManager *getSystelManager();
     Lcd *getLcd();
+    Blinker *getBlinker();
     MenuItems *getMenuItems();
     void setCurrentMenu(MenuObj *menuItem, uint8_t position = 0);
     uint8_t getElementIndex() const;
+    EditingField getEditingField() const;
+    bool getIsEditingElement(uint8_t index);
+    void incrementEditingField();
+    void stopEditing();
 
     inline void requestFullRefresh(bool clearAll) { refreshType = clearAll ? RefreshType::ClearAndFullScreen : RefreshType::FullScreen; }
 
