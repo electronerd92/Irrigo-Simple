@@ -196,6 +196,7 @@ bool Menu::getIsEditingElement(uint8_t index)
 
 void Menu::incrementEditingField()
 {
+    // TODO add an optional parameter to pause the system when a field is being edited
     editingField = (EditingField)(((uint8_t)editingField + 1) % (uint8_t)EditingField::Max);
 }
 
