@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include <Encoder.h>
 #include "Command.h"
-#include "Timer.hpp"
+#include <Timer.h>
 
 class RotaryEncoder
 {

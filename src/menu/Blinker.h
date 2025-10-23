@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 #include <Config.h>
-#include "Timer.hpp"
+#include <Timer.h>
 #include "InputOutput/Lcd.hpp"
 
 class Blinker
