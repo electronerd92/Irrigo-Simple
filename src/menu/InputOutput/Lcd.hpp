@@ -2,8 +2,8 @@
 #define LCD_H
 
 #include <Arduino.h>
+#include <Config.h>
 #include <LiquidCrystal_I2C.h>
-#include "../../Config.h"
 
 enum class PrintFormat : byte
 {

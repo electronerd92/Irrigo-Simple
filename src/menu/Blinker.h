@@ -2,7 +2,7 @@
 #define BLINKER_H
 
 #include <Arduino.h>
-#include "../Config.h"
+#include <Config.h>
 #include "Timer.hpp"
 #include "InputOutput/Lcd.hpp"
 

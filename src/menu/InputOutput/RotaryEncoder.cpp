@@ -1,6 +1,6 @@
+#include <Debug.hpp>
+#include <Config.h>
 #include "rotaryEncoder.h"
-#include "../../Config.h"
-#include "Debug.hpp"
 
 RotaryEncoder::RotaryEncoder()
     : encoder(ROTARY_PIN_A, ROTARY_PIN_B),

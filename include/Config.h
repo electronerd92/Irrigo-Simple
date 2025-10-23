@@ -1,6 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#include <stdio.h>
 // Define LCD parameters
 const uint8_t LCD_ADDRESS = 0x27;
 const uint8_t LCD_COLUMNS = 20;

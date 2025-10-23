@@ -1,7 +1,7 @@
+#include <Debug.hpp>
+#include <Config.h>
 #include "Menu.h"
-#include "../Config.h"
 #include "MenuItems.hpp"
-#include "Debug.hpp"
 
 char lcdBuffer[BUFFER_SIZE];
 
