@@ -1,15 +1,18 @@
 #include "MainSystem.h"
 #include "SystemManager.h"
+#include "ConfigFactory.h"
 
 MainSystem::MainSystem() : rtc()
 {
     rtc.begin();
-    systemManager = new SystemManager(this);
+    sysManager = new SystemManager(this);
+    menuSys = new MenuSystem(sysManager, ConfigFactory::createMenuConfig());
 }
 
 void MainSystem::update()
 {
-    systemManager->update();
+    sysManager->update();
+    menuSys->update();
 }
 
 RTC_DS3231 *MainSystem::getRTC()

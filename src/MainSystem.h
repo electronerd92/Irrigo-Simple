@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include "RTClib.h"
+#include "menu/MenuSystem.h"
 
 // Forward declaration to avoid circular dependency
 class SystemManager;
@@ -11,7 +12,8 @@ class MainSystem
 {
 private:
     RTC_DS3231 rtc;
-    SystemManager *systemManager;
+    SystemManager *sysManager;
+    MenuSystem *menuSys;
 
 public:
     MainSystem();

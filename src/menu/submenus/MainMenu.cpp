@@ -72,25 +72,25 @@ void MainMenu::navigateToInfoMenu(MenuItems *menuItems)
 
 void MainMenu::printElement(uint8_t index, uint8_t row)
 {
-    Lcd *lcd = menu->getLcd();
+    IDisplay *dispay = menu->getDispay();
     const auto menuIndex = static_cast<MainMenuIndex>(index);
 
     switch (menuIndex)
     {
     case MainMenuIndex::VALVES:
-        lcd->print(F(VALVES_STR), 1, row, PrintFormat::WITH_NEXT);
+        dispay->printAt(F(VALVES_STR), 1, row, PrintFormat::WITH_NEXT);
         break;
     case MainMenuIndex::WATER_SOURCE:
-        lcd->print(F(WATER_SOURCE_STR), 1, row);
+        dispay->printAt(F(WATER_SOURCE_STR), 1, row);
         break;
     case MainMenuIndex::SENSORS:
-        lcd->print(F(SENSORS_STR), 1, row);
+        dispay->printAt(F(SENSORS_STR), 1, row);
         break;
     case MainMenuIndex::SETTINGS:
-        lcd->print(F(SETTINGS_STR), 1, row, PrintFormat::WITH_NEXT);
+        dispay->printAt(F(SETTINGS_STR), 1, row, PrintFormat::WITH_NEXT);
         break;
     case MainMenuIndex::INFO:
-        lcd->print(F(INFO_STR), 1, row);
+        dispay->printAt(F(INFO_STR), 1, row);
         break;
 
     default:

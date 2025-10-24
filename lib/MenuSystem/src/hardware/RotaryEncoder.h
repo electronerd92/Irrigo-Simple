@@ -3,21 +3,20 @@
 
 #include <Arduino.h>
 #include <Encoder.h>
-#include "Command.h"
 #include <Timer.h>
+#include <IInputDevice.h>
+#include "MenuConfig.h"
 
-class RotaryEncoder
+class RotaryEncoder : public IInputDevice
 {
 private:
     Encoder encoder;
+    RotaryConfig config;
     Command lastCommand;
     long lastPosition;
-
     bool buttonPressed;
-
     Timer debounceTimer;
     Timer accelerationTimer;
-
     int stepThreshold;
 
     // Constants
@@ -31,8 +30,8 @@ private:
     void update();
 
 public:
-    RotaryEncoder();
-    Command readCommand();
+    RotaryEncoder(const RotaryConfig &rotaryConfig);
+    Command readCommand() override;
 };
 
 #endif // ROTARY_ENCODER_H

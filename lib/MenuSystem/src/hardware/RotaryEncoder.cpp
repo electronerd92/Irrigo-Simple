@@ -1,9 +1,8 @@
-#include <Debug.hpp>
-#include <Config.h>
 #include "rotaryEncoder.h"
 
-RotaryEncoder::RotaryEncoder()
-    : encoder(ROTARY_PIN_A, ROTARY_PIN_B),
+RotaryEncoder::RotaryEncoder(const RotaryConfig &rotaryConfig)
+    : encoder(rotaryConfig.pinA, rotaryConfig.pinB),
+      config(rotaryConfig),
       lastCommand(Command::NONE),
       lastPosition(encoder.read()),
       buttonPressed(false),
@@ -11,7 +10,7 @@ RotaryEncoder::RotaryEncoder()
       accelerationTimer(accelerationTimeout),
       stepThreshold(defaultThreshold)
 {
-    pinMode(ROTARY_BUTTON_PIN, INPUT_PULLUP);
+    pinMode(rotaryConfig.buttonPin, INPUT_PULLUP);
 }
 
 void RotaryEncoder::update()
@@ -45,7 +44,7 @@ void RotaryEncoder::handleRotation()
 
 void RotaryEncoder::handleButton()
 {
-    bool isPressed = digitalRead(ROTARY_BUTTON_PIN) == LOW;
+    bool isPressed = digitalRead(config.buttonPin) == LOW;
 
     if (isPressed && !buttonPressed && debounceTimer.timeout())
     {

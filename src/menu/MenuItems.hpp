@@ -2,6 +2,7 @@
 #define MENU_ITEMS_H
 
 #include "Menu.h"
+#include "submenus/MenuStrings.h"
 #include "submenus/MainMenu.h"
 #include "submenus/ValvesMenu.h"
 #include "submenus/SettingsMenu.h"

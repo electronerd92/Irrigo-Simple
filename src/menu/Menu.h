@@ -2,10 +2,10 @@
 #define MENU_H
 
 #include <Arduino.h>
-#include "interfaces/ISystemManager.h"
-#include "InputOutput/Lcd.hpp"
-#include "InputOutput/RotaryEncoder.h"
-#include "Blinker.h"
+#include <ISystemManager.h>
+#include <IDisplay.h>
+#include <IInputDevice.h>
+#include <IBlinker.h>
 
 class MenuItems;
 class MenuObj;
@@ -31,17 +31,16 @@ class Menu
 {
 private:
     ISystemManager *sysManager;
-    Lcd lcd;
-    RotaryEncoder rotaryEncoder;
-    Blinker blinker;
-
+    IDisplay *display;
+    uint8_t dispayBufferSize;
+    IInputDevice *inputDevice;
+    IBlinker *blinker;
+    char *dispayBuffer;
     MenuItems *menuItems;
     MenuObj *currentMenuItem;
-
     uint8_t elementIndex;
     uint8_t cursor;
     RefreshType refreshType;
-
     EditingField editingField;
 
     void updateElementAndCursor(Command cmd);
@@ -53,11 +52,14 @@ private:
     void updateCursorOnly();
 
 public:
-    Menu(ISystemManager *systemManager);
+    Menu(ISystemManager *sysManager, IDisplay *display, IInputDevice *inputDevice, IBlinker *blinker, uint8_t bufferSize);
     void update();
     ISystemManager *getSystemManager();
-    Lcd *getLcd();
-    Blinker *getBlinker();
+    IDisplay *getDispay();
+    char *getDisplayBuffer();
+    uint8_t getDisplayBufferSize();
+
+    IBlinker *getBlinker();
     MenuItems *getMenuItems();
     void setCurrentMenu(MenuObj *menuItem, uint8_t position = 0);
     uint8_t getElementIndex() const;

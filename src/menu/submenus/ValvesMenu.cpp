@@ -25,11 +25,11 @@ void ValvesMenu::executeCmd(Command cmd)
 
 void ValvesMenu::printElement(uint8_t index, uint8_t row)
 {
-    Lcd *lcd = menu->getLcd();
+    IDisplay *dispay = menu->getDispay();
     switch ((ValvesMenuIndex)index)
     {
     case ValvesMenuIndex::BACK:
-        lcd->print(F(VALVES_STR), 1, row, PrintFormat::TITLE_WITH_BACK);
+        dispay->printAt(F(VALVES_STR), 1, row, PrintFormat::TITLE_WITH_BACK);
         break;
     default:
         break;

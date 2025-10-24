@@ -1,31 +1,32 @@
 #include <Debug.hpp>
-#include <Config.h>
 #include <RTClib.h>
 #include "Menu.h"
 #include "MenuItems.hpp"
 
-char lcdBuffer[BUFFER_SIZE];
-
-Menu::Menu(ISystemManager *sysManager)
+Menu::Menu(ISystemManager *sysManager, IDisplay *display, IInputDevice *inputDevice, IBlinker *blinker, uint8_t bufferSize)
     : sysManager(sysManager),
-      lcd(),
-      rotaryEncoder(),
-      blinker(&lcd),
+      display(display),
+      dispayBufferSize(bufferSize),
+      inputDevice(inputDevice),
+      blinker(blinker),
       menuItems(nullptr),
       currentMenuItem(nullptr),
       elementIndex(0),
       cursor(0),
       refreshType(RefreshType::ClearAndFullScreen),
       editingField(EditingField::None)
+
 {
+    dispayBuffer = new char[bufferSize];
+
     menuItems = new MenuItems(this);
     currentMenuItem = menuItems->getMainMenu();
 }
 
 void Menu::update()
 {
-    Command cmd = rotaryEncoder.readCommand();
-    if (!blinker.getIsBlinking() && (cmd == Command::RIGHT || cmd == Command::LEFT))
+    Command cmd = inputDevice->readCommand();
+    if (!blinker->getIsBlinking() && (cmd == Command::RIGHT || cmd == Command::LEFT))
     {
         updateElementAndCursor(cmd);
     }
@@ -61,7 +62,7 @@ void Menu::moveDown(uint8_t maxElements)
     {
         elementIndex++;
 
-        if (cursor < LCD_ROWS - 1)
+        if (cursor < display->getRows() - 1)
         {
             cursor++;
             refreshType = RefreshType::CursorOnly;
@@ -113,18 +114,18 @@ void Menu::updateScreen(Command cmd)
     }
 
     refreshType = RefreshType::None; // reset after drawing
-    blinker.update();
+    blinker->update();
 }
 
 void Menu::renderFullScreen(bool clearAll)
 {
     if (clearAll)
     {
-        lcd.clear();
+        display->clear();
     }
 
     const uint8_t offset = elementIndex - cursor;
-    for (uint8_t row = 0; row < LCD_ROWS; row++)
+    for (uint8_t row = 0; row < display->getRows(); row++)
     {
         if (row == cursor)
         {
@@ -136,13 +137,13 @@ void Menu::renderFullScreen(bool clearAll)
 
 void Menu::updateCursorOnly()
 {
-    lcd.clearColumn(0);
+    display->clearColumn(0);
     printCursor();
 }
 
 void Menu::printCursor()
 {
-    lcd.print('>', 0, cursor);
+    display->printCharAt('>', 0, cursor);
 }
 
 ISystemManager *Menu::getSystemManager()
@@ -150,14 +151,24 @@ ISystemManager *Menu::getSystemManager()
     return sysManager;
 }
 
-Lcd *Menu::getLcd()
+IDisplay *Menu::getDispay()
 {
-    return &lcd;
+    return display;
 }
 
-Blinker *Menu::getBlinker()
+char *Menu::getDisplayBuffer()
 {
-    return &blinker;
+    return dispayBuffer;
+}
+
+uint8_t Menu::getDisplayBufferSize()
+{
+    return dispayBufferSize;
+}
+
+IBlinker *Menu::getBlinker()
+{
+    return blinker;
 }
 
 MenuItems *Menu::getMenuItems()
@@ -170,7 +181,7 @@ void Menu::setCurrentMenu(MenuObj *menuItem, uint8_t position)
     //? Il cursore punterà all'elemento, limitandolo all'ultima row dell'lcd
     currentMenuItem = menuItem;
     elementIndex = position;
-    cursor = min(position, LCD_ROWS - 1);
+    cursor = min(position, display->getRows() - 1);
     refreshType = RefreshType::ClearAndFullScreen;
     stopEditing();
 }
@@ -204,5 +215,5 @@ void Menu::incrementEditingField()
 void Menu::stopEditing()
 {
     editingField = EditingField::None;
-    blinker.stopBlinking();
+    blinker->stopBlinking();
 }

@@ -2,17 +2,13 @@
 #define SYSTEM_MANAGER_H
 
 #include <Arduino.h>
-#include "interfaces/ISystemManager.h"
+#include <ISystemManager.h>
 #include "MainSystem.h"
-
-// Forward declaration to avoid circular dependency
-class Menu;
 
 class SystemManager : public ISystemManager
 {
 private:
     MainSystem *mainSystem;
-    Menu *menu;
     uint8_t daysInMonth(uint16_t year, uint8_t month);
 
 public:

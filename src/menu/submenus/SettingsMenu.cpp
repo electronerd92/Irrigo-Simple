@@ -45,14 +45,14 @@ void SettingsMenu::navigateToDateTimeMenu(MenuItems *menuItems)
 
 void SettingsMenu::printElement(uint8_t index, uint8_t row)
 {
-    Lcd *lcd = menu->getLcd();
+    IDisplay *dispay = menu->getDispay();
     switch ((SettingsMenuIndex)index)
     {
     case SettingsMenuIndex::BACK:
-        lcd->print(F(SETTINGS_STR), 1, row, PrintFormat::TITLE_WITH_BACK);
+        dispay->printAt(F(SETTINGS_STR), 1, row, PrintFormat::TITLE_WITH_BACK);
         break;
     case SettingsMenuIndex::DATE_TIME:
-        lcd->print(F(DATE_TIME_STR), 1, row);
+        dispay->printAt(F(DATE_TIME_STR), 1, row);
         break;
     default:
         break;

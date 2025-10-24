@@ -172,33 +172,35 @@ void DateTimeMenu::printElement(uint8_t index, uint8_t row)
 
 void DateTimeMenu::printBackElement(uint8_t row)
 {
-    menu->getLcd()->print(F(DATE_TIME_STR), 1, row, PrintFormat::TITLE_WITH_BACK);
+    menu->getDispay()->printAt(F(DATE_TIME_STR), 1, row, PrintFormat::TITLE_WITH_BACK);
 }
 
 void DateTimeMenu::printDateElement(uint8_t index, uint8_t row)
 {
-    Lcd *lcd = menu->getLcd();
+    IDisplay *dispay = menu->getDispay();
     const DateTime dateTime = menu->getDateTime();
 
-    lcd->print(F(DATE_STR), 1, row);
+    dispay->printAt(F(DATE_STR), 1, row);
 
-    snprintf(lcdBuffer, BUFFER_SIZE, "%02u/%02u/%04d",
+    char *lcdBuffer = menu->getDisplayBuffer();
+    snprintf(lcdBuffer, menu->getDisplayBufferSize(), "%02u/%02u/%04d",
              dateTime.day(), dateTime.month(), dateTime.year());
 
-    handleElementDisplay(index, lcdBuffer, LCD_COLUMNS - 10, row);
+    handleElementDisplay(index, lcdBuffer, dispay->getColumns() - 10, row);
 }
 
 void DateTimeMenu::printTimeElement(uint8_t index, uint8_t row)
 {
-    Lcd *lcd = menu->getLcd();
+    IDisplay *dispay = menu->getDispay();
     const DateTime dateTime = menu->getDateTime();
 
-    lcd->print(F(TIME_STR), 1, row);
+    dispay->printAt(F(TIME_STR), 1, row);
 
-    snprintf(lcdBuffer, BUFFER_SIZE, "%02u:%02u:%02u",
+    char *lcdBuffer = menu->getDisplayBuffer();
+    snprintf(lcdBuffer, menu->getDisplayBufferSize(), "%02u:%02u:%02u",
              dateTime.hour(), dateTime.minute(), dateTime.second());
 
-    handleElementDisplay(index, lcdBuffer, LCD_COLUMNS - 8, row);
+    handleElementDisplay(index, lcdBuffer, dispay->getColumns() - 8, row);
 }
 
 void DateTimeMenu::handleElementDisplay(uint8_t elementIndex, const char *buffer, uint8_t col, uint8_t row)
@@ -211,6 +213,6 @@ void DateTimeMenu::handleElementDisplay(uint8_t elementIndex, const char *buffer
     }
     else if (!menu->getIsEditingElement(elementIndex))
     {
-        menu->getLcd()->print(buffer, col, row);
+        menu->getDispay()->printAt(buffer, col, row);
     }
 }

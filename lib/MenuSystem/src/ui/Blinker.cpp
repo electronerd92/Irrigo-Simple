@@ -1,19 +1,21 @@
 #include "Blinker.h"
 
-Blinker::Blinker(Lcd *lcd)
-    : lcd(lcd),
-      blinkTimer(LCD_BLINK_INTERVAL),
+Blinker::Blinker(IDisplay *dispay, const BlinkerConfig &config)
+    : dispay(dispay),
+      blinkTimer(config.blinkInterval),
+      bufferSize(config.bufferSize),
       col(0),
       row(0),
       blinkState(false),
       isBlinking(false),
       wordLength(0)
 {
+    buffer = new char[bufferSize];
     buffer[0] = '\0'; // Initialize empty string
 }
 void Blinker::startBlinking(const char *word, uint8_t c, uint8_t r)
 {
-    wordLength = min(strlen(word), LCD_BLINK_BUFFER_SIZE - 1);
+    wordLength = min(strlen(word), bufferSize - 1);
     strncpy(buffer, word, wordLength);
     buffer[wordLength] = '\0'; // Null-terminate
     col = c;
@@ -48,17 +50,17 @@ void Blinker::update()
     }
 }
 
-bool Blinker::getIsBlinking()
+bool Blinker::getIsBlinking() const
 {
     return isBlinking;
 }
 
 void Blinker::printWord()
 {
-    lcd->print(buffer, col, row);
+    dispay->printAt(buffer, col, row);
 }
 
 void Blinker::clearWord()
 {
-    lcd->clearWord(wordLength, col, row);
+    dispay->clearWord(wordLength, col, row);
 }
