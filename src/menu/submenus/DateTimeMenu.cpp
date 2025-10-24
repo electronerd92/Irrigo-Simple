@@ -1,4 +1,5 @@
 #include "DateTimeMenu.h"
+#include <RTClib.h>
 #include "../MenuItems.hpp"
 
 DateTimeMenu::DateTimeMenu(Menu *menu) : MenuObj(menu, (uint8_t)DateTimeMenuIndex::ELEMENT_COUNT)
@@ -81,20 +82,20 @@ void DateTimeMenu::handleDirectionalCommand(Command cmd)
 void DateTimeMenu::handleDateEditing(Command cmd, EditingField editingField)
 {
     const bool isIncrement = (cmd == Command::RIGHT);
-    SystemManager *systemManager = menu->getSystelManager();
+    ISystemManager *sysManager = menu->getSystemManager();
 
     switch (editingField)
     {
     case EditingField::First:
-        isIncrement ? systemManager->incrementDay() : systemManager->decreaseDay();
+        isIncrement ? sysManager->incrementDay() : sysManager->decreaseDay();
         break;
 
     case EditingField::Second:
-        isIncrement ? systemManager->incrementMonth() : systemManager->decreaseMonth();
+        isIncrement ? sysManager->incrementMonth() : sysManager->decreaseMonth();
         break;
 
     case EditingField::Third:
-        isIncrement ? systemManager->incrementYear() : systemManager->decreaseYear();
+        isIncrement ? sysManager->incrementYear() : sysManager->decreaseYear();
         break;
 
     default:
@@ -107,16 +108,16 @@ void DateTimeMenu::handleDateEditing(Command cmd, EditingField editingField)
 void DateTimeMenu::handleTimeEditing(Command cmd, EditingField editingField)
 {
     const bool isIncrement = (cmd == Command::RIGHT);
-    SystemManager *systemManager = menu->getSystelManager();
+    ISystemManager *sysManager = menu->getSystemManager();
 
     switch (editingField)
     {
     case EditingField::First:
-        isIncrement ? systemManager->incrementHour() : systemManager->decreaseHour();
+        isIncrement ? sysManager->incrementHour() : sysManager->decreaseHour();
         break;
 
     case EditingField::Second:
-        isIncrement ? systemManager->incrementMinute() : systemManager->decreaseMinute();
+        isIncrement ? sysManager->incrementMinute() : sysManager->decreaseMinute();
         break;
 
     default:

@@ -2,7 +2,7 @@
 #define MENU_H
 
 #include <Arduino.h>
-#include "../SystemManager.h"
+#include "interfaces/ISystemManager.h"
 #include "InputOutput/Lcd.hpp"
 #include "InputOutput/RotaryEncoder.h"
 #include "Blinker.h"
@@ -30,7 +30,7 @@ enum class EditingField : uint8_t
 class Menu
 {
 private:
-    SystemManager *systemManager;
+    ISystemManager *sysManager;
     Lcd lcd;
     RotaryEncoder rotaryEncoder;
     Blinker blinker;
@@ -53,9 +53,9 @@ private:
     void updateCursorOnly();
 
 public:
-    Menu(SystemManager *systemManager);
+    Menu(ISystemManager *systemManager);
     void update();
-    SystemManager *getSystelManager();
+    ISystemManager *getSystemManager();
     Lcd *getLcd();
     Blinker *getBlinker();
     MenuItems *getMenuItems();

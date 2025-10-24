@@ -2,34 +2,33 @@
 #define SYSTEM_MANAGER_H
 
 #include <Arduino.h>
+#include "interfaces/ISystemManager.h"
 #include "MainSystem.h"
 
 // Forward declaration to avoid circular dependency
 class Menu;
 
-class SystemManager
+class SystemManager : public ISystemManager
 {
 private:
     MainSystem *mainSystem;
     Menu *menu;
-
     uint8_t daysInMonth(uint16_t year, uint8_t month);
 
 public:
     SystemManager(MainSystem *mainSystem);
     void update();
 
-    DateTime getDateTime();
-
-    void incrementDay();
-    void decreaseDay();
-    void incrementMonth();
-    void decreaseMonth();
-    void incrementYear();
-    void decreaseYear();
-    void incrementHour();
-    void decreaseHour();
-    void incrementMinute();
-    void decreaseMinute();
+    DateTime getDateTime() override;
+    void incrementDay() override;
+    void decreaseDay() override;
+    void incrementMonth() override;
+    void decreaseMonth() override;
+    void incrementYear() override;
+    void decreaseYear() override;
+    void incrementHour() override;
+    void decreaseHour() override;
+    void incrementMinute() override;
+    void decreaseMinute() override;
 };
 #endif // SYSTEM_MANAGER_H

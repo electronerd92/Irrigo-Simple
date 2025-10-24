@@ -1,12 +1,13 @@
 #include <Debug.hpp>
 #include <Config.h>
+#include <RTClib.h>
 #include "Menu.h"
 #include "MenuItems.hpp"
 
 char lcdBuffer[BUFFER_SIZE];
 
-Menu::Menu(SystemManager *systemManager)
-    : systemManager(systemManager),
+Menu::Menu(ISystemManager *sysManager)
+    : sysManager(sysManager),
       lcd(),
       rotaryEncoder(),
       blinker(&lcd),
@@ -144,9 +145,9 @@ void Menu::printCursor()
     lcd.print('>', 0, cursor);
 }
 
-SystemManager *Menu::getSystelManager()
+ISystemManager *Menu::getSystemManager()
 {
-    return systemManager;
+    return sysManager;
 }
 
 Lcd *Menu::getLcd()
@@ -181,7 +182,7 @@ uint8_t Menu::getElementIndex() const
 
 DateTime Menu::getDateTime()
 {
-    return systemManager->getDateTime();
+    return sysManager->getDateTime();
 }
 
 EditingField Menu::getEditingField() const
