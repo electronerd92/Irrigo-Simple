@@ -1,5 +1,5 @@
 #include "SettingsMenu.h"
-#include "../MenuItems.hpp"
+#include "core/MenuItems.hpp"
 
 SettingsMenu::SettingsMenu(Menu *menu) : MenuObj(menu, (uint8_t)SettingsMenuIndex::ELEMENT_COUNT)
 {

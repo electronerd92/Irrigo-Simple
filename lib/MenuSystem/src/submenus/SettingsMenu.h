@@ -2,7 +2,7 @@
 #define SETTINGS_MENU_H
 
 #include <Arduino.h>
-#include "../MenuObj.hpp"
+#include "core/MenuObj.hpp"
 
 enum class SettingsMenuIndex : uint8_t
 {

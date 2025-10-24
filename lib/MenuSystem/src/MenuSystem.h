@@ -2,7 +2,7 @@
 #define MENUSYSTEM_H
 
 #include "MenuConfig.h"
-#include "Menu.h"
+#include "core/Menu.h"
 #include "hardware/Lcd.hpp"
 #include "hardware/RotaryEncoder.h"
 #include "ui/Blinker.h"

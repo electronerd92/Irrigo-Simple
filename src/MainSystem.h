@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 #include "RTClib.h"
-#include "menu/MenuSystem.h"
+#include <MenuSystem.h>
 
 // Forward declaration to avoid circular dependency
 class SystemManager;

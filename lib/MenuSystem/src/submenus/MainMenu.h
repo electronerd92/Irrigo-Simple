@@ -2,7 +2,7 @@
 #define MAIN_MENU_H
 
 #include <Arduino.h>
-#include "../MenuObj.hpp"
+#include "core/MenuObj.hpp"
 
 enum class MainMenuIndex : uint8_t
 {

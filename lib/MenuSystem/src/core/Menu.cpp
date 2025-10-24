@@ -1,4 +1,3 @@
-#include <Debug.hpp>
 #include <RTClib.h>
 #include "Menu.h"
 #include "MenuItems.hpp"

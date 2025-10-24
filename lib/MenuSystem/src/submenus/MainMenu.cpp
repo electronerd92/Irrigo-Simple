@@ -1,5 +1,5 @@
 #include "MainMenu.h"
-#include "../MenuItems.hpp"
+#include "core/MenuItems.hpp"
 
 MainMenu::MainMenu(Menu *menu) : MenuObj(menu, (uint8_t)MainMenuIndex::ELEMENT_COUNT)
 {
