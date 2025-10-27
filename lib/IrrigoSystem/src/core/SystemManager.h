@@ -3,16 +3,16 @@
 
 #include <Arduino.h>
 #include "interfaces/ISystemManager.h"
-#include "MainSystem.h"
+#include "interfaces/IMainSystem.h"
 
 class SystemManager : public ISystemManager
 {
 private:
-    MainSystem *mainSystem;
+    IMainSystem *mainSystem;
     uint8_t daysInMonth(uint16_t year, uint8_t month);
 
 public:
-    SystemManager(MainSystem *mainSystem);
+    SystemManager(IMainSystem *mainSystem);
     void update();
 
     DateTime getDateTime() override;

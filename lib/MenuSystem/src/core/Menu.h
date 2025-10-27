@@ -6,6 +6,7 @@
 #include <interfaces/IDisplay.h>
 #include <interfaces/IInputDevice.h>
 #include <interfaces/IBlinker.h>
+#include <RTClib.h>
 
 class MenuItems;
 class MenuObj;

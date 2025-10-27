@@ -1,6 +1,6 @@
 #include "SystemManager.h"
 
-SystemManager::SystemManager(MainSystem *mainSystem)
+SystemManager::SystemManager(IMainSystem *mainSystem)
     : mainSystem(mainSystem)
 {
 }
@@ -42,7 +42,7 @@ uint8_t SystemManager::daysInMonth(uint16_t year, uint8_t month)
 
 void SystemManager::incrementDay()
 {
-    RTC_DS3231 *rtc = mainSystem->getRTC();
+    IRtc *rtc = mainSystem->getRTC();
     DateTime now = rtc->now();
     uint8_t day = now.day() + 1;
     uint8_t maxDay = daysInMonth(now.year(), now.month());
@@ -58,7 +58,7 @@ void SystemManager::incrementDay()
 
 void SystemManager::decreaseDay()
 {
-    RTC_DS3231 *rtc = mainSystem->getRTC();
+    IRtc *rtc = mainSystem->getRTC();
     DateTime now = rtc->now();
     uint8_t day = now.day() - 1;
     uint8_t maxDay = daysInMonth(now.year(), now.month());
@@ -74,7 +74,7 @@ void SystemManager::decreaseDay()
 
 void SystemManager::incrementMonth()
 {
-    RTC_DS3231 *rtc = mainSystem->getRTC();
+    IRtc *rtc = mainSystem->getRTC();
     DateTime now = rtc->now();
     uint8_t month = (now.month() % 12) + 1;
     uint16_t year = now.year();
@@ -88,7 +88,7 @@ void SystemManager::incrementMonth()
 
 void SystemManager::decreaseMonth()
 {
-    RTC_DS3231 *rtc = mainSystem->getRTC();
+    IRtc *rtc = mainSystem->getRTC();
     DateTime now = rtc->now();
     uint8_t month = (now.month() + 10) % 12 + 1;
     uint16_t year = now.year();
@@ -102,7 +102,7 @@ void SystemManager::decreaseMonth()
 
 void SystemManager::incrementYear()
 {
-    RTC_DS3231 *rtc = mainSystem->getRTC();
+    IRtc *rtc = mainSystem->getRTC();
     DateTime now = rtc->now();
     DateTime newDateTime = DateTime(now.year() + 1, now.month(), now.day(), now.hour(), now.minute(), now.second());
     rtc->adjust(newDateTime);
@@ -110,7 +110,7 @@ void SystemManager::incrementYear()
 
 void SystemManager::decreaseYear()
 {
-    RTC_DS3231 *rtc = mainSystem->getRTC();
+    IRtc *rtc = mainSystem->getRTC();
     DateTime now = rtc->now();
     DateTime newDateTime = DateTime(now.year() - 1, now.month(), now.day(), now.hour(), now.minute(), now.second());
     rtc->adjust(newDateTime);
@@ -118,7 +118,7 @@ void SystemManager::decreaseYear()
 
 void SystemManager::incrementHour()
 {
-    RTC_DS3231 *rtc = mainSystem->getRTC();
+    IRtc *rtc = mainSystem->getRTC();
     DateTime now = rtc->now();
     uint8_t hour = (now.hour() + 1) % 24;
 
@@ -128,7 +128,7 @@ void SystemManager::incrementHour()
 
 void SystemManager::decreaseHour()
 {
-    RTC_DS3231 *rtc = mainSystem->getRTC();
+    IRtc *rtc = mainSystem->getRTC();
     DateTime now = rtc->now();
     uint8_t hour = (now.hour() + 23) % 24;
 
@@ -138,7 +138,7 @@ void SystemManager::decreaseHour()
 
 void SystemManager::incrementMinute()
 {
-    RTC_DS3231 *rtc = mainSystem->getRTC();
+    IRtc *rtc = mainSystem->getRTC();
     DateTime now = rtc->now();
     uint8_t minute = (now.minute() + 1) % 60;
 
@@ -148,7 +148,7 @@ void SystemManager::incrementMinute()
 
 void SystemManager::decreaseMinute()
 {
-    RTC_DS3231 *rtc = mainSystem->getRTC();
+    IRtc *rtc = mainSystem->getRTC();
     DateTime now = rtc->now();
     uint8_t minute = (now.minute() + 59) % 60;
 

@@ -1,5 +1,5 @@
+#include <RtClib.h>
 #include "DateTimeMenu.h"
-#include <RTClib.h>
 #include "core/MenuItems.hpp"
 
 DateTimeMenu::DateTimeMenu(Menu *menu) : MenuObj(menu, (uint8_t)DateTimeMenuIndex::ELEMENT_COUNT)

@@ -1,10 +1,12 @@
 #include "MainSystem.h"
 #include "SystemManager.h"
 #include "config/ConfigFactory.h"
+#include "hardware/Rtc.hpp"
 
-MainSystem::MainSystem() : rtc()
+MainSystem::MainSystem() : rtc(nullptr)
 {
-    rtc.begin();
+    rtc = new Rtc();
+    rtc->begin();
     sysManager = new SystemManager(this);
     menuSys = new MenuSystem(sysManager, ConfigFactory::createMenuConfig());
 }
@@ -15,7 +17,7 @@ void MainSystem::update()
     menuSys->update();
 }
 
-RTC_DS3231 *MainSystem::getRTC()
+IRtc *MainSystem::getRTC()
 {
-    return &rtc;
+    return rtc;
 }

@@ -2,22 +2,23 @@
 #define MAIN_SYSTEM_H
 
 #include <Arduino.h>
-#include <RTClib.h>
+#include "interfaces/IMainSystem.h"
+#include "interfaces/IRtc.h"
 #include <MenuSystem.h>
 
 // Forward declaration to avoid circular dependency
 class SystemManager;
 
-class MainSystem
+class MainSystem : public IMainSystem
 {
 private:
-    RTC_DS3231 rtc;
+    IRtc *rtc;
     SystemManager *sysManager;
     MenuSystem *menuSys;
 
 public:
     MainSystem();
-    void update();
-    RTC_DS3231 *getRTC();
+    void update() override;
+    IRtc *getRTC();
 };
 #endif // MAIN_SYSTEM_H
