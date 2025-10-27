@@ -8,12 +8,9 @@ class IrrigoSystem
 {
 private:
     MainSystem mainSys;
-    SystemManager sysManager;
 
 public:
-    IrrigoSystem()
-        : mainSys(),
-          sysManager(&mainSys) {}
+    IrrigoSystem() : mainSys() {}
 
     void update() { mainSys.update(); }
 };
