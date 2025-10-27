@@ -1,6 +1,6 @@
 #include <unity.h>
 #include <RTClib.h>
-#include "../mocks/MockMainSystem.h"
+#include "mocks/MockMainSystem.h"
 
 // Include the REAL SystemManager
 #include <core/SystemManager.h>
