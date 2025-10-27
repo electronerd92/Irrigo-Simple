@@ -2,10 +2,10 @@
 #define MENU_H
 
 #include <Arduino.h>
-#include <ISystemManager.h>
-#include <IDisplay.h>
-#include <IInputDevice.h>
-#include <IBlinker.h>
+#include <interfaces/ISystemManager.h>
+#include <interfaces/IDisplay.h>
+#include <interfaces/IInputDevice.h>
+#include <interfaces/IBlinker.h>
 
 class MenuItems;
 class MenuObj;

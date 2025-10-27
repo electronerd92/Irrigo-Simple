@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include <Encoder.h>
 #include <Timer.h>
-#include <IInputDevice.h>
+#include <interfaces/IInputDevice.h>
 #include "MenuConfig.h"
 
 class RotaryEncoder : public IInputDevice

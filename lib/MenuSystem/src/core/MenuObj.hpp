@@ -2,7 +2,7 @@
 #define MENU_OBJ_H
 
 #include <Arduino.h>
-#include <IInputDevice.h>
+#include <interfaces/IInputDevice.h>
 #include "Menu.h"
 
 class MenuObj

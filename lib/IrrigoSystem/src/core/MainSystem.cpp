@@ -1,6 +1,6 @@
 #include "MainSystem.h"
 #include "SystemManager.h"
-#include "ConfigFactory.h"
+#include "config/ConfigFactory.h"
 
 MainSystem::MainSystem() : rtc()
 {

@@ -2,8 +2,8 @@
 #define BLINKER_H
 
 #include <Arduino.h>
-#include <IBlinker.h>
-#include <IDisplay.h>
+#include <interfaces/IBlinker.h>
+#include <interfaces/IDisplay.h>
 #include <Timer.h>
 #include "MenuConfig.h"
 

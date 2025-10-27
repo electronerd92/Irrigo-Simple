@@ -15,7 +15,7 @@ Blinker::Blinker(IDisplay *dispay, const BlinkerConfig &config)
 }
 void Blinker::startBlinking(const char *word, uint8_t c, uint8_t r)
 {
-    wordLength = min(strlen(word), bufferSize - 1);
+    wordLength = min((uint8_t)strlen(word), bufferSize - 1);
     strncpy(buffer, word, wordLength);
     buffer[wordLength] = '\0'; // Null-terminate
     col = c;

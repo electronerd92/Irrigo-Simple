@@ -2,7 +2,7 @@
 #define SYSTEM_MANAGER_H
 
 #include <Arduino.h>
-#include <ISystemManager.h>
+#include "interfaces/ISystemManager.h"
 #include "MainSystem.h"
 
 class SystemManager : public ISystemManager

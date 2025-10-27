@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 #include <LiquidCrystal_I2C.h>
-#include <IDisplay.h>
+#include <interfaces/IDisplay.h>
 #include "MenuConfig.h"
 
 class Lcd : public IDisplay

@@ -2,7 +2,7 @@
 #define MAIN_SYSTEM_H
 
 #include <Arduino.h>
-#include "RTClib.h"
+#include <RTClib.h>
 #include <MenuSystem.h>
 
 // Forward declaration to avoid circular dependency

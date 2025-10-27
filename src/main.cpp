@@ -1,16 +1,15 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <SPI.h>
-#include "MainSystem.h"
+#include <IrrigoSystem.h>
 
-MainSystem *mainSystem;
+IrrigoSystem irrigoSystem;
 
 void setup()
 {
-  mainSystem = new MainSystem();
 }
 
 void loop()
 {
-  mainSystem->update();
+  irrigoSystem.update();
 }
