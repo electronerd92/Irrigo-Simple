@@ -1,6 +1,7 @@
 #ifndef RTC_H
 #define RTC_H
 
+#include <RTClib.h>
 #include "interfaces/IRtc.h"
 
 class Rtc : public IRtc
@@ -11,14 +12,15 @@ private:
 public:
     Rtc() : rtc() {}
 
-    DateTime now() override
+    RtcDateTime now() override
     {
-        return rtc.now();
+        DateTime dt = rtc.now();
+        return {dt.year(), dt.month(), dt.day(), dt.hour(), dt.minute(), dt.second()};
     }
 
-    void adjust(const DateTime &dt) override
+    void adjust(const RtcDateTime &dt) override
     {
-        rtc.adjust(dt);
+        rtc.adjust(DateTime(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second));
     }
 
     bool begin() override

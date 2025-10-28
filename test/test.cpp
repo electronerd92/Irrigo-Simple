@@ -15,6 +15,6 @@ int main()
 {
     UNITY_BEGIN();
 
-    RUN_TEST(test1);
+    RUN_TEST(test_move_up_no_underflow_at_zero);
     return UNITY_END();
 }

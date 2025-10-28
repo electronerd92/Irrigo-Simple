@@ -9,7 +9,7 @@ void SystemManager::update()
 {
 }
 
-DateTime SystemManager::getDateTime()
+RtcDateTime SystemManager::getDateTime()
 {
     return mainSystem->getRTC()->now();
 }
@@ -43,116 +43,112 @@ uint8_t SystemManager::daysInMonth(uint16_t year, uint8_t month)
 void SystemManager::incrementDay()
 {
     IRtc *rtc = mainSystem->getRTC();
-    DateTime now = rtc->now();
-    uint8_t day = now.day() + 1;
-    uint8_t maxDay = daysInMonth(now.year(), now.month());
+    RtcDateTime now = rtc->now();
+    uint8_t day = now.day + 1;
+    uint8_t maxDay = daysInMonth(now.year, now.month);
 
     if (day > maxDay)
-    {
         day = 1;
-    }
 
-    DateTime newDateTime = DateTime(now.year(), now.month(), day, now.hour(), now.minute(), now.second());
+    RtcDateTime newDateTime = {now.year, now.month, day, now.hour, now.minute, now.second};
     rtc->adjust(newDateTime);
 }
 
 void SystemManager::decreaseDay()
 {
     IRtc *rtc = mainSystem->getRTC();
-    DateTime now = rtc->now();
-    uint8_t day = now.day() - 1;
-    uint8_t maxDay = daysInMonth(now.year(), now.month());
+    RtcDateTime now = rtc->now();
+    uint8_t day = now.day - 1;
+    uint8_t maxDay = daysInMonth(now.year, now.month);
 
     if (day < 1)
-    {
         day = maxDay;
-    }
 
-    DateTime newDateTime = DateTime(now.year(), now.month(), day, now.hour(), now.minute(), now.second());
+    RtcDateTime newDateTime = {now.year, now.month, day, now.hour, now.minute, now.second};
     rtc->adjust(newDateTime);
 }
 
 void SystemManager::incrementMonth()
 {
     IRtc *rtc = mainSystem->getRTC();
-    DateTime now = rtc->now();
-    uint8_t month = (now.month() % 12) + 1;
-    uint16_t year = now.year();
+    RtcDateTime now = rtc->now();
+    uint8_t month = (now.month % 12) + 1;
+    uint16_t year = now.year;
 
     uint8_t maxDay = daysInMonth(year, month);
-    uint8_t day = min(now.day(), maxDay);
+    uint8_t day = min(now.day, maxDay);
 
-    DateTime newDateTime = DateTime(year, month, day, now.hour(), now.minute(), now.second());
+    RtcDateTime newDateTime = {year, month, day, now.hour, now.minute, now.second};
     rtc->adjust(newDateTime);
 }
 
 void SystemManager::decreaseMonth()
 {
     IRtc *rtc = mainSystem->getRTC();
-    DateTime now = rtc->now();
-    uint8_t month = (now.month() + 10) % 12 + 1;
-    uint16_t year = now.year();
+    RtcDateTime now = rtc->now();
+    uint8_t month = (now.month + 10) % 12 + 1;
+    uint16_t year = now.year;
 
     uint8_t maxDay = daysInMonth(year, month);
-    uint8_t day = min(now.day(), maxDay);
+    uint8_t day = min(now.day, maxDay);
 
-    DateTime newDateTime = DateTime(year, month, day, now.hour(), now.minute(), now.second());
+    RtcDateTime newDateTime = {year, month, day, now.hour, now.minute, now.second};
     rtc->adjust(newDateTime);
 }
 
 void SystemManager::incrementYear()
 {
     IRtc *rtc = mainSystem->getRTC();
-    DateTime now = rtc->now();
-    DateTime newDateTime = DateTime(now.year() + 1, now.month(), now.day(), now.hour(), now.minute(), now.second());
+    RtcDateTime now = rtc->now();
+    RtcDateTime newDateTime = {now.year + 1, now.month, now.day, now.hour, now.minute, now.second};
     rtc->adjust(newDateTime);
 }
 
 void SystemManager::decreaseYear()
 {
     IRtc *rtc = mainSystem->getRTC();
-    DateTime now = rtc->now();
-    DateTime newDateTime = DateTime(now.year() - 1, now.month(), now.day(), now.hour(), now.minute(), now.second());
+    RtcDateTime now = rtc->now();
+    RtcDateTime newDateTime = {now.year - 1, now.month, now.day, now.hour, now.minute, now.second};
     rtc->adjust(newDateTime);
 }
 
 void SystemManager::incrementHour()
 {
     IRtc *rtc = mainSystem->getRTC();
-    DateTime now = rtc->now();
-    uint8_t hour = (now.hour() + 1) % 24;
+    RtcDateTime now = rtc->now();
+    uint8_t hour = (now.hour + 1) % 24;
 
-    DateTime newDateTime = DateTime(now.year(), now.month(), now.day(), hour, now.minute(), now.second());
+    RtcDateTime newDateTime = {now.year, now.month, now.day, hour, now.minute, now.second};
     rtc->adjust(newDateTime);
 }
 
 void SystemManager::decreaseHour()
 {
     IRtc *rtc = mainSystem->getRTC();
-    DateTime now = rtc->now();
-    uint8_t hour = (now.hour() + 23) % 24;
+    RtcDateTime now = rtc->now();
+    uint8_t hour = (now.hour + 23) % 24;
 
-    DateTime newDateTime = DateTime(now.year(), now.month(), now.day(), hour, now.minute(), now.second());
+    RtcDateTime newDateTime = {now.year, now.month, now.day, hour, now.minute, now.second};
     rtc->adjust(newDateTime);
 }
 
 void SystemManager::incrementMinute()
 {
     IRtc *rtc = mainSystem->getRTC();
-    DateTime now = rtc->now();
-    uint8_t minute = (now.minute() + 1) % 60;
+    RtcDateTime now = rtc->now();
+    uint8_t minute = (now.minute + 1) % 60;
 
-    DateTime newDateTime = DateTime(now.year(), now.month(), now.day(), now.hour(), minute, 0);
+    RtcDateTime newDateTime = {now.year, now.month, now.day, now.hour, minute, 0};
     rtc->adjust(newDateTime);
 }
 
 void SystemManager::decreaseMinute()
 {
     IRtc *rtc = mainSystem->getRTC();
-    DateTime now = rtc->now();
-    uint8_t minute = (now.minute() + 59) % 60;
+    RtcDateTime now = rtc->now();
+    uint8_t minute = (now.minute + 59) % 60;
 
-    DateTime newDateTime = DateTime(now.year(), now.month(), now.day(), now.hour(), minute, 0);
+    RtcDateTime newDateTime = {now.year, now.month, now.day, now.hour, minute, 0};
     rtc->adjust(newDateTime);
 }
 /* #endregion RTC settings */

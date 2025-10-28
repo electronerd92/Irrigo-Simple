@@ -15,7 +15,7 @@ public:
     SystemManager(IMainSystem *mainSystem);
     void update();
 
-    DateTime getDateTime() override;
+    RtcDateTime getDateTime() override;
     void incrementDay() override;
     void decreaseDay() override;
     void incrementMonth() override;

@@ -189,7 +189,7 @@ uint8_t Menu::getElementIndex() const
     return elementIndex;
 }
 
-DateTime Menu::getDateTime()
+RtcDateTime Menu::getDateTime()
 {
     return sysManager->getDateTime();
 }

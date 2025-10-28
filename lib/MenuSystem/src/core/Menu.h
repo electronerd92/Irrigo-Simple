@@ -6,10 +6,11 @@
 #include <interfaces/IDisplay.h>
 #include <interfaces/IInputDevice.h>
 #include <interfaces/IBlinker.h>
-#include <RTClib.h>
+#include <interfaces/IRtc.h>
 
 class MenuItems;
 class MenuObj;
+class RtcDateTime;
 
 enum class RefreshType : uint8_t
 {
@@ -71,7 +72,7 @@ public:
 
     inline void requestFullRefresh(bool clearAll) { refreshType = clearAll ? RefreshType::ClearAndFullScreen : RefreshType::FullScreen; }
 
-    DateTime getDateTime();
+    RtcDateTime getDateTime();
 };
 
 #endif // MENU_H

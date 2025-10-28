@@ -1,12 +1,12 @@
 #ifndef ISYSTEMMANAGER_H
 #define ISYSTEMMANAGER_H
 
-class DateTime;
+class RtcDateTime;
 
 class ISystemManager
 {
 public:
-    virtual DateTime getDateTime() = 0;
+    virtual RtcDateTime getDateTime() = 0;
     virtual void incrementDay() = 0;
     virtual void decreaseDay() = 0;
     virtual void incrementMonth() = 0;

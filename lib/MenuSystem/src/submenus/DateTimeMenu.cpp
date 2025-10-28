@@ -1,4 +1,3 @@
-#include <RtClib.h>
 #include "DateTimeMenu.h"
 #include "core/MenuItems.hpp"
 
@@ -178,13 +177,13 @@ void DateTimeMenu::printBackElement(uint8_t row)
 void DateTimeMenu::printDateElement(uint8_t index, uint8_t row)
 {
     IDisplay *dispay = menu->getDispay();
-    const DateTime dateTime = menu->getDateTime();
+    const RtcDateTime dateTime = menu->getDateTime();
 
     dispay->printAt(F(DATE_STR), 1, row);
 
     char *lcdBuffer = menu->getDisplayBuffer();
     snprintf(lcdBuffer, menu->getDisplayBufferSize(), "%02u/%02u/%04d",
-             dateTime.day(), dateTime.month(), dateTime.year());
+             dateTime.day, dateTime.month, dateTime.year);
 
     handleElementDisplay(index, lcdBuffer, dispay->getColumns() - 10, row);
 }
@@ -192,13 +191,13 @@ void DateTimeMenu::printDateElement(uint8_t index, uint8_t row)
 void DateTimeMenu::printTimeElement(uint8_t index, uint8_t row)
 {
     IDisplay *dispay = menu->getDispay();
-    const DateTime dateTime = menu->getDateTime();
+    const RtcDateTime dateTime = menu->getDateTime();
 
     dispay->printAt(F(TIME_STR), 1, row);
 
     char *lcdBuffer = menu->getDisplayBuffer();
     snprintf(lcdBuffer, menu->getDisplayBufferSize(), "%02u:%02u:%02u",
-             dateTime.hour(), dateTime.minute(), dateTime.second());
+             dateTime.hour, dateTime.minute, dateTime.second);
 
     handleElementDisplay(index, lcdBuffer, dispay->getColumns() - 8, row);
 }
