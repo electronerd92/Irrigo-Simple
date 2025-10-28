@@ -7,6 +7,7 @@ IrrigoSystem irrigoSystem;
 
 void setup()
 {
+  irrigoSystem.begin();
 }
 
 void loop()

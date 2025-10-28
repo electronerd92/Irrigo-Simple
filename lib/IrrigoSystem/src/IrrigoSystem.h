@@ -6,13 +6,11 @@
 
 class IrrigoSystem
 {
-private:
-    MainSystem mainSys;
+    MainSystem *mainSys = nullptr;
 
 public:
-    IrrigoSystem() : mainSys() {}
-
-    void update() { mainSys.update(); }
+    void begin() { mainSys = new MainSystem(); }
+    void update() { mainSys->update(); }
 };
 
 #endif // SYSTEM_H
