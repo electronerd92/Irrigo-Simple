@@ -1,13 +1,6 @@
 #include <Arduino.h>
 #include <unity.h>
 
-#ifndef min
-#define min(a, b) ((a) < (b) ? (a) : (b))
-#endif
-#ifndef max
-#define max(a, b) ((a) > (b) ? (a) : (b))
-#endif
-
 using namespace fakeit;
 #include <core/SystemManager.h>
 

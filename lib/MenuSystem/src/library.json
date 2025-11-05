@@ -1,7 +1,14 @@
 {
   "name": "MenuSystem",
   "dependencies": [
-    { "name": "IrrigoSystem" },
-    { "name": "ArduinoFake" }
+    {
+      "name": "IrrigoSystem"
+    },
+    {
+      "name": "Timer"
+    },
+    {
+      "name": "ArduinoFake"
+    }
   ]
 }

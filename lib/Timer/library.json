@@ -1,6 +1,8 @@
 {
-  "name": "MenuSystem",
+  "name": "Timer",
   "dependencies": [
-    { "name": "ArduinoFake" }
+    {
+      "name": "ArduinoFake"
+    }
   ]
 }
