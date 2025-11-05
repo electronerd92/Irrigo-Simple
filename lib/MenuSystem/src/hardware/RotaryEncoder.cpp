@@ -1,3 +1,5 @@
+#ifdef UNIT_TESTING
+#else
 #include "rotaryEncoder.h"
 
 RotaryEncoder::RotaryEncoder(const RotaryConfig &rotaryConfig)
@@ -67,3 +69,5 @@ Command RotaryEncoder::readCommand()
     lastCommand = Command::NONE;
     return cmd;
 }
+
+#endif // UNIT_TESTING

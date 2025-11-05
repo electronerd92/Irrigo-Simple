@@ -1,0 +1,6 @@
+{
+  "name": "MenuSystem",
+  "dependencies": [
+    { "name": "ArduinoFake" }
+  ]
+}

@@ -1,4 +1,5 @@
 #include "SystemManager.h"
+#include <Compatibility.h>
 
 SystemManager::SystemManager(IMainSystem *mainSystem)
     : mainSystem(mainSystem)
@@ -100,7 +101,7 @@ void SystemManager::incrementYear()
 {
     IRtc *rtc = mainSystem->getRTC();
     RtcDateTime now = rtc->now();
-    RtcDateTime newDateTime = {now.year + 1, now.month, now.day, now.hour, now.minute, now.second};
+    RtcDateTime newDateTime = {(uint16_t)(now.year + 1), now.month, now.day, now.hour, now.minute, now.second};
     rtc->adjust(newDateTime);
 }
 
@@ -108,7 +109,7 @@ void SystemManager::decreaseYear()
 {
     IRtc *rtc = mainSystem->getRTC();
     RtcDateTime now = rtc->now();
-    RtcDateTime newDateTime = {now.year - 1, now.month, now.day, now.hour, now.minute, now.second};
+    RtcDateTime newDateTime = {(uint16_t)(now.year - 1), now.month, now.day, now.hour, now.minute, now.second};
     rtc->adjust(newDateTime);
 }
 

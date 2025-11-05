@@ -2,7 +2,7 @@
 #define CONFIG_FACTORY_H
 
 #include "Config.h"
-#include <MenuConfig.h>
+#include "MenuConfig.h"
 
 class ConfigFactory
 {

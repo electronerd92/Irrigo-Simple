@@ -1,10 +1,12 @@
+#ifdef UNIT_TESTING
+#else
 #ifndef LCD_H
 #define LCD_H
 
 #include <Arduino.h>
 #include <LiquidCrystal_I2C.h>
 #include <interfaces/IDisplay.h>
-#include "MenuConfig.h"
+#include <MenuConfig.h>
 
 class Lcd : public IDisplay
 {
@@ -121,3 +123,4 @@ public:
 };
 
 #endif // LCD_H
+#endif // UNIT_TESTING

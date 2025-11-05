@@ -13,7 +13,7 @@ private:
 
 public:
     SystemManager(IMainSystem *mainSystem);
-    void update();
+    void update() override;
 
     RtcDateTime getDateTime() override;
     void incrementDay() override;

@@ -1,3 +1,5 @@
+#ifdef UNIT_TESTING
+#else
 #ifndef ROTARY_ENCODER_H
 #define ROTARY_ENCODER_H
 
@@ -5,7 +7,7 @@
 #include <Encoder.h>
 #include <Timer.h>
 #include <interfaces/IInputDevice.h>
-#include "MenuConfig.h"
+#include <MenuConfig.h>
 
 class RotaryEncoder : public IInputDevice
 {
@@ -35,3 +37,4 @@ public:
 };
 
 #endif // ROTARY_ENCODER_H
+#endif // UNIT_TESTING

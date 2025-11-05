@@ -1,4 +1,5 @@
 #include "Blinker.h"
+#include <Compatibility.h>
 
 Blinker::Blinker(IDisplay *dispay, const BlinkerConfig &config)
     : dispay(dispay),

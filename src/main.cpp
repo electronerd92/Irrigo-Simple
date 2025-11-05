@@ -3,14 +3,14 @@
 #include <SPI.h>
 #include <IrrigoSystem.h>
 
-IrrigoSystem irrigoSystem;
+IrrigoSystem *irrigoSystem;
 
 void setup()
 {
-  irrigoSystem.begin();
+  irrigoSystem = new IrrigoSystem();
 }
 
 void loop()
 {
-  irrigoSystem.update();
+  irrigoSystem->update();
 }

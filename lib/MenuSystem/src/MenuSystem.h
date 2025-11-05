@@ -1,13 +1,15 @@
+#ifdef UNIT_TESTING
+#else
 #ifndef MENUSYSTEM_H
 #define MENUSYSTEM_H
-
+#include <interfaces/IMenuSystem.h>
 #include "MenuConfig.h"
 #include "core/Menu.h"
 #include "hardware/Lcd.hpp"
 #include "hardware/RotaryEncoder.h"
 #include "ui/Blinker.h"
 
-class MenuSystem
+class MenuSystem : public IMenuSystem
 {
 private:
     Lcd lcd;
@@ -22,8 +24,9 @@ public:
           blinker(&lcd, config.blinker),
           menu(sysManager, &lcd, &encoder, &blinker, config.bufferSize) {}
 
-    void update() { menu.update(); }
+    void update() override { menu.update(); }
     Menu *getMenu() { return &menu; }
 };
 
+#endif
 #endif

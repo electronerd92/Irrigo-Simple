@@ -1,5 +1,6 @@
 #include "Menu.h"
 #include "MenuItems.hpp"
+#include <Compatibility.h>
 
 Menu::Menu(ISystemManager *sysManager, IDisplay *display, IInputDevice *inputDevice, IBlinker *blinker, uint8_t bufferSize)
     : sysManager(sysManager),
