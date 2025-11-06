@@ -63,6 +63,7 @@ public:
 
     IBlinker *getBlinker();
     MenuItems *getMenuItems();
+    MenuObj *getCurrentMenu();
     void setCurrentMenu(MenuObj *menuItem, uint8_t position = 0);
     uint8_t getElementIndex() const;
     EditingField getEditingField() const;

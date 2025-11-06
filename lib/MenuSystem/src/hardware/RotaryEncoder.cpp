@@ -62,7 +62,7 @@ void RotaryEncoder::handleButton()
     }
 }
 
-Command RotaryEncoder::readCommand()
+Command RotaryEncoder::readAndClearCommand()
 {
     update();
     Command cmd = lastCommand;

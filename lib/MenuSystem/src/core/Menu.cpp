@@ -24,7 +24,7 @@ Menu::Menu(ISystemManager *sysManager, IDisplay *display, IInputDevice *inputDev
 
 void Menu::update()
 {
-    Command cmd = inputDevice->readCommand();
+    Command cmd = inputDevice->readAndClearCommand();
     if (!blinker->getIsBlinking() && (cmd == Command::RIGHT || cmd == Command::LEFT))
     {
         updateElementAndCursor(cmd);
@@ -173,6 +173,11 @@ IBlinker *Menu::getBlinker()
 MenuItems *Menu::getMenuItems()
 {
     return menuItems;
+}
+
+MenuObj *Menu::getCurrentMenu()
+{
+    return currentMenuItem;
 }
 
 void Menu::setCurrentMenu(MenuObj *menuItem, uint8_t position)

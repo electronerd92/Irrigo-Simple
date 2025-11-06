@@ -33,7 +33,7 @@ private:
 
 public:
     RotaryEncoder(const RotaryConfig &rotaryConfig);
-    Command readCommand() override;
+    Command readAndClearCommand() override;
 };
 
 #endif // ROTARY_ENCODER_H

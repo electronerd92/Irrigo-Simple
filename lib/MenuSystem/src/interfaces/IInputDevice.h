@@ -14,7 +14,7 @@ enum class Command : uint8_t
 class IInputDevice
 {
 public:
-    virtual Command readCommand() = 0;
+    virtual Command readAndClearCommand() = 0;
 };
 
 #endif // I_INPUT_DEVICE_H
