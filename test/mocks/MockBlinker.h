@@ -1,5 +1,4 @@
-#ifndef MOCK_BLINKER_H
-#define MOCK_BLINKER_H
+#pragma once
 
 #include <interfaces/IBlinker.h>
 
@@ -12,5 +11,3 @@ public:
     void startBlinking(const char *, uint8_t, uint8_t) override { blinking = true; }
     void stopBlinking() override { blinking = false; }
 };
-
-#endif // MOCK_BLINKER_H

@@ -1,6 +1,4 @@
-#ifndef DATE_TIME_MENU_H
-#define DATE_TIME_MENU_H
-
+#pragma once
 #include <Arduino.h>
 #include "core/MenuObj.hpp"
 
@@ -33,5 +31,3 @@ public:
     void executeCmd(Command cmd) override;
     void printElement(uint8_t index, uint8_t row) override;
 };
-
-#endif // DATE_TIME_MENU_H

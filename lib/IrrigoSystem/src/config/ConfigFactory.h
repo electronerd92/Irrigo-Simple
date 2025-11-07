@@ -1,6 +1,4 @@
-#ifndef CONFIG_FACTORY_H
-#define CONFIG_FACTORY_H
-
+#pragma once
 #include "Config.h"
 #include "MenuConfig.h"
 
@@ -30,5 +28,3 @@ public:
         return config;
     }
 };
-
-#endif

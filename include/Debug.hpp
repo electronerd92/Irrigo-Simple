@@ -1,6 +1,4 @@
-#ifndef DEBUG_HPP
-#define DEBUG_HPP
-
+#pragma once
 #include <Arduino.h>
 
 // Define log levels
@@ -53,5 +51,3 @@ inline void debugLog(const T &message, const S &messageLoad, LogLevel level = Lo
     }
 #endif
 }
-
-#endif // DEBUG_HPP

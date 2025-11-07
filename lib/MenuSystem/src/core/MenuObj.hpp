@@ -1,6 +1,4 @@
-#ifndef MENU_OBJ_H
-#define MENU_OBJ_H
-
+#pragma once
 #include <Arduino.h>
 #include <interfaces/IInputDevice.h>
 #include "Menu.h"
@@ -17,5 +15,3 @@ public:
     virtual void printElement(uint8_t index, uint8_t row) = 0;
     inline uint8_t getElementsCount() const { return elementCount; }
 };
-
-#endif // MENU_OBJ_H

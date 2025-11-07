@@ -1,6 +1,4 @@
-#ifndef VALVES_MENU_H
-#define VALVES_MENU_H
-
+#pragma once
 #include <Arduino.h>
 #include "core/MenuObj.hpp"
 
@@ -18,5 +16,3 @@ public:
     void executeCmd(Command cmd) override;
     void printElement(uint8_t index, uint8_t row) override;
 };
-
-#endif // VALVES_MENU_H

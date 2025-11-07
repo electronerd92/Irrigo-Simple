@@ -1,6 +1,4 @@
-#ifndef COMPATIBILITY_H
-#define COMPATIBILITY_H
-
+#pragma once
 #ifdef UNIT_TESTING
 
 #ifndef min
@@ -11,5 +9,3 @@
 #endif
 
 #endif
-
-#endif // COMPATIBILITY_H

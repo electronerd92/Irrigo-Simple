@@ -1,6 +1,4 @@
-#ifndef MOCK_RTC_H
-#define MOCK_RTC_H
-
+#pragma once
 #include <interfaces/IRtc.h>
 
 class MockRtc : public IRtc
@@ -38,5 +36,3 @@ public:
     uint32_t getAdjustCallCount() const { return adjustCallCount; }
     void resetCallCount() { adjustCallCount = 0; }
 };
-
-#endif // MOCK_RTC_H

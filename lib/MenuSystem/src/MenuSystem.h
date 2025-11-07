@@ -1,7 +1,6 @@
-#ifdef UNIT_TESTING
-#else
-#ifndef MENUSYSTEM_H
-#define MENUSYSTEM_H
+#pragma once
+
+#ifndef UNIT_TESTING
 #include <interfaces/IMenuSystem.h>
 #include "MenuConfig.h"
 #include "core/Menu.h"
@@ -28,5 +27,4 @@ public:
     Menu *getMenu() { return &menu; }
 };
 
-#endif
-#endif
+#endif // UNIT_TESTING

@@ -1,7 +1,6 @@
-#ifdef UNIT_TESTING
-#else
-#ifndef LCD_H
-#define LCD_H
+#pragma once
+
+#ifndef UNIT_TESTING
 
 #include <Arduino.h>
 #include <LiquidCrystal_I2C.h>
@@ -122,5 +121,4 @@ public:
     /* #endregion*/
 };
 
-#endif // LCD_H
 #endif // UNIT_TESTING

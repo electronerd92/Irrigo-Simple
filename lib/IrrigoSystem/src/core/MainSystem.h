@@ -1,6 +1,4 @@
-#ifndef MAIN_SYSTEM_H
-#define MAIN_SYSTEM_H
-
+#pragma once
 #include <Arduino.h>
 #include "interfaces/IMainSystem.h"
 #include "interfaces/ISystemManager.h"
@@ -22,4 +20,3 @@ public:
     void update() override;
     IRtc *getRTC();
 };
-#endif // MAIN_SYSTEM_H

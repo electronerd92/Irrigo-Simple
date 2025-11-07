@@ -1,6 +1,4 @@
-#ifndef TIMER_H
-#define TIMER_H
-
+#pragma once
 #include <Arduino.h>
 
 class Timer
@@ -21,5 +19,3 @@ public:
     // Update the timer interval with an option to restart
     void updateInterval(uint32_t newInterval, bool restart = true);
 };
-
-#endif // TIMER_H

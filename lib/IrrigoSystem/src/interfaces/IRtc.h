@@ -1,5 +1,4 @@
-#ifndef I_RTC_H
-#define I_RTC_H
+#pragma once
 
 struct RtcDateTime
 {
@@ -18,5 +17,3 @@ public:
     virtual void adjust(const RtcDateTime &dt) = 0;
     virtual bool begin() = 0; // For initialization
 };
-
-#endif // I_RTC_H

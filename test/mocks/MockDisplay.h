@@ -1,6 +1,4 @@
-#ifndef MOCK_DISPLAY_H
-#define MOCK_DISPLAY_H
-
+#pragma once
 #include <interfaces/IDisplay.h>
 
 class MockDisplay : public IDisplay
@@ -25,5 +23,3 @@ public:
     uint8_t getColumns() const override { return columns; }
     uint8_t getRows() const override { return rows; }
 };
-
-#endif // MOCK_DISPLAY_H

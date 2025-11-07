@@ -1,7 +1,6 @@
-#ifdef UNIT_TESTING
-#else
-#ifndef ROTARY_ENCODER_H
-#define ROTARY_ENCODER_H
+#pragma once
+
+#ifndef UNIT_TESTING
 
 #include <Arduino.h>
 #include <Encoder.h>
@@ -36,5 +35,4 @@ public:
     Command readAndClearCommand() override;
 };
 
-#endif // ROTARY_ENCODER_H
 #endif // UNIT_TESTING

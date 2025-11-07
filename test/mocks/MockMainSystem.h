@@ -1,6 +1,4 @@
-#ifndef MOCK_MAIN_SYSTEM_H
-#define MOCK_MAIN_SYSTEM_H
-
+#pragma once
 #include <interfaces/IMainSystem.h>
 #include "MockRtc.h"
 
@@ -33,5 +31,3 @@ public:
     uint32_t getUpdateCallCount() const { return updateCallCount; }
     void resetUpdateCallCount() { updateCallCount = 0; }
 };
-
-#endif // MOCK_MAIN_SYSTEM_H

@@ -1,6 +1,4 @@
-#ifndef MENU_STRINGS_H
-#define MENU_STRINGS_H
-
+#pragma once
 #include <Arduino.h>
 
 // Menu titles
@@ -13,5 +11,3 @@
 #define DATE_TIME_STR "Date/Time"
 #define DATE_STR "Date:"
 #define TIME_STR "Time:"
-
-#endif // MENU_STRINGS_H

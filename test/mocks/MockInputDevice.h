@@ -1,6 +1,4 @@
-#ifndef MOCK_INPUT_DEVICE_H
-#define MOCK_INPUT_DEVICE_H
-
+#pragma once
 #include <interfaces/IInputDevice.h>
 
 class MockInputDevice : public IInputDevice
@@ -14,5 +12,3 @@ public:
         return cmd;
     }
 };
-
-#endif // MOCK_INPUT_DEVICE_H

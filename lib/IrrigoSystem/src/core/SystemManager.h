@@ -1,6 +1,4 @@
-#ifndef SYSTEM_MANAGER_H
-#define SYSTEM_MANAGER_H
-
+#pragma once
 #include <Arduino.h>
 #include "interfaces/ISystemManager.h"
 #include "interfaces/IMainSystem.h"
@@ -27,4 +25,3 @@ public:
     void incrementMinute() override;
     void decreaseMinute() override;
 };
-#endif // SYSTEM_MANAGER_H

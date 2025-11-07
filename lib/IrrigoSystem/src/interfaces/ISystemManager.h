@@ -1,5 +1,4 @@
-#ifndef ISYSTEMMANAGER_H
-#define ISYSTEMMANAGER_H
+#pragma once
 
 class RtcDateTime;
 
@@ -19,5 +18,3 @@ public:
     virtual void incrementMinute() = 0;
     virtual void decreaseMinute() = 0;
 };
-
-#endif // ISYSTEMMANAGER_H

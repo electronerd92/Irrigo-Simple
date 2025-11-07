@@ -1,7 +1,6 @@
-#ifdef UNIT_TESTING
-#else
-#ifndef SYSTEM_H
-#define SYSTEM_H
+#pragma once
+
+#ifndef UNIT_TESTING
 
 #include <core/MainSystem.h>
 #include <core/SystemManager.h>
@@ -27,5 +26,4 @@ public:
     void update() { mainSys.update(); }
 };
 
-#endif // SYSTEM_H
 #endif // UNIT_TESTING

@@ -1,6 +1,4 @@
-#ifndef SETTINGS_MENU_H
-#define SETTINGS_MENU_H
-
+#pragma once
 #include <Arduino.h>
 #include "core/MenuObj.hpp"
 
@@ -23,5 +21,3 @@ public:
     void executeCmd(Command cmd) override;
     void printElement(uint8_t index, uint8_t row) override;
 };
-
-#endif // SETTINGS_MENU_H

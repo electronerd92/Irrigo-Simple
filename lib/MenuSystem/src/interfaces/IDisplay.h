@@ -1,6 +1,4 @@
-#ifndef I_DISPLAY_H
-#define I_DISPLAY_H
-
+#pragma once
 #include <Arduino.h>
 
 enum class PrintFormat : byte
@@ -27,5 +25,3 @@ public:
     virtual void printAt(const char *str, uint8_t col, uint8_t row, PrintFormat format = PrintFormat::NONE) = 0;
     virtual void printAt(const __FlashStringHelper *str, uint8_t col, uint8_t row, PrintFormat format = PrintFormat::NONE) = 0;
 };
-
-#endif // I_DISPLAY_H

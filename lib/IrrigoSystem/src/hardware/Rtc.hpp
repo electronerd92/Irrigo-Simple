@@ -1,6 +1,4 @@
-#ifndef RTC_H
-#define RTC_H
-
+#pragma once
 #include <RTClib.h>
 #include "interfaces/IRtc.h"
 
@@ -28,5 +26,3 @@ public:
         return rtc.begin();
     }
 };
-
-#endif // RTC_H

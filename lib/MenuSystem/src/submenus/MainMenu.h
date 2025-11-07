@@ -1,6 +1,4 @@
-#ifndef MAIN_MENU_H
-#define MAIN_MENU_H
-
+#pragma once
 #include <Arduino.h>
 #include "core/MenuObj.hpp"
 
@@ -29,5 +27,3 @@ public:
     void executeCmd(Command cmd) override;
     void printElement(uint8_t index, uint8_t row) override;
 };
-
-#endif // MAIN_MENU_H

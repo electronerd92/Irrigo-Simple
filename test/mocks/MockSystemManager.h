@@ -1,6 +1,4 @@
-#ifndef MOCK_SYSTEM_MANAGER_H
-#define MOCK_SYSTEM_MANAGER_H
-
+#pragma once
 #include <interfaces/ISystemManager.h>
 #include <interfaces/IRtc.h>
 #include <vector>
@@ -94,5 +92,3 @@ public:
         assertOnlyMethodCalled("", 0); // Will check all methods are 0
     }
 };
-
-#endif // MOCK_SYSTEM_MANAGER_H

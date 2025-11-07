@@ -1,6 +1,4 @@
-#ifndef CONFIG_H
-#define CONFIG_H
-
+#pragma once
 #include <Arduino.h>
 
 // Define LCD parameters
@@ -29,5 +27,3 @@ const uint8_t ROTARY_BUTTON_PIN = 4;
 #define DATE_TIME_STR "Date/Time"
 #define DATE_STR "Date:"
 #define TIME_STR "Time:"
-
-#endif // PROJECT_CONFIG_H

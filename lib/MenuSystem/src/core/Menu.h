@@ -1,5 +1,4 @@
-#ifndef MENU_H
-#define MENU_H
+#pragma once
 
 #include <Arduino.h>
 #include <interfaces/ISystemManager.h>
@@ -76,5 +75,3 @@ public:
 
     RtcDateTime getDateTime();
 };
-
-#endif // MENU_H

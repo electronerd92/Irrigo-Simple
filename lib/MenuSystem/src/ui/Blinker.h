@@ -1,6 +1,4 @@
-#ifndef BLINKER_H
-#define BLINKER_H
-
+#pragma once
 #include <Arduino.h>
 #include <interfaces/IBlinker.h>
 #include <interfaces/IDisplay.h>
@@ -30,5 +28,3 @@ public:
     void stopBlinking() override;
     void update() override;
 };
-
-#endif // BLINKER_H

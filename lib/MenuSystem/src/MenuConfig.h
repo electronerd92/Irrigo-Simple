@@ -1,6 +1,4 @@
-#ifndef MENU_CONFIG_H
-#define MENU_CONFIG_H
-
+#pragma once
 #include <Arduino.h>
 
 struct LcdConfig
@@ -33,5 +31,3 @@ struct MenuConfig
     BlinkerConfig blinker;
     uint8_t bufferSize = 8;
 };
-
-#endif // MENU_CONFIG_H
