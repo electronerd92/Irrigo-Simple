@@ -65,6 +65,34 @@ public:
     {
         calls.clear();
     }
+
+    // Helper methods for easier testing
+    void assertOnlyMethodCalled(const std::string &expectedMethod, int expectedCount = 1) const
+    {
+        const std::vector<std::string> allMethods = {
+            "incrementDay", "decreaseDay", "incrementMonth", "decreaseMonth",
+            "incrementYear", "decreaseYear", "incrementHour", "decreaseHour",
+            "incrementMinute", "decreaseMinute"};
+
+        for (const auto &method : allMethods)
+        {
+            if (method == expectedMethod)
+            {
+                TEST_ASSERT_EQUAL_MESSAGE(expectedCount, callCount(method),
+                                          ("Expected " + expectedMethod + " to be called " + std::to_string(expectedCount) + " times").c_str());
+            }
+            else
+            {
+                TEST_ASSERT_EQUAL_MESSAGE(0, callCount(method),
+                                          ("Expected " + method + " NOT to be called").c_str());
+            }
+        }
+    }
+
+    void assertNoDateTimeMethods() const
+    {
+        assertOnlyMethodCalled("", 0); // Will check all methods are 0
+    }
 };
 
 #endif // MOCK_SYSTEM_MANAGER_H

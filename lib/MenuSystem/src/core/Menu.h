@@ -56,6 +56,7 @@ private:
 public:
     Menu(ISystemManager *sysManager, IDisplay *display, IInputDevice *inputDevice, IBlinker *blinker, uint8_t bufferSize);
     void update();
+    void init();
     ISystemManager *getSystemManager();
     IDisplay *getDispay();
     char *getDisplayBuffer();

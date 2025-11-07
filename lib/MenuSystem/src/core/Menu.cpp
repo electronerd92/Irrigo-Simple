@@ -17,9 +17,13 @@ Menu::Menu(ISystemManager *sysManager, IDisplay *display, IInputDevice *inputDev
 
 {
     dispayBuffer = new char[bufferSize];
-
     menuItems = new MenuItems(this);
     currentMenuItem = menuItems->getMainMenu();
+}
+
+void Menu::init()
+{
+    setCurrentMenu(menuItems->getMainMenu());
 }
 
 void Menu::update()
