@@ -1,9 +1,10 @@
 #include "MainSystem.h"
 
-MainSystem::MainSystem(IRtc *rtc, ISystemManager *sysManager, IMenuSystem *menuSys)
+MainSystem::MainSystem(IRtc *rtc, ISystemManager *sysManager, IMenuSystem *menuSys, IWateringSystem *wateringSys)
     : rtc(rtc),
       sysManager(sysManager),
-      menuSys(menuSys)
+      menuSys(menuSys),
+      wateringSys(wateringSys)
 {
     rtc->begin();
 }
@@ -12,6 +13,7 @@ void MainSystem::update()
 {
     sysManager->update();
     menuSys->update();
+    wateringSys->update();
 }
 
 IRtc *MainSystem::getRTC()

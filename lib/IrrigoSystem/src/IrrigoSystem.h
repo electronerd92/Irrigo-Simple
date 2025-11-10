@@ -6,6 +6,7 @@
 #include <core/SystemManager.h>
 #include "hardware/Rtc.hpp"
 #include <MenuSystem.h>
+#include <WateringSystem.h>
 #include <config/ConfigFactory.h>
 
 class IrrigoSystem
@@ -13,6 +14,7 @@ class IrrigoSystem
     Rtc rtc;
     SystemManager sysManager;
     MenuSystem menuSys;
+    WateringSystem wateringSys;
     MainSystem mainSys;
 
 public:
@@ -20,7 +22,8 @@ public:
         : rtc(),
           sysManager(&mainSys),
           menuSys(&sysManager, ConfigFactory::createMenuConfig()),
-          mainSys(&rtc, &sysManager, &menuSys)
+          wateringSys(&sysManager, ConfigFactory::createWateringSysConfig()),
+          mainSys(&rtc, &sysManager, &menuSys, &wateringSys)
     {
     }
     void update() { mainSys.update(); }

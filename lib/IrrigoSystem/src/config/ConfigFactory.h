@@ -1,6 +1,7 @@
 #pragma once
 #include "Config.h"
 #include "MenuConfig.h"
+#include "WateringSysConfig.h"
 
 class ConfigFactory
 {
@@ -25,6 +26,29 @@ public:
 
         config.bufferSize = BUFFER_SIZE;
 
+        return config;
+    }
+
+    static WateringSysConfig createWateringSysConfig()
+    {
+        WateringSysConfig config;
+
+        config.valveOn = VALVE_ON;
+        config.pumpOn = PUMP_ON;
+
+        config.wateringValvesCount = WATERING_VALVES_COUNT;
+
+        config.valvePinout.valve1 = PIN_VALVE_1;
+        config.valvePinout.valve2 = PIN_VALVE_2;
+        config.valvePinout.valve3 = PIN_VALVE_3;
+        config.valvePinout.valve4 = PIN_VALVE_4;
+        config.valvePinout.valveOut5 = PIN_VALVE_5;
+        config.valvePinout.valveOut6 = PIN_VALVE_6;
+        config.valvePinout.valveOut7 = PIN_VALVE_7;
+        config.valvePinout.valveOut8 = PIN_VALVE_8;
+        config.valvePinout.valveMainWater = PIN_VALVE_MAIN_WATER;
+        config.valvePinout.valveOut = PIN_VALVE_OUT;
+        config.valvePinout.valveTank = PIN_VALVE_TANK;
         return config;
     }
 };
