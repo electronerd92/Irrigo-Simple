@@ -5,16 +5,17 @@
 class WaterFeeder : public IWaterFeeder
 {
 private:
+    const bool valveOn;
+    const bool pumpOn;
     const uint8_t mainWaterValvePin;
     const uint8_t pumpPin;
     const uint8_t tankValvePin;
 
 public:
-    WaterFeeder(uint8_t mainWaterValvePin, uint8_t pumpPin, uint8_t tankValvePin);
-    int getMainWaterValveState(bool state) override { return digitalRead(mainWaterValvePin); }
-    void setMainWaterValveState(bool state) override { digitalWrite(mainWaterValvePin, state); }
-    int getPumpState(bool state) override { return digitalRead(pumpPin); }
-    void setPumpState(bool state) override { digitalWrite(pumpPin, state); }
+    WaterFeeder(bool valveOn, bool pumpOn, uint8_t mainWaterValvePin, uint8_t pumpPin, uint8_t tankValvePin);
+    void start(bool feedWithPump = true) override;
+    void stop() override;
+    bool isFeeding() override;
     int getTankValveState(bool state) override { return digitalRead(tankValvePin); }
     void setTankValveState(bool state) override { digitalWrite(tankValvePin, state); }
 };

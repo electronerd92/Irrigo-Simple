@@ -11,7 +11,11 @@ private:
 
 public:
     WateringValve(uint8_t valvePin, bool out);
+    const bool getIsOutdoor() override;
     void setValveMode(ValveMode newMode) override { mode = newMode; }
-    int getState(bool state) override { return digitalRead(pin); }
-    void setState(bool state) override { digitalWrite(pin, state); }
+    int getState() override;
+    void setState(bool state) override;
+
+    bool canBeOpened() override;
+    bool canBeClosed() override;
 };

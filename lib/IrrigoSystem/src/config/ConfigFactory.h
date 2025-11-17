@@ -36,6 +36,8 @@ public:
         config.valveOn = VALVE_ON;
         config.pumpOn = PUMP_ON;
 
+        config.valvePumpDelay = VALVE_PUMP_DELAY;
+
         config.wateringValvesCount = WATERING_VALVES_COUNT;
 
         config.valvePinout.valve1 = PIN_VALVE_1;

@@ -10,6 +10,16 @@ void SystemManager::update()
 {
 }
 
+SystemState SystemManager::getSystemState()
+{
+    return mainSystem->getState();
+}
+
+void SystemManager::setSystemState(SystemState sysState)
+{
+    mainSystem->setState(sysState);
+}
+
 RtcDateTime SystemManager::getDateTime()
 {
     return mainSystem->getRTC()->now();

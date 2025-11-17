@@ -12,6 +12,7 @@ class SystemManager;
 class MainSystem : public IMainSystem
 {
 private:
+    SystemState state;
     IRtc *rtc;
     ISystemManager *sysManager;
     IMenuSystem *menuSys;
@@ -20,5 +21,8 @@ private:
 public:
     MainSystem(IRtc *rtc, ISystemManager *sysManager, IMenuSystem *menuSys, IWateringSystem *wateringSys);
     void update() override;
+    SystemState getState() override;
+    void setState(SystemState sysState) override;
+
     IRtc *getRTC();
 };

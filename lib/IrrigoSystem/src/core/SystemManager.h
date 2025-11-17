@@ -12,6 +12,8 @@ private:
 public:
     SystemManager(IMainSystem *mainSystem);
     void update() override;
+    SystemState getSystemState() override;
+    void setSystemState(SystemState sysState) override;
 
     RtcDateTime getDateTime() override;
     void incrementDay() override;

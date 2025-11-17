@@ -21,6 +21,8 @@
 #define VALVE_ON LOW;
 #define PUMP_ON LOW;
 
+#define VALVE_PUMP_DELAY 500; // ms
+
 #define WATERING_VALVES_COUNT 8;
 
 #define PIN_VALVE_1 10;

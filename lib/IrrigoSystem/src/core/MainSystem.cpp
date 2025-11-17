@@ -1,7 +1,8 @@
 #include "MainSystem.h"
 
 MainSystem::MainSystem(IRtc *rtc, ISystemManager *sysManager, IMenuSystem *menuSys, IWateringSystem *wateringSys)
-    : rtc(rtc),
+    : state(SystemState::Normal),
+      rtc(rtc),
       sysManager(sysManager),
       menuSys(menuSys),
       wateringSys(wateringSys)
@@ -14,6 +15,16 @@ void MainSystem::update()
     sysManager->update();
     menuSys->update();
     wateringSys->update();
+}
+
+SystemState MainSystem::getState()
+{
+    return state;
+}
+
+void MainSystem::setState(SystemState sysState)
+{
+    state = sysState;
 }
 
 IRtc *MainSystem::getRTC()

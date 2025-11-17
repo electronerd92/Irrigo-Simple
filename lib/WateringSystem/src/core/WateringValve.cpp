@@ -7,3 +7,31 @@ WateringValve::WateringValve(uint8_t valvePin, bool out)
 {
     pinMode(pin, OUTPUT);
 }
+
+const bool WateringValve::getIsOutdoor()
+{
+    return isOutdoor;
+}
+
+int WateringValve::getState()
+{
+    return digitalRead(pin);
+}
+
+void WateringValve::setState(bool state)
+{
+    digitalWrite(pin, state);
+}
+
+bool WateringValve::canBeOpened()
+{
+    // TODO Implement logic
+    //? send the current unix time as parameter
+    return true;
+}
+
+bool WateringValve::canBeClosed()
+{
+    // TODO Implement logic
+    return true;
+}

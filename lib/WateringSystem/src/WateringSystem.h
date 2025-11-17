@@ -16,8 +16,8 @@ private:
 
 public:
     WateringSystem(ISystemManager *sysManager, const WateringSysConfig &config)
-        : waterFeeder(config.valvePinout.valveMainWater, config.pumpPin, config.valvePinout.valveTank),
-          wateringManager(sysManager, &waterFeeder, valves, config.wateringValvesCount, config.valveOn, config.pumpOn)
+        : waterFeeder(config.valveOn, config.pumpOn, config.valvePinout.valveMainWater, config.pumpPin, config.valvePinout.valveTank),
+          wateringManager(sysManager, &waterFeeder, valves, config.wateringValvesCount, config.valvePinout.valveOut, config.valveOn, config.valvePumpDelay)
     {
         valves = new IWateringValve *[config.wateringValvesCount];
         valves[0] = new WateringValve(config.valvePinout.valve1, false);

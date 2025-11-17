@@ -1,11 +1,14 @@
 #pragma once
 
 class RtcDateTime;
+enum class SystemState : uint8_t;
 
 class ISystemManager
 {
 public:
     virtual void update() = 0;
+    virtual SystemState getSystemState() = 0;
+    virtual void setSystemState(SystemState sysState) = 0;
     virtual RtcDateTime getDateTime() = 0;
     virtual void incrementDay() = 0;
     virtual void decreaseDay() = 0;

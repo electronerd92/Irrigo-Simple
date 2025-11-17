@@ -24,4 +24,5 @@ struct WateringSysConfig
     uint8_t wateringValvesCount = 8;
     ValvesPinout valvePinout;
     uint8_t pumpPin = 30;
+    uint32_t valvePumpDelay = 500; // ms
 };
