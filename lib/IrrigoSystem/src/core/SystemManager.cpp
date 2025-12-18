@@ -25,6 +25,11 @@ RtcDateTime SystemManager::getDateTime()
     return mainSystem->getRTC()->now();
 }
 
+uint32_t SystemManager::getUnixTime()
+{
+    return mainSystem->getRTC()->unixtime();
+}
+
 /* #region RTC settings */
 // Utility function to calculate the number of days in a given month
 uint8_t SystemManager::daysInMonth(uint16_t year, uint8_t month)

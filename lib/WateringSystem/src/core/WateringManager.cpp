@@ -72,7 +72,7 @@ void WateringManager::turnWateringOff()
     setOutdoorValveState(!valveOn);
     for (uint8_t i = 0; i < wateringValvesCount; i++)
     {
-        wateringValves[i]->setState(!valveOn);
+        wateringValves[i]->close(!valveOn);
     }
 }
 
@@ -80,9 +80,9 @@ void WateringManager::checkAndOpenValve()
 {
     for (uint8_t i = 0; i < wateringValvesCount; i++)
     {
-        if (wateringValves[i]->canBeOpened())
+        if (wateringValves[i]->canBeOpened(sysManager->getUnixTime()))
         {
-            wateringValves[i]->setState(valveOn);
+            wateringValves[i]->open(valveOn);
             if (wateringValves[i]->getIsOutdoor())
             {
                 setOutdoorValveState(valveOn);
@@ -115,7 +115,7 @@ void WateringManager::manageOngoingOperation(int8_t openedValve)
 
     if (waterFeeder->isFeeding() && openedValve != -1)
     {
-        wateringValves[openedValve]->setState(!valveOn);
+        wateringValves[openedValve]->close(!valveOn);
         if (wateringValves[openedValve]->getIsOutdoor())
         {
             setOutdoorValveState(!valveOn);

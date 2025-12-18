@@ -16,6 +16,7 @@ public:
     void setSystemState(SystemState sysState) override;
 
     RtcDateTime getDateTime() override;
+    uint32_t getUnixTime() override;
     void incrementDay() override;
     void decreaseDay() override;
     void incrementMonth() override;

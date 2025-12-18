@@ -15,6 +15,7 @@ class IRtc
 {
 public:
     virtual RtcDateTime now() = 0;
+    virtual uint32_t unixtime() = 0;
     virtual void adjust(const RtcDateTime &dt) = 0;
     virtual bool begin() = 0; // For initialization
 };

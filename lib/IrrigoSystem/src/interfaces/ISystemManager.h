@@ -10,6 +10,7 @@ public:
     virtual SystemState getSystemState() = 0;
     virtual void setSystemState(SystemState sysState) = 0;
     virtual RtcDateTime getDateTime() = 0;
+    virtual uint32_t getUnixTime() = 0;
     virtual void incrementDay() = 0;
     virtual void decreaseDay() = 0;
     virtual void incrementMonth() = 0;
