@@ -66,7 +66,8 @@ int8_t WateringManager::getOpenedValve()
 
 void WateringManager::turnWateringOff()
 {
-    waterFeeder->stop();
+    waterFeeder->stopMainWatering();
+    waterFeeder->stopPump();
     waterFeeder->setTankValveState(!valveOn);
     setOutdoorValveState(!valveOn);
     for (uint8_t i = 0; i < wateringValvesCount; i++)
@@ -99,7 +100,7 @@ void WateringManager::checkAndCloseValve()
     {
         if (wateringValves[i]->canBeClosed())
         {
-            waterFeeder->stop();
+            waterFeeder->stopPump();
             ongoingOpeningClosing = true;
             valvePumpDelayTimer.start();
             break;
@@ -112,7 +113,7 @@ void WateringManager::manageOngoingOperation(int8_t openedValve)
     if (!valvePumpDelayTimer.timeout())
         return;
 
-    if (waterFeeder->isFeeding())
+    if (waterFeeder->isFeeding() && openedValve != -1)
     {
         wateringValves[openedValve]->setState(!valveOn);
         if (wateringValves[openedValve]->getIsOutdoor())
@@ -122,7 +123,7 @@ void WateringManager::manageOngoingOperation(int8_t openedValve)
     }
     else
     {
-        waterFeeder->start();
+        waterFeeder->startPump();
     }
     ongoingOpeningClosing = false;
 }

@@ -10,23 +10,24 @@ WaterFeeder::WaterFeeder(bool valveOn, bool pumpOn, uint8_t mainWaterValvePin, u
     pinMode(mainWaterValvePin, OUTPUT);
     pinMode(pumpPin, OUTPUT);
     pinMode(tankValvePin, OUTPUT);
+    digitalWrite(mainWaterValvePin, !valveOn);
+    digitalWrite(pumpPin, !pumpOn);
+    digitalWrite(tankValvePin, !valveOn);
 }
 
-void WaterFeeder::stop()
+void WaterFeeder::stopMainWatering()
 {
     digitalWrite(mainWaterValvePin, !valveOn);
+}
+
+void WaterFeeder::stopPump()
+{
     digitalWrite(pumpPin, !pumpOn);
 }
 
-void WaterFeeder::start(bool feedWithPump)
+void WaterFeeder::startPump()
 {
-    if (feedWithPump)
-    {
-        digitalWrite(pumpPin, pumpOn);
-        return;
-    }
-
-    digitalWrite(mainWaterValvePin, valveOn);
+    digitalWrite(pumpPin, pumpOn);
 }
 
 bool WaterFeeder::isFeeding()

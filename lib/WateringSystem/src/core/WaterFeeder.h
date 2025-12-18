@@ -13,9 +13,10 @@ private:
 
 public:
     WaterFeeder(bool valveOn, bool pumpOn, uint8_t mainWaterValvePin, uint8_t pumpPin, uint8_t tankValvePin);
-    void start(bool feedWithPump = true) override;
-    void stop() override;
+    void startPump() override;
+    void stopPump() override;
+    void stopMainWatering()override;
     bool isFeeding() override;
-    int getTankValveState(bool state) override { return digitalRead(tankValvePin); }
+    int getTankValveState() override { return digitalRead(tankValvePin); }
     void setTankValveState(bool state) override { digitalWrite(tankValvePin, state); }
 };
