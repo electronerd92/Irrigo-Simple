@@ -14,10 +14,7 @@ private:
     IWateringValve **valves;
     WateringManager wateringManager;
 
-public:
-    WateringSystem(ISystemManager *sysManager, const WateringSysConfig &config)
-        : waterFeeder(config.valveOn, config.pumpOn, config.valvePinout.valveMainWater, config.pumpPin, config.valvePinout.valveTank),
-          wateringManager(sysManager, &waterFeeder, valves, config.wateringValvesCount, config.valvePinout.valveOut, config.valveOn, config.valvePumpDelay)
+    IWateringValve **initializeValves(const WateringSysConfig &config)
     {
         valves = new IWateringValve *[config.wateringValvesCount];
         valves[0] = new WateringValve(config.valvePinout.valve1, false);
@@ -28,8 +25,21 @@ public:
         valves[5] = new WateringValve(config.valvePinout.valveOut6, true);
         valves[6] = new WateringValve(config.valvePinout.valveOut7, true);
         valves[7] = new WateringValve(config.valvePinout.valveOut8, true);
+        return valves;
+    }
+
+public:
+    WateringSystem(ISystemManager *sysManager, const WateringSysConfig &config)
+    : waterFeeder(config.valveOn, config.pumpOn, config.valvePinout.valveMainWater, 
+                  config.pumpPin, config.valvePinout.valveTank),
+      valves(nullptr), // Initialize to nullptr first
+      wateringManager(sysManager, &waterFeeder, initializeValves(config), 
+                      config.wateringValvesCount, config.valvePinout.valveOut, 
+                      config.valveOn, config.valvePumpDelay)
+    {
     }
     void update() override { wateringManager.update(); }
+
 };
 
 #endif // UNIT_TESTING
