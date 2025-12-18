@@ -25,15 +25,16 @@
 
 #define WATERING_VALVES_COUNT 8;
 
-#define PIN_VALVE_1 10;
-#define PIN_VALVE_2 11;
-#define PIN_VALVE_3 12;
-#define PIN_VALVE_4 13;
-#define PIN_VALVE_5 14;
-#define PIN_VALVE_6 15;
-#define PIN_VALVE_7 16;
-#define PIN_VALVE_8 17;
+#define PIN_VALVE_1 5;
+#define PIN_VALVE_2 6;
+#define PIN_VALVE_3 7;
+#define PIN_VALVE_4 8;
+#define PIN_VALVE_5 9;
+#define PIN_VALVE_6 10;
+#define PIN_VALVE_7 11;
+#define PIN_VALVE_8 12;
 
-#define PIN_VALVE_MAIN_WATER 19;
-#define PIN_VALVE_OUT 20;
-#define PIN_VALVE_TANK 21;
+#define PIN_VALVE_OUT 13;
+#define PIN_VALVE_TANK 14;
+#define PIN_VALVE_MAIN_WATER 15;
+#define PIN_PUMP 16;

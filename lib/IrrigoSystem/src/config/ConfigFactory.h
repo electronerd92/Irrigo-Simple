@@ -48,9 +48,10 @@ public:
         config.valvePinout.valveOut6 = PIN_VALVE_6;
         config.valvePinout.valveOut7 = PIN_VALVE_7;
         config.valvePinout.valveOut8 = PIN_VALVE_8;
-        config.valvePinout.valveMainWater = PIN_VALVE_MAIN_WATER;
         config.valvePinout.valveOut = PIN_VALVE_OUT;
         config.valvePinout.valveTank = PIN_VALVE_TANK;
+        config.valvePinout.valveMainWater = PIN_VALVE_MAIN_WATER;
+        config.pumpPin = PIN_PUMP;
         return config;
     }
 };
