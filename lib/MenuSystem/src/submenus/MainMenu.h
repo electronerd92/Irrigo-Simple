@@ -4,7 +4,6 @@
 
 enum class MainMenuIndex : uint8_t
 {
-    VALVES = 0,
     WATER_SOURCE,
     SENSORS,
     SETTINGS,
@@ -16,7 +15,6 @@ class MainMenu : public MenuObj
 {
 private:
     void handleSelectCommand();
-    void navigateToValvesMenu(MenuItems *menuItems);
     void navigateToWaterSourceMenu(MenuItems *menuItems);
     void navigateToSensorsMenu(MenuItems *menuItems);
     void navigateToSettingsMenu(MenuItems *menuItems);

@@ -28,6 +28,10 @@ void SettingsMenu::handleSelectCommand()
         navigateToDateTimeMenu(menuItems);
         break;
 
+    case SettingsMenuIndex::VALVES:
+        navigateToValvesMenu(menuItems);
+        break;
+
     default:
         break;
     }
@@ -43,6 +47,11 @@ void SettingsMenu::navigateToDateTimeMenu(MenuItems *menuItems)
     menu->setCurrentMenu(menuItems->getDateTimeMenu());
 }
 
+void SettingsMenu::navigateToValvesMenu(MenuItems *menuItems)
+{
+    menu->setCurrentMenu(menuItems->getValvesMenu());
+}
+
 void SettingsMenu::printElement(uint8_t index, uint8_t row)
 {
     IDisplay *dispay = menu->getDispay();
@@ -53,6 +62,9 @@ void SettingsMenu::printElement(uint8_t index, uint8_t row)
         break;
     case SettingsMenuIndex::DATE_TIME:
         dispay->printAt(F(DATE_TIME_STR), 1, row);
+        break;
+    case SettingsMenuIndex::VALVES:
+        dispay->printAt(F(VALVES_STR), 1, row, PrintFormat::WITH_NEXT);
         break;
     default:
         break;

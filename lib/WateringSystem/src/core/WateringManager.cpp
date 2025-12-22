@@ -11,7 +11,8 @@ WateringManager::WateringManager(ISystemManager *sysManager, IWaterFeeder *water
       outdoorValvePin(outdoorValvePin),
       valveOn(valveOn),
       valvePumpDelayTimer(valvePumpDelay),
-      ongoingOpeningClosing(false)
+      ongoingOpeningClosing(false),
+      selectedValveIndex(0)
 {
     pinMode(outdoorValvePin, OUTPUT);
     turnWateringOff();

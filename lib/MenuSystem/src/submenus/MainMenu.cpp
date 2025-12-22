@@ -20,10 +20,6 @@ void MainMenu::handleSelectCommand()
 
     switch (currentIndex)
     {
-    case MainMenuIndex::VALVES:
-        navigateToValvesMenu(menuItems);
-        break;
-
     case MainMenuIndex::WATER_SOURCE:
         navigateToWaterSourceMenu(menuItems);
         break;
@@ -43,11 +39,6 @@ void MainMenu::handleSelectCommand()
     default:
         break;
     }
-}
-
-void MainMenu::navigateToValvesMenu(MenuItems *menuItems)
-{
-    menu->setCurrentMenu(menuItems->getValvesMenu());
 }
 
 void MainMenu::navigateToWaterSourceMenu(MenuItems *menuItems)
@@ -77,9 +68,6 @@ void MainMenu::printElement(uint8_t index, uint8_t row)
 
     switch (menuIndex)
     {
-    case MainMenuIndex::VALVES:
-        dispay->printAt(F(VALVES_STR), 1, row, PrintFormat::WITH_NEXT);
-        break;
     case MainMenuIndex::WATER_SOURCE:
         dispay->printAt(F(WATER_SOURCE_STR), 1, row);
         break;

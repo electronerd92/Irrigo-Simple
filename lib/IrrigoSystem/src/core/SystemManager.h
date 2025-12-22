@@ -27,4 +27,8 @@ public:
     void decreaseHour() override;
     void incrementMinute() override;
     void decreaseMinute() override;
+
+    uint8_t getSelectedValve() override;
+    void incrementSelectedValve() override;
+    void decreaseSelectedValve() override;
 };

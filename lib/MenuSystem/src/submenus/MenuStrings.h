@@ -11,3 +11,5 @@
 #define DATE_TIME_STR "Date/Time"
 #define DATE_STR "Date:"
 #define TIME_STR "Time:"
+
+#define SELECTED_VALVE_STR "Valve:"

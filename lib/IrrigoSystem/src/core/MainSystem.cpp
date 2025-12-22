@@ -31,3 +31,8 @@ IRtc *MainSystem::getRTC()
 {
     return rtc;
 }
+
+IWateringManager *MainSystem::getWateringManager()
+{
+    return wateringSys->getWateringManager();
+}

@@ -5,6 +5,7 @@
 #include "interfaces/IRtc.h"
 #include <interfaces/IMenuSystem.h>
 #include <interfaces/IWateringSystem.h>
+#include <interfaces/IWateringManager.h>
 
 // Forward declaration to avoid circular dependency
 class SystemManager;
@@ -25,4 +26,5 @@ public:
     void setState(SystemState sysState) override;
 
     IRtc *getRTC();
+    IWateringManager *getWateringManager() override;
 };

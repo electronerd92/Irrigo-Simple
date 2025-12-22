@@ -1,12 +1,13 @@
 #pragma once
 #include <Arduino.h>
 #include "WateringSysConfig.h"
+#include <interfaces/IWateringManager.h>
 #include <interfaces/ISystemManager.h>
 #include "interfaces/IWaterFeeder.h"
 #include "interfaces/IWateringValve.h"
 #include <Timer.h>
 
-class WateringManager
+class WateringManager : public IWateringManager
 {
 private:
     ISystemManager *sysManager;
@@ -17,6 +18,7 @@ private:
     const bool valveOn;
     Timer valvePumpDelayTimer;
     bool ongoingOpeningClosing;
+    uint8_t selectedValveIndex;
 
     int getOutdoorValveState();
     void setOutdoorValveState(bool state);
@@ -30,5 +32,9 @@ private:
 public:
     WateringManager(ISystemManager *sysManager, IWaterFeeder *waterFeeder, IWateringValve **wateringValves, uint8_t valvesCount,
                     uint8_t outdoorValvePin, bool valveOn, uint32_t valvePumpDelay);
-    void update();
+    void update() override;
+
+    uint8_t getSelectedValve() override { return selectedValveIndex; }
+    void setSelectedValve(uint8_t index) override { selectedValveIndex = index; }
+    uint8_t getValvesCount() override { return wateringValvesCount; }
 };

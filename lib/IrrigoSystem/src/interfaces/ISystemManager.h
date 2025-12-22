@@ -21,4 +21,8 @@ public:
     virtual void decreaseHour() = 0;
     virtual void incrementMinute() = 0;
     virtual void decreaseMinute() = 0;
+
+    virtual uint8_t getSelectedValve() = 0;
+    virtual void incrementSelectedValve() = 0;
+    virtual void decreaseSelectedValve() = 0;
 };

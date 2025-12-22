@@ -6,6 +6,7 @@ enum class SettingsMenuIndex : uint8_t
 {
     BACK = 0,
     DATE_TIME,
+    VALVES,
     ELEMENT_COUNT
 };
 
@@ -15,6 +16,7 @@ private:
     void handleSelectCommand();
     void navigateToMainMenu(MenuItems *menuItems);
     void navigateToDateTimeMenu(MenuItems *menuItems);
+    void navigateToValvesMenu(MenuItems *menuItems);
 
 public:
     SettingsMenu(Menu *menu);

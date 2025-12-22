@@ -30,16 +30,16 @@ private:
 
 public:
     WateringSystem(ISystemManager *sysManager, const WateringSysConfig &config)
-    : waterFeeder(config.valveOn, config.pumpOn, config.valvePinout.valveMainWater, 
-                  config.pumpPin, config.valvePinout.valveTank),
-      valves(nullptr), // Initialize to nullptr first
-      wateringManager(sysManager, &waterFeeder, initializeValves(config), 
-                      config.wateringValvesCount, config.valvePinout.valveOut, 
-                      config.valveOn, config.valvePumpDelay)
+        : waterFeeder(config.valveOn, config.pumpOn, config.valvePinout.valveMainWater,
+                      config.pumpPin, config.valvePinout.valveTank),
+          valves(nullptr), // Initialize to nullptr first
+          wateringManager(sysManager, &waterFeeder, initializeValves(config),
+                          config.wateringValvesCount, config.valvePinout.valveOut,
+                          config.valveOn, config.valvePumpDelay)
     {
     }
     void update() override { wateringManager.update(); }
-
+    IWateringManager *getWateringManager() override{ return &wateringManager; }
 };
 
 #endif // UNIT_TESTING

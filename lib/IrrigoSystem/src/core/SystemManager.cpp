@@ -168,3 +168,23 @@ void SystemManager::decreaseMinute()
     rtc->adjust(newDateTime);
 }
 /* #endregion RTC settings */
+
+uint8_t SystemManager::getSelectedValve()
+{
+    return mainSystem->getWateringManager()->getSelectedValve();
+}
+
+void SystemManager::incrementSelectedValve()
+{
+    IWateringManager *wateringManager = mainSystem->getWateringManager();
+    uint8_t valvesCount = wateringManager->getValvesCount();
+    wateringManager->setSelectedValve((wateringManager->getSelectedValve() + 1) % valvesCount);
+}
+
+void SystemManager::decreaseSelectedValve()
+{
+    IWateringManager *wateringManager = mainSystem->getWateringManager();
+    uint8_t valvesCount = wateringManager->getValvesCount();
+    uint8_t currentValve = wateringManager->getSelectedValve();
+    wateringManager->setSelectedValve(currentValve == 0 ? valvesCount - 1 : currentValve - 1);
+}
