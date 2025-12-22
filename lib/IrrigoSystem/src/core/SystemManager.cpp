@@ -1,5 +1,6 @@
 #include "SystemManager.h"
 #include <Compatibility.h>
+#include <interfaces/IWateringValve.h>
 
 SystemManager::SystemManager(IMainSystem *mainSystem)
     : mainSystem(mainSystem)
@@ -187,4 +188,27 @@ void SystemManager::decreaseSelectedValve()
     uint8_t valvesCount = wateringManager->getValvesCount();
     uint8_t currentValve = wateringManager->getSelectedValve();
     wateringManager->setSelectedValve(currentValve == 0 ? valvesCount - 1 : currentValve - 1);
+}
+
+ValveMode SystemManager::getValveMode()
+{
+    IWateringManager *wateringManager = mainSystem->getWateringManager();
+    return wateringManager->getValveMode();
+}
+
+void SystemManager::incrementValveMode()
+{
+    IWateringManager *wateringManager = mainSystem->getWateringManager();
+    ValveMode currentMode = wateringManager->getValveMode();
+    ValveMode newMode = static_cast<ValveMode>((static_cast<uint8_t>(currentMode) + 1) % static_cast<uint8_t>(ValveMode::COUNT));
+    wateringManager->setValveMode(newMode);
+}
+
+void SystemManager::decreaseValveMode()
+{
+    IWateringManager *wateringManager = mainSystem->getWateringManager();
+    ValveMode currentMode = wateringManager->getValveMode();
+    uint8_t modeCount = static_cast<uint8_t>(ValveMode::COUNT);
+    ValveMode newMode = static_cast<ValveMode>((static_cast<uint8_t>(currentMode) + modeCount - 1) % modeCount);
+    wateringManager->setValveMode(newMode);
 }

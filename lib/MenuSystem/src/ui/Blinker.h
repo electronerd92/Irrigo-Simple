@@ -17,6 +17,7 @@ private:
     bool isBlinking;
     char *buffer;
     uint8_t wordLength;
+    PrintFormat format;
 
     void printWord();
     void clearWord();

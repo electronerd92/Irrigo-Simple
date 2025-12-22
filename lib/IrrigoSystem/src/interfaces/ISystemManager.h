@@ -1,4 +1,5 @@
 #pragma once
+#include <interfaces/IWateringValve.h>
 
 class RtcDateTime;
 enum class SystemState : uint8_t;
@@ -25,4 +26,8 @@ public:
     virtual uint8_t getSelectedValve() = 0;
     virtual void incrementSelectedValve() = 0;
     virtual void decreaseSelectedValve() = 0;
+
+    virtual ValveMode getValveMode() = 0;
+    virtual void incrementValveMode() = 0;
+    virtual void decreaseValveMode() = 0;
 };

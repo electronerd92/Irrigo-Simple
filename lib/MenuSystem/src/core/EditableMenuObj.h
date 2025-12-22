@@ -27,7 +27,7 @@ protected:
      * @param row Row position on display
      * @param format Optional print format (default: NONE)
      */
-    void handleElementDisplay(uint8_t elementIndex, const char *buffer, uint8_t col, uint8_t row, PrintFormat format = PrintFormat::NONE);
+    void handleElementDisplay(uint8_t elementIndex, const char *buffer, uint8_t col, uint8_t row);
 
     /**
      * @brief Prints a back/title element
@@ -45,7 +45,7 @@ protected:
      * @note This is a template function to support lambdas without STL dependency
      */
     template <typename IncrementFunc, typename DecrementFunc>
-    void executeDirectionalEdit(Command cmd, IncrementFunc incrementFunc, DecrementFunc decrementFunc)
+    void executeDirectionalEdit(Command cmd, IncrementFunc incrementFunc, DecrementFunc decrementFunc, bool forceClear = false)
     {
         if (cmd == Command::RIGHT)
         {
@@ -56,15 +56,14 @@ protected:
             decrementFunc();
         }
 
-        requestBlinkerUpdate();
+        requestBlinkerUpdate(forceClear);
     }
 
     /**
      * @brief Marks that blinker needs update and requests screen refresh
      */
-    void requestBlinkerUpdate();
+    void requestBlinkerUpdate(bool forceRefresh);
 
 public:
     EditableMenuObj(Menu *menu, uint8_t elementsCount);
-    virtual ~EditableMenuObj() = default;
 };

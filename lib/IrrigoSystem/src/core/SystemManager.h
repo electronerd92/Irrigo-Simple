@@ -31,4 +31,8 @@ public:
     uint8_t getSelectedValve() override;
     void incrementSelectedValve() override;
     void decreaseSelectedValve() override;
+
+    ValveMode getValveMode() override;
+    void incrementValveMode() override;
+    void decreaseValveMode() override;
 };

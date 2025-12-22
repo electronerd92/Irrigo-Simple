@@ -4,7 +4,6 @@
 enum class PrintFormat : byte
 {
     NONE,
-    WITH_SQUARE_BRACKETS,
     TITLE_WITH_BACK,
     WITH_NEXT
 };

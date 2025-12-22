@@ -19,6 +19,7 @@ private:
 public:
     WateringValve(uint8_t valvePin, bool out);
     bool getIsOutdoor() const override;
+    ValveMode getMode() const override { return mode; }
     void setValveMode(ValveMode newMode, uint32_t currentTime) override;
     int getState() override;
     void open(bool state) override;

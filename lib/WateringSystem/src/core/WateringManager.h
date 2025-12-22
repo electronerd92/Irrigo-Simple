@@ -37,4 +37,7 @@ public:
     uint8_t getSelectedValve() override { return selectedValveIndex; }
     void setSelectedValve(uint8_t index) override { selectedValveIndex = index; }
     uint8_t getValvesCount() override { return wateringValvesCount; }
+
+    ValveMode getValveMode() override { return wateringValves[selectedValveIndex]->getMode(); }
+    void setValveMode(ValveMode newMode) override { wateringValves[selectedValveIndex]->setValveMode(newMode, sysManager->getUnixTime()); }   
 };

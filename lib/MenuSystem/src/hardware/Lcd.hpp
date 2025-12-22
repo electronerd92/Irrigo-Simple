@@ -95,12 +95,6 @@ public:
             lcd.print(message);
             break;
 
-        case PrintFormat::WITH_SQUARE_BRACKETS:
-            lcd.write('[');
-            lcd.print(message);
-            lcd.write(']');
-            break;
-
         case PrintFormat::TITLE_WITH_BACK:
             lcd.write('[');
             lcd.print(message);

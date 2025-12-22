@@ -8,9 +8,24 @@ enum class ValveMode : uint8_t
     COUNT // used to get the number of ValveMode by Menu
 };
 
+// In ValvesMenu.h or utility header
+inline static const char *valveModeToString(ValveMode mode)
+{
+    switch (mode)
+    {
+    case ValveMode::OFF:
+        return "OFF";
+    case ValveMode::TIMER:
+        return "TIMER";
+    default:
+        return "?";
+    }
+}
+
 class IWateringValve
 {
 public:
+    virtual ValveMode getMode() const = 0;
     virtual void setValveMode(ValveMode newMode, uint32_t currentTime) = 0;
     virtual bool getIsOutdoor() const = 0;
     virtual int getState() = 0;

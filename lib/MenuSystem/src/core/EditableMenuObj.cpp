@@ -20,7 +20,7 @@ void EditableMenuObj::handleFieldSelection(EditingField lastField)
 }
 
 void EditableMenuObj::handleElementDisplay(uint8_t elementIndex, const char *buffer,
-                                           uint8_t col, uint8_t row, PrintFormat format)
+                                           uint8_t col, uint8_t row)
 {
     if (updateBlinker && menu->getIsEditingElement(elementIndex))
     {
@@ -30,8 +30,7 @@ void EditableMenuObj::handleElementDisplay(uint8_t elementIndex, const char *buf
     }
     else if (!menu->getIsEditingElement(elementIndex))
     {
-        uint8_t colOffset = (format == PrintFormat::WITH_SQUARE_BRACKETS) ? 1 : 0;
-        menu->getDispay()->printAt(buffer, col - colOffset, row, format);
+        menu->getDispay()->printAt(buffer, col, row);
     }
 }
 
@@ -40,8 +39,8 @@ void EditableMenuObj::printBackElement(const __FlashStringHelper *title, uint8_t
     menu->getDispay()->printAt(title, 1, row, PrintFormat::TITLE_WITH_BACK);
 }
 
-void EditableMenuObj::requestBlinkerUpdate()
+void EditableMenuObj::requestBlinkerUpdate(bool forceRefresh)
 {
     updateBlinker = true;
-    menu->requestFullRefresh(false);
+    menu->requestFullRefresh(forceRefresh);
 }

@@ -1,5 +1,6 @@
 #include "ValvesMenu.h"
 #include "core/MenuItems.hpp"
+#include <interfaces/IWateringValve.h>
 
 ValvesMenu::ValvesMenu(Menu *menu) : EditableMenuObj(menu, (uint8_t)ValvesMenuIndex::ELEMENT_COUNT)
 {
@@ -36,6 +37,9 @@ void ValvesMenu::handleSelectCommand()
     case ValvesMenuIndex::SELECTED_VALVE:
         handleFieldSelection(EditingField::First);
         break;
+    case ValvesMenuIndex::VALVE_MODE:
+        handleFieldSelection(EditingField::First);
+        break;
 
     default:
         break;
@@ -52,7 +56,12 @@ void ValvesMenu::handleDirectionalCommand(Command cmd)
     case ValvesMenuIndex::SELECTED_VALVE:
         executeDirectionalEdit(cmd, [sysManager]()
                                { sysManager->incrementSelectedValve(); }, [sysManager]()
-                               { sysManager->decreaseSelectedValve(); });
+                               { sysManager->decreaseSelectedValve(); }, true);
+        break;
+    case ValvesMenuIndex::VALVE_MODE:
+        executeDirectionalEdit(cmd, [sysManager]()
+                               { sysManager->incrementValveMode(); }, [sysManager]()
+                               { sysManager->decreaseValveMode(); });
         break;
     default:
         break;
@@ -78,6 +87,9 @@ void ValvesMenu::printElement(uint8_t index, uint8_t row)
     case ValvesMenuIndex::SELECTED_VALVE:
         printSelectedValve(index, row);
         break;
+    case ValvesMenuIndex::VALVE_MODE:
+        printValveMode(index, row);
+        break;
     default:
         break;
     }
@@ -89,6 +101,16 @@ void ValvesMenu::printSelectedValve(uint8_t index, uint8_t row)
     ISystemManager *sysManager = menu->getSystemManager();
     dispay->printAt(F(SELECTED_VALVE_STR), 1, row);
     char *lcdBuffer = menu->getDisplayBuffer();
-    snprintf(lcdBuffer, menu->getDisplayBufferSize(), "%u", sysManager->getSelectedValve() + 1);
-    handleElementDisplay(index, lcdBuffer, dispay->getColumns() - 3, row, PrintFormat::WITH_SQUARE_BRACKETS);
+    snprintf(lcdBuffer, menu->getDisplayBufferSize(), "[%u]", sysManager->getSelectedValve() + 1);
+    handleElementDisplay(index, lcdBuffer, dispay->getColumns() - 3, row);
+}
+
+void ValvesMenu::printValveMode(uint8_t index, uint8_t row)
+{
+    IDisplay *dispay = menu->getDispay();
+    ISystemManager *sysManager = menu->getSystemManager();
+    dispay->printAt(F(VALVE_MODE_STR), 1, row);
+    char *lcdBuffer = menu->getDisplayBuffer();
+    snprintf(lcdBuffer, menu->getDisplayBufferSize(), "[%s]", valveModeToString(sysManager->getValveMode()));
+    handleElementDisplay(index, lcdBuffer, dispay->getColumns() - strlen(lcdBuffer), row);
 }
