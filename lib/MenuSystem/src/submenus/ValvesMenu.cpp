@@ -1,9 +1,8 @@
 #include "ValvesMenu.h"
 #include "core/MenuItems.hpp"
 
-ValvesMenu::ValvesMenu(Menu *menu) : MenuObj(menu, (uint8_t)ValvesMenuIndex::ELEMENT_COUNT)
+ValvesMenu::ValvesMenu(Menu *menu) : EditableMenuObj(menu, (uint8_t)ValvesMenuIndex::ELEMENT_COUNT)
 {
-    updateBlinker = false;
 }
 
 void ValvesMenu::executeCmd(Command cmd)
@@ -20,7 +19,6 @@ void ValvesMenu::executeCmd(Command cmd)
         break;
 
     default:
-        // Handle any other commands if needed
         break;
     }
 }
@@ -44,36 +42,21 @@ void ValvesMenu::handleSelectCommand()
     }
 }
 
-void ValvesMenu::handleFieldSelection(EditingField lastField)
-{
-    if (menu->getEditingField() == lastField)
-    {
-        menu->stopEditing();
-    }
-    else
-    {
-        updateBlinker = true;
-        menu->incrementEditingField();
-    }
-    menu->requestFullRefresh(false);
-}
-
 void ValvesMenu::handleDirectionalCommand(Command cmd)
 {
     const auto currentIndex = static_cast<ValvesMenuIndex>(menu->getElementIndex());
-    const bool isIncrement = (cmd == Command::RIGHT);
     ISystemManager *sysManager = menu->getSystemManager();
 
     switch (currentIndex)
     {
     case ValvesMenuIndex::SELECTED_VALVE:
-        isIncrement ? sysManager->incrementSelectedValve() : sysManager->decreaseSelectedValve();
+        executeDirectionalEdit(cmd, [sysManager]()
+                               { sysManager->incrementSelectedValve(); }, [sysManager]()
+                               { sysManager->decreaseSelectedValve(); });
         break;
     default:
         break;
     }
-    updateBlinker = true;
-    menu->requestFullRefresh(false);
 }
 
 void ValvesMenu::navigateToSettingsMenu()
@@ -90,7 +73,7 @@ void ValvesMenu::printElement(uint8_t index, uint8_t row)
     switch (menuIndex)
     {
     case ValvesMenuIndex::BACK:
-        printBackElement(row);
+        printBackElement(F(VALVES_STR), row);
         break;
     case ValvesMenuIndex::SELECTED_VALVE:
         printSelectedValve(index, row);
@@ -100,11 +83,6 @@ void ValvesMenu::printElement(uint8_t index, uint8_t row)
     }
 }
 
-void ValvesMenu::printBackElement(uint8_t row)
-{
-    menu->getDispay()->printAt(F(VALVES_STR), 1, row, PrintFormat::TITLE_WITH_BACK);
-}
-
 void ValvesMenu::printSelectedValve(uint8_t index, uint8_t row)
 {
     IDisplay *dispay = menu->getDispay();
@@ -112,19 +90,5 @@ void ValvesMenu::printSelectedValve(uint8_t index, uint8_t row)
     dispay->printAt(F(SELECTED_VALVE_STR), 1, row);
     char *lcdBuffer = menu->getDisplayBuffer();
     snprintf(lcdBuffer, menu->getDisplayBufferSize(), "%u", sysManager->getSelectedValve() + 1);
-    handleElementDisplay(index, lcdBuffer, dispay->getColumns() - 2, row);
-}
-
-void ValvesMenu::handleElementDisplay(uint8_t elementIndex, const char *buffer, uint8_t col, uint8_t row)
-{
-    if (updateBlinker && menu->getIsEditingElement(elementIndex))
-    {
-        menu->getBlinker()->stopBlinking();
-        menu->getBlinker()->startBlinking(buffer, col, row);
-        updateBlinker = false;
-    }
-    else if (!menu->getIsEditingElement(elementIndex))
-    {
-        menu->getDispay()->printAt(buffer, col - 1, row, PrintFormat::WITH_SQUARE_BRACKETS);
-    }
+    handleElementDisplay(index, lcdBuffer, dispay->getColumns() - 3, row, PrintFormat::WITH_SQUARE_BRACKETS);
 }

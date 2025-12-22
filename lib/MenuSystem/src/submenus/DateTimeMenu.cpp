@@ -1,9 +1,8 @@
 #include "DateTimeMenu.h"
 #include "core/MenuItems.hpp"
 
-DateTimeMenu::DateTimeMenu(Menu *menu) : MenuObj(menu, (uint8_t)DateTimeMenuIndex::ELEMENT_COUNT)
+DateTimeMenu::DateTimeMenu(Menu *menu) : EditableMenuObj(menu, (uint8_t)DateTimeMenuIndex::ELEMENT_COUNT)
 {
-    updateBlinker = false;
 }
 
 void DateTimeMenu::executeCmd(Command cmd)
@@ -24,7 +23,6 @@ void DateTimeMenu::executeCmd(Command cmd)
         break;
 
     default:
-        // Handle any other commands if needed
         break;
     }
 }
@@ -61,16 +59,15 @@ void DateTimeMenu::handleSelectCommand()
 void DateTimeMenu::handleDirectionalCommand(Command cmd)
 {
     const auto currentIndex = static_cast<DateTimeMenuIndex>(menu->getElementIndex());
-    const EditingField editingField = menu->getEditingField();
 
     switch (currentIndex)
     {
     case DateTimeMenuIndex::DATE:
-        handleDateEditing(cmd, editingField);
+        handleDateEditing(cmd);
         break;
 
     case DateTimeMenuIndex::TIME:
-        handleTimeEditing(cmd, editingField);
+        handleTimeEditing(cmd);
         break;
 
     default:
@@ -78,52 +75,58 @@ void DateTimeMenu::handleDirectionalCommand(Command cmd)
     }
 }
 
-void DateTimeMenu::handleDateEditing(Command cmd, EditingField editingField)
+void DateTimeMenu::handleDateEditing(Command cmd)
 {
-    const bool isIncrement = (cmd == Command::RIGHT);
+    const EditingField editingField = menu->getEditingField();
     ISystemManager *sysManager = menu->getSystemManager();
 
     switch (editingField)
     {
     case EditingField::First:
-        isIncrement ? sysManager->incrementDay() : sysManager->decreaseDay();
+        executeDirectionalEdit(cmd, [sysManager]()
+                               { sysManager->incrementDay(); }, [sysManager]()
+                               { sysManager->decreaseDay(); });
         break;
 
     case EditingField::Second:
-        isIncrement ? sysManager->incrementMonth() : sysManager->decreaseMonth();
+        executeDirectionalEdit(cmd, [sysManager]()
+                               { sysManager->incrementMonth(); }, [sysManager]()
+                               { sysManager->decreaseMonth(); });
         break;
 
     case EditingField::Third:
-        isIncrement ? sysManager->incrementYear() : sysManager->decreaseYear();
+        executeDirectionalEdit(cmd, [sysManager]()
+                               { sysManager->incrementYear(); }, [sysManager]()
+                               { sysManager->decreaseYear(); });
         break;
 
     default:
         return; // Don't update blinker for invalid field
     }
-
-    updateBlinker = true;
 }
 
-void DateTimeMenu::handleTimeEditing(Command cmd, EditingField editingField)
+void DateTimeMenu::handleTimeEditing(Command cmd)
 {
-    const bool isIncrement = (cmd == Command::RIGHT);
+    const EditingField editingField = menu->getEditingField();
     ISystemManager *sysManager = menu->getSystemManager();
 
     switch (editingField)
     {
     case EditingField::First:
-        isIncrement ? sysManager->incrementHour() : sysManager->decreaseHour();
+        executeDirectionalEdit(cmd, [sysManager]()
+                               { sysManager->incrementHour(); }, [sysManager]()
+                               { sysManager->decreaseHour(); });
         break;
 
     case EditingField::Second:
-        isIncrement ? sysManager->incrementMinute() : sysManager->decreaseMinute();
+        executeDirectionalEdit(cmd, [sysManager]()
+                               { sysManager->incrementMinute(); }, [sysManager]()
+                               { sysManager->decreaseMinute(); });
         break;
 
     default:
         return; // Don't update blinker for invalid field
     }
-
-    updateBlinker = true;
 }
 
 void DateTimeMenu::navigateToSettingsMenu()
@@ -133,19 +136,6 @@ void DateTimeMenu::navigateToSettingsMenu()
         static_cast<uint8_t>(SettingsMenuIndex::DATE_TIME));
 }
 
-void DateTimeMenu::handleFieldSelection(EditingField lastField)
-{
-    if (menu->getEditingField() == lastField)
-    {
-        menu->stopEditing();
-    }
-    else
-    {
-        updateBlinker = true;
-        menu->incrementEditingField();
-    }
-}
-
 void DateTimeMenu::printElement(uint8_t index, uint8_t row)
 {
     const auto menuIndex = static_cast<DateTimeMenuIndex>(index);
@@ -153,7 +143,7 @@ void DateTimeMenu::printElement(uint8_t index, uint8_t row)
     switch (menuIndex)
     {
     case DateTimeMenuIndex::BACK:
-        printBackElement(row);
+        printBackElement(F(DATE_TIME_STR), row);
         break;
 
     case DateTimeMenuIndex::DATE:
@@ -167,11 +157,6 @@ void DateTimeMenu::printElement(uint8_t index, uint8_t row)
     default:
         break;
     }
-}
-
-void DateTimeMenu::printBackElement(uint8_t row)
-{
-    menu->getDispay()->printAt(F(DATE_TIME_STR), 1, row, PrintFormat::TITLE_WITH_BACK);
 }
 
 void DateTimeMenu::printDateElement(uint8_t index, uint8_t row)
@@ -200,18 +185,4 @@ void DateTimeMenu::printTimeElement(uint8_t index, uint8_t row)
              dateTime.hour, dateTime.minute, dateTime.second);
 
     handleElementDisplay(index, lcdBuffer, dispay->getColumns() - 8, row);
-}
-
-void DateTimeMenu::handleElementDisplay(uint8_t elementIndex, const char *buffer, uint8_t col, uint8_t row)
-{
-    if (updateBlinker && menu->getIsEditingElement(elementIndex))
-    {
-        menu->getBlinker()->stopBlinking();
-        menu->getBlinker()->startBlinking(buffer, col, row);
-        updateBlinker = false;
-    }
-    else if (!menu->getIsEditingElement(elementIndex))
-    {
-        menu->getDispay()->printAt(buffer, col, row);
-    }
 }

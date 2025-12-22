@@ -1,6 +1,6 @@
 #pragma once
 #include <Arduino.h>
-#include "core/MenuObj.hpp"
+#include "core/EditableMenuObj.h"
 
 enum class DateTimeMenuIndex : uint8_t
 {
@@ -10,21 +10,17 @@ enum class DateTimeMenuIndex : uint8_t
     ELEMENT_COUNT
 };
 
-class DateTimeMenu : public MenuObj
+class DateTimeMenu : public EditableMenuObj
 {
 private:
-    bool updateBlinker;
-    void handleFieldSelection(EditingField lastField);
-    void handleElementDisplay(uint8_t elementIndex, const char *buffer, uint8_t col, uint8_t row);
-    void printBackElement(uint8_t row);
-    void printDateElement(uint8_t index, uint8_t row);
-    void printTimeElement(uint8_t index, uint8_t row);
     void handleNoCommand();
     void handleSelectCommand();
     void handleDirectionalCommand(Command cmd);
-    void handleDateEditing(Command cmd, EditingField editingField);
-    void handleTimeEditing(Command cmd, EditingField editingField);
+    void handleDateEditing(Command cmd);
+    void handleTimeEditing(Command cmd);
     void navigateToSettingsMenu();
+    void printDateElement(uint8_t index, uint8_t row);
+    void printTimeElement(uint8_t index, uint8_t row);
 
 public:
     DateTimeMenu(Menu *menu);
