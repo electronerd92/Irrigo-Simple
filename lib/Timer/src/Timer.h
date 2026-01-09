@@ -10,6 +10,8 @@ private:
 public:
     Timer(uint32_t intervalMilliseconds);
 
+    uint32_t getInterval() const { return interval; };
+
     // Start or restart the timer
     void start();
 

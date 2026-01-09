@@ -51,9 +51,9 @@ void WateringValve::setStartTime(uint16_t start, uint32_t currentTime)
     updateNextWateringTime(currentTime);
 }
 
-void WateringValve::setPeriod(uint32_t period)
+void WateringValve::setDuration(uint32_t period)
 {
-    timer.updateInterval(period * 60000UL); // Convert minutes to milliseconds
+    timer.updateInterval(period * 1000UL); // Convert seconds to milliseconds
 }
 
 void WateringValve::updateNextWateringTime(uint32_t currentTime)

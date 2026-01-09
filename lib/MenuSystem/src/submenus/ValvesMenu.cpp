@@ -43,6 +43,9 @@ void ValvesMenu::handleSelectCommand()
     case ValvesMenuIndex::FREQUENCY:
         handleFieldSelection(EditingField::First);
         break;
+    case ValvesMenuIndex::DURATION:
+        handleFieldSelection(EditingField::First);
+        break;
 
     default:
         break;
@@ -70,6 +73,11 @@ void ValvesMenu::handleDirectionalCommand(Command cmd)
         executeDirectionalEdit(cmd, [sysManager]()
                                { sysManager->incrementSelectedValveFrequency(); }, [sysManager]()
                                { sysManager->decreaseSelectedValveFrequency(); });
+        break;
+    case ValvesMenuIndex::DURATION:
+        executeDirectionalEdit(cmd, [sysManager]()
+                               { sysManager->incrementSelectedValveDuration(); }, [sysManager]()
+                               { sysManager->decreaseSelectedValveDuration(); });
         break;
     default:
         break;
@@ -100,6 +108,9 @@ void ValvesMenu::printElement(uint8_t index, uint8_t row)
         break;
     case ValvesMenuIndex::FREQUENCY:
         printFrequency(index, row);
+        break;
+    case ValvesMenuIndex::DURATION:
+        printDuration(index, row);
         break;
     default:
         break;
@@ -132,6 +143,16 @@ void ValvesMenu::printFrequency(uint8_t index, uint8_t row)
     ISystemManager *sysManager = menu->getSystemManager();
     dispay->printAt(F(FREQUENCY_STR), 1, row);
     char *lcdBuffer = menu->getDisplayBuffer();
-    snprintf(lcdBuffer, menu->getDisplayBufferSize(), "%luh", sysManager->getSelectedValveFrequency()/3600);
+    snprintf(lcdBuffer, menu->getDisplayBufferSize(), "%luh", sysManager->getSelectedValveFrequency() / 3600UL);
+    handleElementDisplay(index, lcdBuffer, dispay->getColumns() - strlen(lcdBuffer), row);
+}
+
+void ValvesMenu::printDuration(uint8_t index, uint8_t row)
+{
+    IDisplay *dispay = menu->getDispay();
+    ISystemManager *sysManager = menu->getSystemManager();
+    dispay->printAt(F(DURATION_STR), 1, row);
+    char *lcdBuffer = menu->getDisplayBuffer();
+    snprintf(lcdBuffer, menu->getDisplayBufferSize(), "%lumin", sysManager->getSelectedValveDuration() / 60UL);
     handleElementDisplay(index, lcdBuffer, dispay->getColumns() - strlen(lcdBuffer), row);
 }

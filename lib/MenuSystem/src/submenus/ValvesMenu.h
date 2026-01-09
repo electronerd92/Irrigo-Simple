@@ -8,6 +8,7 @@ enum class ValvesMenuIndex : uint8_t
     SELECTED_VALVE,
     VALVE_MODE,
     FREQUENCY,
+    DURATION,
     ELEMENT_COUNT
 };
 
@@ -20,6 +21,7 @@ private:
     void printSelectedValve(uint8_t index, uint8_t row);
     void printValveMode(uint8_t index, uint8_t row);
     void printFrequency(uint8_t index, uint8_t row);
+    void printDuration(uint8_t index, uint8_t row);
 
 public:
     ValvesMenu(Menu *menu);

@@ -21,6 +21,7 @@ public:
     bool getIsOutdoor() const override;
     ValveMode getMode() const override { return mode; }
     uint32_t getFrequency() const override { return frequency; }
+    uint32_t getDuration() const override { return timer.getInterval() / 1000LU; }
 
     void setSelectedValveMode(ValveMode newMode, uint32_t currentTime) override;
     int getState() override;
@@ -29,7 +30,7 @@ public:
 
     void setFrequency(uint32_t freq, uint32_t currentTime) override;
     void setStartTime(uint16_t start, uint32_t currentTime) override;
-    void setPeriod(uint32_t period) override;
+    void setDuration(uint32_t period) override;
 
     bool canBeOpened(uint32_t currentTime) const override;
     bool canBeClosed() const override;

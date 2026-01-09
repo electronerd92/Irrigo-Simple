@@ -34,4 +34,8 @@ public:
     virtual uint32_t getSelectedValveFrequency() = 0;
     virtual void incrementSelectedValveFrequency() = 0;
     virtual void decreaseSelectedValveFrequency() = 0;
+
+    virtual uint32_t getSelectedValveDuration() = 0;
+    virtual void incrementSelectedValveDuration() = 0;
+    virtual void decreaseSelectedValveDuration() = 0;
 };

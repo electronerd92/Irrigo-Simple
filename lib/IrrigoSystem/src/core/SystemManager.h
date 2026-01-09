@@ -39,4 +39,8 @@ public:
     uint32_t getSelectedValveFrequency() override;
     void incrementSelectedValveFrequency() override;
     void decreaseSelectedValveFrequency() override;
+
+    uint32_t getSelectedValveDuration() override;
+    void incrementSelectedValveDuration() override;
+    void decreaseSelectedValveDuration() override;
 };

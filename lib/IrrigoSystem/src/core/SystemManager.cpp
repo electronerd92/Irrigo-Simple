@@ -241,3 +241,32 @@ void SystemManager::decreaseSelectedValveFrequency()
         wateringManager->setSelectedValveFrequency(0);
     }
 }
+
+uint32_t SystemManager::getSelectedValveDuration()
+{
+    IWateringManager *wateringManager = mainSystem->getWateringManager();
+    return wateringManager->getSelectedValveDuration();
+}
+
+void SystemManager::incrementSelectedValveDuration()
+{
+    IWateringManager *wateringManager = mainSystem->getWateringManager();
+    uint32_t currentDuration = wateringManager->getSelectedValveDuration();
+    // Increment duration by 1 minute (60 seconds)
+    wateringManager->setSelectedValveDuration(currentDuration + 60UL);
+}
+
+void SystemManager::decreaseSelectedValveDuration()
+{
+    IWateringManager *wateringManager = mainSystem->getWateringManager();
+    uint32_t currentDuration = wateringManager->getSelectedValveDuration();
+    // Decrement duration by 1 minute (60 seconds), ensuring it doesn't go below 0
+    if (currentDuration >= 60UL)
+    {
+        wateringManager->setSelectedValveDuration(currentDuration - 60UL);
+    }
+    else
+    {
+        wateringManager->setSelectedValveDuration(0);
+    }
+}

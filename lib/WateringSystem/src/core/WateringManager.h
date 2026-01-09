@@ -43,4 +43,7 @@ public:
 
     uint32_t getSelectedValveFrequency() override { return wateringValves[selectedValveIndex]->getFrequency(); }
     void setSelectedValveFrequency(uint32_t frequency) override { wateringValves[selectedValveIndex]->setFrequency(frequency, sysManager->getUnixTime()); }
+
+    uint32_t getSelectedValveDuration() override { return wateringValves[selectedValveIndex]->getDuration(); }
+    void setSelectedValveDuration(uint32_t duration) override { wateringValves[selectedValveIndex]->setDuration(duration); }
 };
