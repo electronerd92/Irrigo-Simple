@@ -40,6 +40,9 @@ void ValvesMenu::handleSelectCommand()
     case ValvesMenuIndex::VALVE_MODE:
         handleFieldSelection(EditingField::First);
         break;
+    case ValvesMenuIndex::FREQUENCY:
+        handleFieldSelection(EditingField::First);
+        break;
 
     default:
         break;
@@ -60,8 +63,13 @@ void ValvesMenu::handleDirectionalCommand(Command cmd)
         break;
     case ValvesMenuIndex::VALVE_MODE:
         executeDirectionalEdit(cmd, [sysManager]()
-                               { sysManager->incrementValveMode(); }, [sysManager]()
-                               { sysManager->decreaseValveMode(); });
+                               { sysManager->incrementSelectedValveMode(); }, [sysManager]()
+                               { sysManager->decreaseSelectedValveMode(); });
+        break;
+    case ValvesMenuIndex::FREQUENCY:
+        executeDirectionalEdit(cmd, [sysManager]()
+                               { sysManager->incrementSelectedValveFrequency(); }, [sysManager]()
+                               { sysManager->decreaseSelectedValveFrequency(); });
         break;
     default:
         break;
@@ -90,6 +98,9 @@ void ValvesMenu::printElement(uint8_t index, uint8_t row)
     case ValvesMenuIndex::VALVE_MODE:
         printValveMode(index, row);
         break;
+    case ValvesMenuIndex::FREQUENCY:
+        printFrequency(index, row);
+        break;
     default:
         break;
     }
@@ -111,6 +122,16 @@ void ValvesMenu::printValveMode(uint8_t index, uint8_t row)
     ISystemManager *sysManager = menu->getSystemManager();
     dispay->printAt(F(VALVE_MODE_STR), 1, row);
     char *lcdBuffer = menu->getDisplayBuffer();
-    snprintf(lcdBuffer, menu->getDisplayBufferSize(), "[%s]", valveModeToString(sysManager->getValveMode()));
+    snprintf(lcdBuffer, menu->getDisplayBufferSize(), "[%s]", valveModeToString(sysManager->getSelectedValveMode()));
+    handleElementDisplay(index, lcdBuffer, dispay->getColumns() - strlen(lcdBuffer), row);
+}
+
+void ValvesMenu::printFrequency(uint8_t index, uint8_t row)
+{
+    IDisplay *dispay = menu->getDispay();
+    ISystemManager *sysManager = menu->getSystemManager();
+    dispay->printAt(F(FREQUENCY_STR), 1, row);
+    char *lcdBuffer = menu->getDisplayBuffer();
+    snprintf(lcdBuffer, menu->getDisplayBufferSize(), "%luh", sysManager->getSelectedValveFrequency()/3600);
     handleElementDisplay(index, lcdBuffer, dispay->getColumns() - strlen(lcdBuffer), row);
 }

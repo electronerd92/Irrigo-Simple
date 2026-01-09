@@ -12,12 +12,12 @@ WateringValve::WateringValve(uint8_t valvePin, bool out)
     pinMode(pin, OUTPUT);
 }
 
-bool WateringValve::getIsOutdoor() const  
+bool WateringValve::getIsOutdoor() const
 {
     return isOutdoor;
 }
 
-void WateringValve::setValveMode(ValveMode newMode, uint32_t currentTime)
+void WateringValve::setSelectedValveMode(ValveMode newMode, uint32_t currentTime)
 {
     mode = newMode;
     updateNextWateringTime(currentTime);
@@ -39,9 +39,9 @@ void WateringValve::close(bool state)
     nextWateringTime += frequency; // schedule next watering
 }
 
-void WateringValve::setFrequency(uint8_t freq, uint32_t currentTime)
+void WateringValve::setFrequency(uint32_t freq, uint32_t currentTime)
 {
-    frequency = (uint32_t)freq * 3600UL; // Convert hours to seconds;
+    frequency = freq; // Already in seconds
     updateNextWateringTime(currentTime);
 }
 

@@ -27,7 +27,11 @@ public:
     virtual void incrementSelectedValve() = 0;
     virtual void decreaseSelectedValve() = 0;
 
-    virtual ValveMode getValveMode() = 0;
-    virtual void incrementValveMode() = 0;
-    virtual void decreaseValveMode() = 0;
+    virtual ValveMode getSelectedValveMode() = 0;
+    virtual void incrementSelectedValveMode() = 0;
+    virtual void decreaseSelectedValveMode() = 0;
+
+    virtual uint32_t getSelectedValveFrequency() = 0;
+    virtual void incrementSelectedValveFrequency() = 0;
+    virtual void decreaseSelectedValveFrequency() = 0;
 };

@@ -14,3 +14,4 @@
 
 #define SELECTED_VALVE_STR "Valve:"
 #define VALVE_MODE_STR "Mode:"
+#define FREQUENCY_STR "Frequency:"

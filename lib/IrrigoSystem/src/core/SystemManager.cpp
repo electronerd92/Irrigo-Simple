@@ -190,25 +190,54 @@ void SystemManager::decreaseSelectedValve()
     wateringManager->setSelectedValve(currentValve == 0 ? valvesCount - 1 : currentValve - 1);
 }
 
-ValveMode SystemManager::getValveMode()
+ValveMode SystemManager::getSelectedValveMode()
 {
     IWateringManager *wateringManager = mainSystem->getWateringManager();
-    return wateringManager->getValveMode();
+    return wateringManager->getSelectedValveMode();
 }
 
-void SystemManager::incrementValveMode()
+void SystemManager::incrementSelectedValveMode()
 {
     IWateringManager *wateringManager = mainSystem->getWateringManager();
-    ValveMode currentMode = wateringManager->getValveMode();
+    ValveMode currentMode = wateringManager->getSelectedValveMode();
     ValveMode newMode = static_cast<ValveMode>((static_cast<uint8_t>(currentMode) + 1) % static_cast<uint8_t>(ValveMode::COUNT));
-    wateringManager->setValveMode(newMode);
+    wateringManager->setSelectedValveMode(newMode);
 }
 
-void SystemManager::decreaseValveMode()
+void SystemManager::decreaseSelectedValveMode()
 {
     IWateringManager *wateringManager = mainSystem->getWateringManager();
-    ValveMode currentMode = wateringManager->getValveMode();
+    ValveMode currentMode = wateringManager->getSelectedValveMode();
     uint8_t modeCount = static_cast<uint8_t>(ValveMode::COUNT);
     ValveMode newMode = static_cast<ValveMode>((static_cast<uint8_t>(currentMode) + modeCount - 1) % modeCount);
-    wateringManager->setValveMode(newMode);
+    wateringManager->setSelectedValveMode(newMode);
+}
+
+uint32_t SystemManager::getSelectedValveFrequency()
+{
+    IWateringManager *wateringManager = mainSystem->getWateringManager();
+    return wateringManager->getSelectedValveFrequency();
+}
+
+void SystemManager::incrementSelectedValveFrequency()
+{
+    IWateringManager *wateringManager = mainSystem->getWateringManager();
+    uint32_t currentFrequency = wateringManager->getSelectedValveFrequency();
+    // Increment frequency by 12 hour (43200 seconds)
+    wateringManager->setSelectedValveFrequency(currentFrequency + 43200UL);
+}
+
+void SystemManager::decreaseSelectedValveFrequency()
+{
+    IWateringManager *wateringManager = mainSystem->getWateringManager();
+    uint32_t currentFrequency = wateringManager->getSelectedValveFrequency();
+    // Decrement frequency by 12 hour (43200 seconds), ensuring it doesn't go below 0
+    if (currentFrequency >= 43200UL)
+    {
+        wateringManager->setSelectedValveFrequency(currentFrequency - 43200UL);
+    }
+    else
+    {
+        wateringManager->setSelectedValveFrequency(0);
+    }
 }

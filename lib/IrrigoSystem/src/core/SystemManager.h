@@ -32,7 +32,11 @@ public:
     void incrementSelectedValve() override;
     void decreaseSelectedValve() override;
 
-    ValveMode getValveMode() override;
-    void incrementValveMode() override;
-    void decreaseValveMode() override;
+    ValveMode getSelectedValveMode() override;
+    void incrementSelectedValveMode() override;
+    void decreaseSelectedValveMode() override;
+
+    uint32_t getSelectedValveFrequency() override;
+    void incrementSelectedValveFrequency() override;
+    void decreaseSelectedValveFrequency() override;
 };

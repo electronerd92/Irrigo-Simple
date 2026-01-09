@@ -38,6 +38,9 @@ public:
     void setSelectedValve(uint8_t index) override { selectedValveIndex = index; }
     uint8_t getValvesCount() override { return wateringValvesCount; }
 
-    ValveMode getValveMode() override { return wateringValves[selectedValveIndex]->getMode(); }
-    void setValveMode(ValveMode newMode) override { wateringValves[selectedValveIndex]->setValveMode(newMode, sysManager->getUnixTime()); }   
+    ValveMode getSelectedValveMode() override { return wateringValves[selectedValveIndex]->getMode(); }
+    void setSelectedValveMode(ValveMode newMode) override { wateringValves[selectedValveIndex]->setSelectedValveMode(newMode, sysManager->getUnixTime()); }
+
+    uint32_t getSelectedValveFrequency() override { return wateringValves[selectedValveIndex]->getFrequency(); }
+    void setSelectedValveFrequency(uint32_t frequency) override { wateringValves[selectedValveIndex]->setFrequency(frequency, sysManager->getUnixTime()); }
 };

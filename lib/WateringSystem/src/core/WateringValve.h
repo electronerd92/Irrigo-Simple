@@ -20,12 +20,14 @@ public:
     WateringValve(uint8_t valvePin, bool out);
     bool getIsOutdoor() const override;
     ValveMode getMode() const override { return mode; }
-    void setValveMode(ValveMode newMode, uint32_t currentTime) override;
+    uint32_t getFrequency() const override { return frequency; }
+
+    void setSelectedValveMode(ValveMode newMode, uint32_t currentTime) override;
     int getState() override;
     void open(bool state) override;
     void close(bool state) override;
 
-    void setFrequency(uint8_t freq, uint32_t currentTime) override;
+    void setFrequency(uint32_t freq, uint32_t currentTime) override;
     void setStartTime(uint16_t start, uint32_t currentTime) override;
     void setPeriod(uint32_t period) override;
 
