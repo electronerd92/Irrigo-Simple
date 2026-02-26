@@ -45,9 +45,9 @@ void WateringValve::setFrequency(uint32_t freq, uint32_t currentTime)
     updateNextWateringTime(currentTime);
 }
 
-void WateringValve::setStartTime(uint16_t start, uint32_t currentTime)
+void WateringValve::setStartTime(uint32_t start, uint32_t currentTime)
 {
-    startTime = (uint32_t)start * 60UL; // Convert minutes since midnight to seconds
+    startTime = start; // Already in seconds since midnight
     updateNextWateringTime(currentTime);
 }
 

@@ -38,4 +38,12 @@ public:
     virtual uint32_t getSelectedValveDuration() = 0;
     virtual void incrementSelectedValveDuration() = 0;
     virtual void decreaseSelectedValveDuration() = 0;
+
+    virtual uint32_t getSelectedValveStartTime() = 0;  // Returns seconds for business logic
+    virtual uint8_t getSelectedValveStartHour() = 0;   // Returns hour for UI display
+    virtual uint8_t getSelectedValveStartMinute() = 0; // Returns minute for UI display
+    virtual void incrementSelectedValveStartHour() = 0;
+    virtual void decreaseSelectedValveStartHour() = 0;
+    virtual void incrementSelectedValveStartMinute() = 0;
+    virtual void decreaseSelectedValveStartMinute() = 0;
 };

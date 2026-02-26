@@ -46,6 +46,9 @@ void ValvesMenu::handleSelectCommand()
     case ValvesMenuIndex::DURATION:
         handleFieldSelection(EditingField::First);
         break;
+    case ValvesMenuIndex::START_TIME:
+        handleFieldSelection(EditingField::Second);
+        break;
 
     default:
         break;
@@ -79,8 +82,36 @@ void ValvesMenu::handleDirectionalCommand(Command cmd)
                                { sysManager->incrementSelectedValveDuration(); }, [sysManager]()
                                { sysManager->decreaseSelectedValveDuration(); });
         break;
+    case ValvesMenuIndex::START_TIME:
+        handleStartTimeEditing(cmd);
+        break;
+
     default:
         break;
+    }
+}
+
+void ValvesMenu::handleStartTimeEditing(Command cmd)
+{
+    const EditingField editingField = menu->getEditingField();
+    ISystemManager *sysManager = menu->getSystemManager();
+
+    switch (editingField)
+    {
+    case EditingField::First:
+        executeDirectionalEdit(cmd, [sysManager]()
+                               { sysManager->incrementSelectedValveStartHour(); }, [sysManager]()
+                               { sysManager->decreaseSelectedValveStartHour(); });
+        break;
+
+    case EditingField::Second:
+        executeDirectionalEdit(cmd, [sysManager]()
+                               { sysManager->incrementSelectedValveStartMinute(); }, [sysManager]()
+                               { sysManager->decreaseSelectedValveStartMinute(); });
+        break;
+
+    default:
+        return; // Don't update blinker for invalid field
     }
 }
 
@@ -111,6 +142,9 @@ void ValvesMenu::printElement(uint8_t index, uint8_t row)
         break;
     case ValvesMenuIndex::DURATION:
         printDuration(index, row);
+        break;
+    case ValvesMenuIndex::START_TIME:
+        printStartTime(index, row);
         break;
     default:
         break;
@@ -155,4 +189,19 @@ void ValvesMenu::printDuration(uint8_t index, uint8_t row)
     char *lcdBuffer = menu->getDisplayBuffer();
     snprintf(lcdBuffer, menu->getDisplayBufferSize(), "%lumin", sysManager->getSelectedValveDuration() / 60UL);
     handleElementDisplay(index, lcdBuffer, dispay->getColumns() - strlen(lcdBuffer), row);
+}
+
+void ValvesMenu::printStartTime(uint8_t index, uint8_t row)
+{
+    IDisplay *dispay = menu->getDispay();
+    ISystemManager *sysManager = menu->getSystemManager();
+    dispay->printAt(F(START_TIME_STR), 1, row);
+
+    uint8_t hour = sysManager->getSelectedValveStartHour();
+    uint8_t minute = sysManager->getSelectedValveStartMinute();
+
+    char *lcdBuffer = menu->getDisplayBuffer();
+    snprintf(lcdBuffer, menu->getDisplayBufferSize(), "%02u:%02u", hour, minute);
+
+    handleElementDisplay(index, lcdBuffer, dispay->getColumns() - 5, row);
 }

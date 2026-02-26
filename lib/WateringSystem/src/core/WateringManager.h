@@ -46,4 +46,7 @@ public:
 
     uint32_t getSelectedValveDuration() override { return wateringValves[selectedValveIndex]->getDuration(); }
     void setSelectedValveDuration(uint32_t duration) override { wateringValves[selectedValveIndex]->setDuration(duration); }
+
+    uint32_t getSelectedValveStartTime() override { return wateringValves[selectedValveIndex]->getStartTime(); }
+    void setSelectedValveStartTime(uint32_t startTime) override { wateringValves[selectedValveIndex]->setStartTime(startTime, sysManager->getUnixTime()); }
 };

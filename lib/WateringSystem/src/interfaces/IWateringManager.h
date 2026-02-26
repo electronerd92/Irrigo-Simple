@@ -14,4 +14,6 @@ public:
     virtual void setSelectedValveFrequency(uint32_t frequency) = 0;
     virtual uint32_t getSelectedValveDuration() = 0;
     virtual void setSelectedValveDuration(uint32_t duration) = 0;
+    virtual uint32_t getSelectedValveStartTime() = 0;
+    virtual void setSelectedValveStartTime(uint32_t startTime) = 0;
 };

@@ -16,3 +16,4 @@
 #define VALVE_MODE_STR "Mode:"
 #define FREQUENCY_STR "Frequency:"
 #define DURATION_STR "Duration:"
+#define START_TIME_STR "Start Time:"

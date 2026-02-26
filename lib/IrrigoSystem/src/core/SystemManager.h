@@ -43,4 +43,12 @@ public:
     uint32_t getSelectedValveDuration() override;
     void incrementSelectedValveDuration() override;
     void decreaseSelectedValveDuration() override;
+
+    uint32_t getSelectedValveStartTime() override;  // Returns seconds for business logic
+    uint8_t getSelectedValveStartHour() override;   // Returns hour for UI display
+    uint8_t getSelectedValveStartMinute() override; // Returns minute for UI display
+    void incrementSelectedValveStartHour() override;
+    void decreaseSelectedValveStartHour() override;
+    void incrementSelectedValveStartMinute() override;
+    void decreaseSelectedValveStartMinute() override;
 };

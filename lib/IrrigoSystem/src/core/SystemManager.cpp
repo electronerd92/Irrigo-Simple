@@ -270,3 +270,77 @@ void SystemManager::decreaseSelectedValveDuration()
         wateringManager->setSelectedValveDuration(0);
     }
 }
+
+uint32_t SystemManager::getSelectedValveStartTime()
+{
+    IWateringManager *wateringManager = mainSystem->getWateringManager();
+    return wateringManager->getSelectedValveStartTime(); // Seconds since midnight
+}
+
+uint8_t SystemManager::getSelectedValveStartHour()
+{
+    uint32_t startTime = getSelectedValveStartTime();
+    return (uint8_t)(startTime / 3600UL); // Convert to hour
+}
+
+uint8_t SystemManager::getSelectedValveStartMinute()
+{
+    uint32_t startTime = getSelectedValveStartTime();
+    return (uint8_t)((startTime % 3600UL) / 60UL); // Convert to minute
+}
+
+void SystemManager::incrementSelectedValveStartHour()
+{
+    IWateringManager *wateringManager = mainSystem->getWateringManager();
+    uint32_t currentStartTime = wateringManager->getSelectedValveStartTime();
+
+    uint8_t currentHour = (uint8_t)(currentStartTime / 3600UL);
+    uint8_t currentMinute = (uint8_t)((currentStartTime % 3600UL) / 60UL);
+
+    uint8_t newHour = (currentHour + 1) % 24;
+    uint32_t newStartTime = (uint32_t)newHour * 3600UL + (uint32_t)currentMinute * 60UL;
+
+    wateringManager->setSelectedValveStartTime(newStartTime);
+}
+
+void SystemManager::decreaseSelectedValveStartHour()
+{
+    IWateringManager *wateringManager = mainSystem->getWateringManager();
+    uint32_t currentStartTime = wateringManager->getSelectedValveStartTime();
+
+    uint8_t currentHour = (uint8_t)(currentStartTime / 3600UL);
+    uint8_t currentMinute = (uint8_t)((currentStartTime % 3600UL) / 60UL);
+
+    uint8_t newHour = (currentHour + 23) % 24;
+    uint32_t newStartTime = (uint32_t)newHour * 3600UL + (uint32_t)currentMinute * 60UL;
+
+    wateringManager->setSelectedValveStartTime(newStartTime);
+}
+
+void SystemManager::incrementSelectedValveStartMinute()
+{
+    IWateringManager *wateringManager = mainSystem->getWateringManager();
+    uint32_t currentStartTime = wateringManager->getSelectedValveStartTime();
+
+    uint8_t currentHour = (uint8_t)(currentStartTime / 3600UL);
+    uint8_t currentMinute = (uint8_t)((currentStartTime % 3600UL) / 60UL);
+
+    uint8_t newMinute = (currentMinute + 1) % 60;
+    uint32_t newStartTime = (uint32_t)currentHour * 3600UL + (uint32_t)newMinute * 60UL;
+
+    wateringManager->setSelectedValveStartTime(newStartTime);
+}
+
+void SystemManager::decreaseSelectedValveStartMinute()
+{
+    IWateringManager *wateringManager = mainSystem->getWateringManager();
+    uint32_t currentStartTime = wateringManager->getSelectedValveStartTime();
+
+    uint8_t currentHour = (uint8_t)(currentStartTime / 3600UL);
+    uint8_t currentMinute = (uint8_t)((currentStartTime % 3600UL) / 60UL);
+
+    uint8_t newMinute = (currentMinute + 59) % 60;
+    uint32_t newStartTime = (uint32_t)currentHour * 3600UL + (uint32_t)newMinute * 60UL;
+
+    wateringManager->setSelectedValveStartTime(newStartTime);
+}

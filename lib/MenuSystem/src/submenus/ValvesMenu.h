@@ -9,7 +9,8 @@ enum class ValvesMenuIndex : uint8_t
     VALVE_MODE,
     FREQUENCY,
     DURATION,
-    ELEMENT_COUNT
+    START_TIME,
+    ELEMENT_COUNT,
 };
 
 class ValvesMenu : public EditableMenuObj
@@ -22,6 +23,8 @@ private:
     void printValveMode(uint8_t index, uint8_t row);
     void printFrequency(uint8_t index, uint8_t row);
     void printDuration(uint8_t index, uint8_t row);
+    void printStartTime(uint8_t index, uint8_t row);
+    void handleStartTimeEditing(Command cmd);
 
 public:
     ValvesMenu(Menu *menu);
