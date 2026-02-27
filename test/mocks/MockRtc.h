@@ -30,6 +30,16 @@ public:
         return true;
     }
 
+    uint32_t unixtime() override
+    {
+        // Simple conversion for testing purposes (not accounting for leap years, etc.)
+        return (currentTime.year - 1970) * 31536000 + (currentTime.month - 1) * 2592000 +
+               (currentTime.day - 1) * 86400 + currentTime.hour * 3600 + currentTime.minute * 60 + currentTime.second;
+    }
+
+    // Test helpers
+    void setCurrentTime(const RtcDateTime &dt) { currentTime = dt; }
+
     // Test helpers
     void setTime(const RtcDateTime &dt) { currentTime = dt; }
     bool isInitialized() const { return initialized; }

@@ -66,8 +66,8 @@ void test_navigate_to_settings_menu(void)
 {
     menu->init();
 
-    // Move 3 times (simulate pressing RIGHT 3x)
-    sendCommand(Command::RIGHT, 3);
+    // Move 3 times (simulate pressing RIGHT 2x)
+    sendCommand(Command::RIGHT, 2);
 
     // Then press SELECT
     sendCommand(Command::SELECT);
