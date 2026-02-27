@@ -138,3 +138,51 @@ void WateringManager::setOutdoorValveState(bool state)
 {
     digitalWrite(outdoorValvePin, state);
 }
+
+void WateringManager::save(IEEPROMWriter &writer) const
+{
+    writer.writeByte(wateringValvesCount);
+    writer.writeByte(selectedValveIndex);
+
+    for (uint8_t i = 0; i < wateringValvesCount; i++)
+    {
+        // ← FIXED: Use reinterpret_cast for interface-to-interface cast
+        // Safe because we know the concrete type (WateringValve) implements both interfaces
+        IPersistable *persistableValve = reinterpret_cast<IPersistable *>(wateringValves[i]);
+        if (persistableValve)
+        {
+            persistableValve->save(writer);
+        }
+    }
+}
+
+void WateringManager::load(IEEPROMReader &reader)
+{
+    uint8_t savedValveCount = reader.readByte();
+    if (savedValveCount != wateringValvesCount)
+    {
+        reader.skip(1 + savedValveCount * 13);
+        return;
+    }
+
+    selectedValveIndex = reader.readByte();
+    if (selectedValveIndex >= wateringValvesCount)
+    {
+        selectedValveIndex = 0;
+    }
+
+    for (uint8_t i = 0; i < wateringValvesCount; i++)
+    {
+        // ← FIXED: Use reinterpret_cast for interface-to-interface cast
+        IPersistable *persistableValve = reinterpret_cast<IPersistable *>(wateringValves[i]);
+        if (persistableValve)
+        {
+            persistableValve->load(reader);
+        }
+    }
+}
+
+uint16_t WateringManager::getSerializedSize() const
+{
+    return 2 + (wateringValvesCount * 13); // 2 bytes header + valves
+}

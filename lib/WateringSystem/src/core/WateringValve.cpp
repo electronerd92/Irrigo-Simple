@@ -94,3 +94,26 @@ bool WateringValve::canBeClosed() const
     }
     return true;
 }
+
+void WateringValve::save(IEEPROMWriter &writer) const
+{
+    // Write only persistent data (not pin, isOutdoor - those are hardware config)
+    writer.writeEnum(static_cast<uint8_t>(mode));
+    writer.writeUInt32(frequency);
+    writer.writeUInt32(startTime);
+    writer.writeUInt32(getDuration());
+    // Total: 1 + 4 + 4 + 4 = 13 bytes
+}
+
+void WateringValve::load(IEEPROMReader &reader)
+{
+    mode = reader.readEnum<ValveMode>();
+    frequency = reader.readUInt32();
+    startTime = reader.readUInt32();
+    setDuration(reader.readUInt32());
+}
+
+uint16_t WateringValve::getSerializedSize() const
+{
+    return 1 + 4 + 4 + 4; // 13 bytes
+}

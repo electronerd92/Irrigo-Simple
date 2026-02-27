@@ -1,13 +1,17 @@
 #include "MainSystem.h"
 
-MainSystem::MainSystem(IRtc *rtc, ISystemManager *sysManager, IMenuSystem *menuSys, IWateringSystem *wateringSys)
+MainSystem::MainSystem(IRtc *rtc, IPersistenceManager *persistence,
+                       ISystemManager *sysManager, IMenuSystem *menuSys,
+                       IWateringSystem *wateringSys)
     : state(SystemState::Normal),
       rtc(rtc),
       sysManager(sysManager),
+      persistenceManager(persistence),
       menuSys(menuSys),
       wateringSys(wateringSys)
 {
     rtc->begin();
+    persistenceManager->load();
 }
 
 void MainSystem::update()
@@ -35,4 +39,24 @@ IRtc *MainSystem::getRTC()
 IWateringManager *MainSystem::getWateringManager()
 {
     return wateringSys->getWateringManager();
+}
+
+bool MainSystem::saveConfiguration()
+{
+    return persistenceManager->save();
+}
+
+bool MainSystem::loadConfiguration()
+{
+    return persistenceManager->load();
+}
+
+void MainSystem::factoryReset()
+{
+    persistenceManager->reset();
+}
+
+bool MainSystem::isConfigurationValid()
+{
+    return persistenceManager->isValid();
 }

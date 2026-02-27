@@ -2,8 +2,11 @@
 #include <Arduino.h>
 #include <interfaces/IWateringValve.h>
 #include <Timer.h>
+#include <interfaces/IPersistable.h>
+#include <interfaces/IEEPROMWriter.h>
+#include <interfaces/IEEPROMReader.h>
 
-class WateringValve : public IWateringValve
+class WateringValve : public IWateringValve, public IPersistable
 {
 private:
     const uint8_t pin;
@@ -35,4 +38,8 @@ public:
 
     bool canBeOpened(uint32_t currentTime) const override;
     bool canBeClosed() const override;
+
+    void save(IEEPROMWriter &writer) const override;
+    void load(IEEPROMReader &reader) override;
+    uint16_t getSerializedSize() const override;
 };

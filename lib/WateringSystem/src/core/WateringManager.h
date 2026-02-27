@@ -3,11 +3,14 @@
 #include "WateringSysConfig.h"
 #include <interfaces/IWateringManager.h>
 #include <interfaces/ISystemManager.h>
+#include <interfaces/IEEPROMReader.h>
+#include <interfaces/IEEPROMWriter.h>
+#include <interfaces/IPersistable.h>
 #include "interfaces/IWaterFeeder.h"
 #include "interfaces/IWateringValve.h"
 #include <Timer.h>
 
-class WateringManager : public IWateringManager
+class WateringManager : public IWateringManager, public IPersistable
 {
 private:
     ISystemManager *sysManager;
@@ -49,4 +52,8 @@ public:
 
     uint32_t getSelectedValveStartTime() override { return wateringValves[selectedValveIndex]->getStartTime(); }
     void setSelectedValveStartTime(uint32_t startTime) override { wateringValves[selectedValveIndex]->setStartTime(startTime, sysManager->getUnixTime()); }
+
+    void save(IEEPROMWriter &writer) const override;
+    void load(IEEPROMReader &reader) override;
+    uint16_t getSerializedSize() const override;
 };
