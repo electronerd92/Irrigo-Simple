@@ -1,16 +1,21 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <SPI.h>
-#include <IrrigoSystem.h>
+#include "core/MainSystem.h"
+#include "hardware/Rtc.hpp"
+#include "hardware/Lcd.hpp"
+#include "hardware/RotaryEncoder.h"
 
-IrrigoSystem *irrigoSystem;
+Rtc rtc;
+Lcd lcd;
+RotaryEncoder rotaryEncoder;
+MainSystem mainSystem(rtc, lcd, rotaryEncoder);
 
 void setup()
 {
-  irrigoSystem = new IrrigoSystem();
 }
 
 void loop()
 {
-  irrigoSystem->update();
+  mainSystem.update();
 }
