@@ -6,6 +6,8 @@ class IDisplay
 public:
     virtual ~IDisplay() = default;
 
+    virtual void begin() {}
+
     virtual uint8_t getColumns() const = 0;
     virtual uint8_t getRows() const = 0;
 

@@ -13,6 +13,9 @@ MainSystem mainSystem(rtc, lcd, rotaryEncoder);
 
 void setup()
 {
+  rtc.begin();
+  lcd.begin();
+  mainSystem.begin();
 }
 
 void loop()

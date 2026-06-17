@@ -1,15 +1,17 @@
 #include "MainSystem.h"
 
-MainSystem::MainSystem(IRtc &rtc, IDisplay &display, RotaryEncoder &inputDevice)
-    : dateTimeService(rtc)
+MainSystem::MainSystem(IRtc &rtc, IDisplay &display, IInputDevice &inputDevice)
+    : dateTimeService(rtc),
+      ui(display, inputDevice, dateTimeService)
 {
 }
 
 void MainSystem::begin()
 {
-    // nothing fancy
+    ui.begin();
 }
 
 void MainSystem::update()
 {
+    ui.update();
 }

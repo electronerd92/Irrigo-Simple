@@ -8,7 +8,9 @@
 class Lcd : public IDisplay
 {
 public:
-    Lcd() : lcd(I2C_ADDR_LCD, LCD_COLUMNS, LCD_ROWS)
+    Lcd() : lcd(I2C_ADDR_LCD, LCD_COLUMNS, LCD_ROWS) {}
+
+    void begin() override
     {
         lcd.init();
         lcd.backlight();
