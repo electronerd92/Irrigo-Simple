@@ -26,14 +26,6 @@ void MainMenu::handleSelect()
         menu.setCurrentMenu(*settingsMenu);
         break;
 
-    case MainMenuIndex::WATER_SOURCE:
-        // TODO
-        break;
-
-    case MainMenuIndex::SENSORS:
-        // TODO
-        break;
-
     case MainMenuIndex::INFO:
         // TODO
         break;
@@ -51,20 +43,8 @@ void MainMenu::printElement(uint8_t index, uint8_t row)
 
     switch (static_cast<MainMenuIndex>(index))
     {
-    case MainMenuIndex::WATER_SOURCE:
-        display.print(F("Water Source"));
-        break;
-
-    case MainMenuIndex::SENSORS:
-        display.print(F("Sensors"));
-        break;
-
     case MainMenuIndex::SETTINGS:
-        display.print(F("Settings"));
-
-        // next arrow
-        display.setCursor(display.getColumns() - 1, row);
-        display.write('>');
+        printWithNext(F("Settings"), row);
         break;
 
     case MainMenuIndex::INFO:

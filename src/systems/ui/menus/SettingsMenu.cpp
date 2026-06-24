@@ -59,11 +59,7 @@ void SettingsMenu::printElement(uint8_t index, uint8_t row)
     switch (static_cast<SettingsMenuIndex>(index))
     {
     case SettingsMenuIndex::BACK:
-        d.print(F("Settings"));
-
-        // back arrow on right
-        d.setCursor(d.getColumns() - 1, row);
-        d.write('<');
+        printWithBack(F("Settings"), row);
         break;
 
     case SettingsMenuIndex::DATE_TIME:
@@ -71,11 +67,7 @@ void SettingsMenu::printElement(uint8_t index, uint8_t row)
         break;
 
     case SettingsMenuIndex::VALVES:
-        d.print(F("Valves"));
-
-        // next arrow
-        d.setCursor(d.getColumns() - 1, row);
-        d.write('>');
+        printWithNext(F("Valves"), row);
         break;
 
     default:

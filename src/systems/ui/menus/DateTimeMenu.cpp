@@ -133,15 +133,8 @@ void DateTimeMenu::printElement(uint8_t index, uint8_t row)
     switch (static_cast<DateTimeMenuIndex>(index))
     {
     case DateTimeMenuIndex::BACK:
-    {
-        auto &d = menu.getDisplay();
-        d.setCursor(1, row);
-        d.print(F("Date & Time"));
-
-        d.setCursor(d.getColumns() - 1, row);
-        d.write('<');
+        printWithBack(F("Date & Time"), row);
         break;
-    }
 
     case DateTimeMenuIndex::DATE:
         printDate(index, row);

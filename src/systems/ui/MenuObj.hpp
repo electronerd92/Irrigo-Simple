@@ -17,4 +17,26 @@ public:
     virtual void printElement(uint8_t index, uint8_t row) = 0;
 
     uint8_t getElementsCount() const { return count; }
+
+    void printWithNext(const __FlashStringHelper *text, uint8_t row)
+    {
+        auto &d = menu.getDisplay();
+
+        d.setCursor(1, row);
+        d.print(text);
+
+        d.setCursor(d.getColumns() - 1, row);
+        d.write('>');
+    }
+
+    void printWithBack(const __FlashStringHelper *text, uint8_t row)
+    {
+        auto &d = menu.getDisplay();
+
+        d.setCursor(1, row);
+        d.print(text);
+
+        d.setCursor(d.getColumns() - 1, row);
+        d.write('^');
+    }
 };

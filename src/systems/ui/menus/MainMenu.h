@@ -7,8 +7,6 @@ class MenuObj; // forward
 
 enum class MainMenuIndex : uint8_t
 {
-    WATER_SOURCE,
-    SENSORS,
     SETTINGS,
     INFO,
     ELEMENT_COUNT

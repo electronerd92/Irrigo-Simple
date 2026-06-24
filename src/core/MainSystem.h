@@ -10,9 +10,12 @@
 class MainSystem
 {
 private:
+    IDisplay &display;
     // Services (non-hardware)
     DateTimeService dateTimeService;
     UiSystem ui;
+
+    void showWelcomeScreen();
 
 public:
     MainSystem(IRtc &rtc, IDisplay &display, IInputDevice &inputDevice);
