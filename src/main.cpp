@@ -5,11 +5,15 @@
 #include "hardware/Rtc.hpp"
 #include "hardware/Lcd.hpp"
 #include "hardware/RotaryEncoder.h"
+#include "hardware/ArduinoEEPROMReader.h"
+#include "hardware/ArduinoEEPROMWriter.h"
 
 Rtc rtc;
 Lcd lcd;
 RotaryEncoder rotaryEncoder;
-MainSystem mainSystem(rtc, lcd, rotaryEncoder);
+ArduinoEEPROMReader eepromReader;
+ArduinoEEPROMWriter eepromWriter;
+MainSystem mainSystem(rtc, lcd, rotaryEncoder, eepromWriter, eepromReader);
 
 void setup()
 {

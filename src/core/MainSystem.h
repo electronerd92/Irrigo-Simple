@@ -3,24 +3,29 @@
 #include "hardware/interfaces/IRtc.h"
 #include "hardware/interfaces/IDisplay.h"
 #include "hardware/interfaces/IInputDevice.h"
+#include "hardware/interfaces/IEEPROMReader.h"
+#include "hardware/interfaces/IEEPROMWriter.h"
 
 #include "services/DateTimeService.hpp"
 #include "systems/ui/UiSystem.h"
 #include "systems/watering/WateringSystem.h"
+#include "services/PersistenceService.h"
 
 class MainSystem
 {
 private:
     IDisplay &display;
-    // Services (non-hardware)
+
     DateTimeService dateTimeService;
     WateringSystem watering;
+    PersistenceService persistence;
     UiSystem ui;
 
     void showWelcomeScreen();
 
 public:
-    MainSystem(IRtc &rtc, IDisplay &display, IInputDevice &inputDevice);
+    MainSystem(IRtc &rtc, IDisplay &display, IInputDevice &inputDevice,
+               IEEPROMWriter &writer, IEEPROMReader &reader);
     void begin();
     void update();
 };

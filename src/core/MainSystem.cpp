@@ -1,10 +1,12 @@
 #include "MainSystem.h"
 #include "config.h"
 
-MainSystem::MainSystem(IRtc &rtc, IDisplay &display, IInputDevice &inputDevice)
+MainSystem::MainSystem(IRtc &rtc, IDisplay &display, IInputDevice &inputDevice,
+                       IEEPROMWriter &writer, IEEPROMReader &reader)
     : display(display),
       dateTimeService(rtc),
       watering(),
+      persistence(watering.getController(), writer, reader),
       ui(display, inputDevice, dateTimeService, watering.getController())
 {
 }
@@ -28,6 +30,8 @@ void MainSystem::showWelcomeScreen()
 void MainSystem::begin()
 {
     showWelcomeScreen();
+    uint32_t now = dateTimeService.unixTime();
+    persistence.load(now);
     ui.begin();
 }
 
@@ -35,6 +39,5 @@ void MainSystem::update()
 {
     uint32_t now = dateTimeService.unixTime();
     watering.update(now);
-
     ui.update();
 }

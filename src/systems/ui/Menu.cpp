@@ -21,6 +21,7 @@ void Menu::init(MenuObj &root)
 {
     rootMenu = &root;
     setCurrentMenu(root);
+    input.readAndClearCommand(); // clear any pending input
 }
 
 void Menu::update()
