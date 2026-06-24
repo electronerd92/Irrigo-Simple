@@ -133,7 +133,7 @@ void DateTimeMenu::printElement(uint8_t index, uint8_t row)
     switch (static_cast<DateTimeMenuIndex>(index))
     {
     case DateTimeMenuIndex::BACK:
-        printWithBack(F("Date & Time"), row);
+        printBackElement(F("Date & Time"), row);
         break;
 
     case DateTimeMenuIndex::DATE:

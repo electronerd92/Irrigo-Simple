@@ -48,11 +48,11 @@ void MainMenu::printElement(uint8_t index, uint8_t row)
     switch (static_cast<MainMenuIndex>(index))
     {
     case MainMenuIndex::MAIN:
-        printWithBack(F("Main"), row);
+        printBackElement(F("Main"), row);
         break;
 
     case MainMenuIndex::SETTINGS:
-        printWithNext(F("Settings"), row);
+        printNextMenu(F("Settings"), row);
         break;
 
     case MainMenuIndex::INFO:

@@ -18,7 +18,7 @@ public:
 
     uint8_t getElementsCount() const { return count; }
 
-    void printWithNext(const __FlashStringHelper *text, uint8_t row)
+    void printNextMenu(const __FlashStringHelper *text, uint8_t row)
     {
         auto &d = menu.getDisplay();
 
@@ -29,12 +29,14 @@ public:
         d.write('>');
     }
 
-    void printWithBack(const __FlashStringHelper *text, uint8_t row)
+    void printBackElement(const __FlashStringHelper *text, uint8_t row)
     {
         auto &d = menu.getDisplay();
 
         d.setCursor(1, row);
+        d.write('[');
         d.print(text);
+        d.write(']');
 
         d.setCursor(d.getColumns() - 1, row);
         d.write('^');

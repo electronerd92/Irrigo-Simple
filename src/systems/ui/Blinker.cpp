@@ -30,7 +30,7 @@ void Blinker::stopBlinking()
         return;
 
     isBlinking = false;
-    printWord(); // restore visible state
+    clearWord();
 }
 
 void Blinker::update()

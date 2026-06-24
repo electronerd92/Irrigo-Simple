@@ -48,19 +48,6 @@ void EditableMenuObj::handleElementDisplay(uint8_t index,
     }
 }
 
-void EditableMenuObj::printBackElement(const __FlashStringHelper *title,
-                                       uint8_t row)
-{
-    auto &d = menu.getDisplay();
-
-    d.setCursor(1, row);
-    d.print(title);
-
-    // back arrow '<'
-    d.setCursor(d.getColumns() - 1, row);
-    d.write('<');
-}
-
 void EditableMenuObj::requestBlinkerUpdate(bool forceRefresh)
 {
     updateBlinker = true;

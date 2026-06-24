@@ -59,7 +59,7 @@ void SettingsMenu::printElement(uint8_t index, uint8_t row)
     switch (static_cast<SettingsMenuIndex>(index))
     {
     case SettingsMenuIndex::BACK:
-        printWithBack(F("Settings"), row);
+        printBackElement(F("Settings"), row);
         break;
 
     case SettingsMenuIndex::DATE_TIME:
@@ -67,7 +67,7 @@ void SettingsMenu::printElement(uint8_t index, uint8_t row)
         break;
 
     case SettingsMenuIndex::VALVES:
-        printWithNext(F("Valves"), row);
+        printNextMenu(F("Valves"), row);
         break;
 
     default:

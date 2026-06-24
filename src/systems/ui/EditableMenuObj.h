@@ -15,9 +15,6 @@ protected:
                               uint8_t col,
                               uint8_t row);
 
-    void printBackElement(const __FlashStringHelper *title,
-                          uint8_t row);
-
     template <typename Inc, typename Dec>
     void executeDirectionalEdit(Command cmd,
                                 Inc inc,

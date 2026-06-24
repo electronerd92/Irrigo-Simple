@@ -21,3 +21,31 @@ constexpr uint8_t LCD_ROWS = 4;
 constexpr uint8_t ROTARY_PIN_A = 3;
 constexpr uint8_t ROTARY_PIN_B = 2;
 constexpr uint8_t ROTARY_BUTTON_PIN = 4;
+
+/* =========================================================
+ *  Watering System
+ * ========================================================= */
+
+constexpr uint8_t VALVE_COUNT = 8;
+
+// Valves (1..4 indoor, 5..8 outdoor)
+constexpr uint8_t VALVE_PINS[VALVE_COUNT] = {5, 6, 7, 8, 9, 10, 11, 12};
+
+// Outdoor shared valve
+constexpr uint8_t OUTDOOR_VALVE_PIN = 13;
+
+// Pump
+constexpr uint8_t PUMP_PIN = 22;
+
+// Tank sensor
+constexpr uint8_t TANK_LEVEL_PIN = 23;
+
+// Logic levels
+constexpr bool VALVE_ON = LOW;
+constexpr bool PUMP_ON = LOW;
+
+// Tank sensor logic
+constexpr bool TANK_HAS_WATER = HIGH;
+
+// Delay between valve and pump (ms)
+constexpr uint32_t VALVE_PUMP_DELAY_MS = 500;

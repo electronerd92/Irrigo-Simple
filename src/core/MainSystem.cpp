@@ -4,7 +4,8 @@
 MainSystem::MainSystem(IRtc &rtc, IDisplay &display, IInputDevice &inputDevice)
     : display(display),
       dateTimeService(rtc),
-      ui(display, inputDevice, dateTimeService)
+      watering(),
+      ui(display, inputDevice, dateTimeService, watering.getController())
 {
 }
 
@@ -32,5 +33,8 @@ void MainSystem::begin()
 
 void MainSystem::update()
 {
+    uint32_t now = dateTimeService.unixTime();
+    watering.update(now);
+
     ui.update();
 }

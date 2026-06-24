@@ -6,6 +6,7 @@
 
 #include "services/DateTimeService.hpp"
 #include "systems/ui/UiSystem.h"
+#include "systems/watering/WateringSystem.h"
 
 class MainSystem
 {
@@ -13,6 +14,7 @@ private:
     IDisplay &display;
     // Services (non-hardware)
     DateTimeService dateTimeService;
+    WateringSystem watering;
     UiSystem ui;
 
     void showWelcomeScreen();
