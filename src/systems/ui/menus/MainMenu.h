@@ -7,6 +7,7 @@ class MenuObj; // forward
 
 enum class MainMenuIndex : uint8_t
 {
+    MAIN,
     SETTINGS,
     INFO,
     ELEMENT_COUNT

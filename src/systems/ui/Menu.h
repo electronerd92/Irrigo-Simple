@@ -6,6 +6,7 @@
 #include "hardware/interfaces/IInputDevice.h"
 #include "services/DateTimeService.hpp"
 #include "Blinker.h"
+#include "utils/Timer.h"
 
 class MenuObj;
 
@@ -42,6 +43,8 @@ public:
 
     void requestRefresh(bool clear);
 
+    void sleep();
+
 private:
     enum class RefreshType : uint8_t
     {
@@ -65,6 +68,8 @@ private:
     void drawCursor();
     void drawCursorOnly();
 
+    void wakeUp();
+
 private:
     IDisplay &display;
     IInputDevice &input;
@@ -81,4 +86,9 @@ private:
 
     char *buffer;
     uint8_t bufferSize;
+
+    MenuObj *rootMenu{nullptr};
+
+    bool screenOn{true};
+    Timer sleepTimer;
 };

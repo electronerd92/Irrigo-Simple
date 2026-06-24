@@ -22,6 +22,10 @@ void MainMenu::handleSelect()
 {
     switch (static_cast<MainMenuIndex>(menu.getSelectedIndex()))
     {
+    case MainMenuIndex::MAIN:
+        menu.sleep(); // sleep the system when selecting "Main"
+        break;
+
     case MainMenuIndex::SETTINGS:
         menu.setCurrentMenu(*settingsMenu);
         break;
@@ -43,6 +47,10 @@ void MainMenu::printElement(uint8_t index, uint8_t row)
 
     switch (static_cast<MainMenuIndex>(index))
     {
+    case MainMenuIndex::MAIN:
+        printWithBack(F("Main"), row);
+        break;
+
     case MainMenuIndex::SETTINGS:
         printWithNext(F("Settings"), row);
         break;

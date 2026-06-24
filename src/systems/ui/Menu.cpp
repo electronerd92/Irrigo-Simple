@@ -12,18 +12,40 @@ Menu::Menu(IDisplay &display,
       blinker(blinker),
       dateTime(dateTime),
       buffer(buffer),
-      bufferSize(bufferSize)
+      bufferSize(bufferSize),
+      sleepTimer(60000) // 1 minute
 {
 }
 
 void Menu::init(MenuObj &root)
 {
+    rootMenu = &root;
     setCurrentMenu(root);
 }
 
 void Menu::update()
 {
     Command cmd = input.readAndClearCommand();
+
+    if (!screenOn)
+    {
+        if (cmd != Command::NONE)
+        {
+            wakeUp(); // first input wakes screen
+        }
+        return; // DO NOT PROCESS MENU
+    }
+
+    if (cmd != Command::NONE)
+    {
+        sleepTimer.start(); // reset sleep timer on any input
+    }
+
+    if (sleepTimer.timeout())
+    {
+        sleep();
+        return; // DO NOT PROCESS MENU
+    }
 
     if (!blinker.getIsBlinking() &&
         (cmd == Command::RIGHT || cmd == Command::LEFT))
@@ -191,6 +213,25 @@ void Menu::setCurrentMenu(MenuObj &m, uint8_t index)
     cursor = (index < rows) ? index : (rows - 1);
 
     stopEditing();
+
+    refresh = RefreshType::ClearFull;
+}
+
+void Menu::sleep()
+{
+    blinker.stopBlinking();
+    display.clear();
+    display.power(false);
+    screenOn = false;
+}
+
+void Menu::wakeUp()
+{
+    display.power(true);
+    screenOn = true;
+    sleepTimer.start();
+
+    setCurrentMenu(*rootMenu);
 
     refresh = RefreshType::ClearFull;
 }

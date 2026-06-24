@@ -19,4 +19,6 @@ public:
     virtual void write(char c) = 0;
     virtual void print(const char *str) = 0;
     virtual void print(const __FlashStringHelper *str) = 0;
+
+    virtual void power(bool on) = 0;
 };

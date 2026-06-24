@@ -13,7 +13,7 @@ public:
     void begin() override
     {
         lcd.init();
-        lcd.backlight();
+        power(true);
     }
 
     void clear() override { lcd.clear(); }
@@ -42,6 +42,14 @@ public:
     void print(const __FlashStringHelper *str) override
     {
         lcd.print(str);
+    }
+
+    void power(bool on) override
+    {
+        if (on)
+            lcd.backlight();
+        else
+            lcd.noBacklight();
     }
 
     uint8_t getColumns() const override { return LCD_COLUMNS; }
