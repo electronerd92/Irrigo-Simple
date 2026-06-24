@@ -1,4 +1,5 @@
 #include "SettingsMenu.h"
+#include "MainMenu.h"
 
 SettingsMenu::SettingsMenu(Menu &menu)
     : MenuObj(menu, static_cast<uint8_t>(SettingsMenuIndex::ELEMENT_COUNT))
@@ -33,8 +34,7 @@ void SettingsMenu::handleSelect()
     switch (static_cast<SettingsMenuIndex>(menu.getSelectedIndex()))
     {
     case SettingsMenuIndex::BACK:
-        menu.setCurrentMenu(*mainMenu,
-                            static_cast<uint8_t>(0)); // SETTINGS index in main menu
+        menu.setCurrentMenu(*mainMenu, static_cast<uint8_t>(MainMenuIndex::SETTINGS));
         break;
 
     case SettingsMenuIndex::DATE_TIME:

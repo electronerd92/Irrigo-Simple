@@ -1,5 +1,6 @@
 
 #include "ValvesMenu.h"
+#include "SettingsMenu.h"
 #include "systems/watering/ValveProgram.h"
 #include "config.h"
 
@@ -37,7 +38,7 @@ void ValvesMenu::handleSelect()
     switch (idx)
     {
     case ValvesMenuIndex::BACK:
-        menu.setCurrentMenu(settingsMenu);
+        menu.setCurrentMenu(settingsMenu, static_cast<uint8_t>(SettingsMenuIndex::VALVES));
         break;
 
     case ValvesMenuIndex::SELECTED:
@@ -77,19 +78,6 @@ void ValvesMenu::handleEdit(Command cmd)
     auto idx = static_cast<ValvesMenuIndex>(menu.getSelectedIndex());
 
     ValveProgram p = ctrl.getProgram(selectedValve);
-
-    if (p.mode == ValveMode::Off)
-    {
-        switch (idx)
-        {
-        case ValvesMenuIndex::FREQUENCY:
-        case ValvesMenuIndex::DURATION:
-        case ValvesMenuIndex::START_TIME:
-            return; // block edits
-        default:
-            break;
-        }
-    }
 
     switch (idx)
     {
