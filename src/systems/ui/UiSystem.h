@@ -3,11 +3,13 @@
 #include <Arduino.h>
 #include "Blinker.h"
 #include "Menu.h"
+#include "ConfirmMenu.h"
 #include "menus/SettingsMenu.h"
 #include "menus/DateTimeMenu.h"
 #include "menus/ValvesMenu.h"
 #include "menus/MainMenu.h"
 #include "services/DateTimeService.hpp"
+#include "services/PersistenceService.h"
 #include "systems/watering/WateringController.h"
 
 class UiSystem
@@ -18,6 +20,7 @@ private:
 
     Menu menu;
 
+    ConfirmMenu confirmMenu;
     SettingsMenu settingsMenu;
     DateTimeMenu dateTimeMenu;
     ValvesMenu valvesMenu;
@@ -27,10 +30,12 @@ public:
     UiSystem(IDisplay &display,
              IInputDevice &input,
              DateTimeService &dateTime,
+             PersistenceService &persistence,
              WateringController &wateringController)
         : blinker(display),
           menu(display, input, blinker, dateTime, buffer, sizeof(buffer)),
-          settingsMenu(menu),
+          confirmMenu(menu),
+          settingsMenu(menu, persistence, confirmMenu),
           dateTimeMenu(menu, settingsMenu, dateTime),
           valvesMenu(menu, settingsMenu, wateringController),
           mainMenu(menu)

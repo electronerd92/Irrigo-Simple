@@ -7,7 +7,7 @@ MainSystem::MainSystem(IRtc &rtc, IDisplay &display, IInputDevice &inputDevice,
       dateTimeService(rtc),
       watering(),
       persistence(watering.getController(), writer, reader),
-      ui(display, inputDevice, dateTimeService, watering.getController())
+      ui(display, inputDevice, dateTimeService, persistence, watering.getController())
 {
 }
 

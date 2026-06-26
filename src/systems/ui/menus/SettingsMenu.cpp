@@ -1,8 +1,10 @@
 #include "SettingsMenu.h"
 #include "MainMenu.h"
 
-SettingsMenu::SettingsMenu(Menu &menu)
-    : MenuObj(menu, static_cast<uint8_t>(SettingsMenuIndex::ELEMENT_COUNT))
+SettingsMenu::SettingsMenu(Menu &menu, PersistenceService &p, ConfirmMenu &cm)
+    : MenuObj(menu, static_cast<uint8_t>(SettingsMenuIndex::ELEMENT_COUNT)),
+      persistence(p),
+      confirmMenu(cm)
 {
 }
 
@@ -23,10 +25,44 @@ void SettingsMenu::setValvesMenu(MenuObj &v)
 
 void SettingsMenu::executeCmd(Command cmd)
 {
-    if (cmd != Command::SELECT)
-        return;
+    // Check if confirmation just finished
 
-    handleSelect();
+    if (confirmMenu.isDone())
+    {
+        if (confirmMenu.getResult())
+        {
+            if (pending == PendingAction::Save)
+            {
+                bool ok = persistence.save();
+                result = ok ? ActionResult::SavedOK : ActionResult::SavedError;
+            }
+            else if (pending == PendingAction::Load)
+            {
+                uint32_t now = menu.getDateTime().unixTime();
+                bool ok = persistence.load(now);
+                result = ok ? ActionResult::LoadedOK : ActionResult::LoadedError;
+            }
+
+            resultVisible = true; // trigger display
+            menu.requestRefresh(false);
+        }
+
+        pending = PendingAction::None;
+        confirmMenu.reset();
+        return;
+    }
+
+    // Auto-clear result after one cycle (simple)
+    if (resultVisible && cmd == Command::NONE)
+    {
+        resultVisible = false;
+        result = ActionResult::None;
+    }
+
+    if (cmd == Command::SELECT)
+    {
+        handleSelect();
+    }
 }
 
 void SettingsMenu::handleSelect()
@@ -44,6 +80,26 @@ void SettingsMenu::handleSelect()
     case SettingsMenuIndex::VALVES:
         menu.setCurrentMenu(*valvesMenu);
         break;
+
+    case SettingsMenuIndex::SAVE:
+    {
+        pending = PendingAction::Save;
+
+        confirmMenu.setContext(*this, F("Save?"));
+        menu.setCurrentMenu(confirmMenu, 1);
+
+        break;
+    }
+
+    case SettingsMenuIndex::LOAD:
+    {
+        pending = PendingAction::Load;
+
+        confirmMenu.setContext(*this, F("Load?"));
+        menu.setCurrentMenu(confirmMenu, 1);
+
+        break;
+    }
 
     default:
         break;
@@ -68,6 +124,40 @@ void SettingsMenu::printElement(uint8_t index, uint8_t row)
 
     case SettingsMenuIndex::VALVES:
         printNextMenu(F("Valves"), row);
+        break;
+
+    case SettingsMenuIndex::SAVE:
+        d.print(F("Save"));
+        if (resultVisible)
+        {
+            if (result == ActionResult::SavedOK)
+            {
+                d.setCursor(d.getColumns() - 3, row);
+                d.print(F("OK"));
+            }
+            else if (result == ActionResult::SavedError)
+            {
+                d.setCursor(d.getColumns() - 4, row);
+                d.print(F("ERR"));
+            }
+        }
+        break;
+
+    case SettingsMenuIndex::LOAD:
+        d.print(F("Load"));
+        if (resultVisible)
+        {
+            if (result == ActionResult::LoadedOK)
+            {
+                d.setCursor(d.getColumns() - 3, row);
+                d.print(F("OK"));
+            }
+            else if (result == ActionResult::LoadedError)
+            {
+                d.setCursor(d.getColumns() - 4, row);
+                d.print(F("ERR"));
+            }
+        }
         break;
 
     default:
