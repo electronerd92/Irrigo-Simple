@@ -1,5 +1,6 @@
 #pragma once
 #include <Arduino.h>
+#include "core/SystemState.h"
 #include "hardware/interfaces/IRtc.h"
 #include "hardware/interfaces/IDisplay.h"
 #include "hardware/interfaces/IInputDevice.h"
@@ -15,6 +16,7 @@ class MainSystem
 {
 private:
     IDisplay &display;
+    SystemState state{SystemState::Normal};
 
     DateTimeService dateTimeService;
     WateringSystem watering;

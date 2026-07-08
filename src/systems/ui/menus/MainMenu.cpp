@@ -10,6 +10,11 @@ void MainMenu::setSettingsMenu(MenuObj &m)
     settingsMenu = &m;
 }
 
+void MainMenu::setActionsMenu(MenuObj &m)
+{
+    actionsMenu = &m;
+}
+
 void MainMenu::executeCmd(Command cmd)
 {
     if (cmd != Command::SELECT)
@@ -28,6 +33,10 @@ void MainMenu::handleSelect()
 
     case MainMenuIndex::SETTINGS:
         menu.setCurrentMenu(*settingsMenu);
+        break;
+
+    case MainMenuIndex::ACTIONS:
+        menu.setCurrentMenu(*actionsMenu);
         break;
 
     case MainMenuIndex::INFO:
@@ -53,6 +62,10 @@ void MainMenu::printElement(uint8_t index, uint8_t row)
 
     case MainMenuIndex::SETTINGS:
         printNextMenu(F("Settings"), row);
+        break;
+
+    case MainMenuIndex::ACTIONS:
+        printNextMenu(F("Actions"), row);
         break;
 
     case MainMenuIndex::INFO:

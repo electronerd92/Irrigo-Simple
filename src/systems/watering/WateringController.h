@@ -8,6 +8,13 @@
 #include "utils/Timer.h"
 #include "config.h"
 
+enum class ManualState : uint8_t
+{
+    None,
+    RunningTest,
+    StoppingTest
+};
+
 class WateringController
 {
 private:
@@ -15,6 +22,10 @@ private:
     Valve &outdoorValve;
     Pump &pump;
     Tank &tank;
+
+    ManualState manualState{ManualState::None};
+    uint8_t testValve{255};
+    uint32_t testEndTime{0};
 
     ValveProgram programs[VALVE_COUNT];
 
@@ -40,6 +51,11 @@ public:
 
     ValveProgram &getProgram(uint8_t i);
     void updateProgram(uint8_t i, const ValveProgram &, uint32_t now);
+
+    bool startTest(uint8_t valve, uint32_t duration, uint32_t now);
+    void stopTest();
+    uint32_t getRemainingTestTime(uint32_t now);
+    bool isTesting();
 
 private:
     void updateNextStart(uint8_t i, uint32_t now);

@@ -1,12 +1,12 @@
 #include "Tank.h"
 
 Tank::Tank(uint8_t pin, bool hasWaterLevel)
-    : levelPin(pin), hasWaterLevel(hasWaterLevel)
+    : lowLevelPin(pin), hasWaterLevel(hasWaterLevel)
 {
-    pinMode(levelPin, INPUT);
+    pinMode(lowLevelPin, INPUT_PULLUP);
 }
 
 bool Tank::hasWater() const
 {
-    return digitalRead(levelPin) == hasWaterLevel;
+    return digitalRead(lowLevelPin) == hasWaterLevel;
 }

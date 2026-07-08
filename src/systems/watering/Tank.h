@@ -4,7 +4,7 @@
 class Tank
 {
 private:
-    uint8_t levelPin;
+    uint8_t lowLevelPin;
     bool hasWaterLevel;
 
 public:

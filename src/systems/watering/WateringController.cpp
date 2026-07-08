@@ -50,7 +50,12 @@ void WateringController::update(uint32_t now)
         if (delayTimer.timeout())
         {
             pump.start();
-            programs[activeValve].startTimestamp = now;
+
+            if (manualState == ManualState::None)
+            {
+                programs[activeValve].startTimestamp = now;
+            }
+
             state = State::Idle;
         }
         break;
@@ -63,7 +68,14 @@ void WateringController::update(uint32_t now)
             if (valves[activeValve].isOutdoor())
                 outdoorValve.close();
 
-            updateNextStart(activeValve, now);
+            if (manualState == ManualState::StoppingTest)
+            {
+                manualState = ManualState::None;
+            }
+            else
+            {
+                updateNextStart(activeValve, now);
+            }
 
             activeValve = 255;
             state = State::Idle;
@@ -92,6 +104,10 @@ bool WateringController::canStart(uint8_t i, uint32_t now)
 
 bool WateringController::shouldStop(uint8_t i, uint32_t now)
 {
+    if (manualState == ManualState::RunningTest)
+    {
+        return now >= testEndTime;
+    }
     return now >= (programs[i].startTimestamp + programs[i].duration);
 }
 
@@ -114,6 +130,10 @@ void WateringController::stopValve()
 
     delayTimer.start();
     state = State::Closing_StopPump;
+    if (manualState == ManualState::RunningTest)
+    {
+        manualState = ManualState::StoppingTest;
+    }
 }
 
 void WateringController::updateNextStart(uint8_t i, uint32_t now)
@@ -153,4 +173,49 @@ void WateringController::updateProgram(uint8_t i, const ValveProgram &newProgram
 {
     programs[i] = newProgram;
     updateNextStart(i, now);
+}
+
+bool WateringController::startTest(uint8_t valve, uint32_t duration, uint32_t now)
+{
+    if (duration == 0)
+        return false;
+
+    if (activeValve != 255)
+        return false;
+
+    if (!tank.hasWater())
+        return false;
+
+    testValve = valve;
+    testEndTime = now + duration;
+
+    startValve(valve);
+
+    manualState = ManualState::RunningTest;
+
+    return true;
+}
+
+void WateringController::stopTest()
+{
+    if (manualState != ManualState::RunningTest)
+        return;
+
+    stopValve();
+}
+
+uint32_t WateringController::getRemainingTestTime(uint32_t now)
+{
+    if (manualState == ManualState::None)
+        return 0;
+
+    if (now >= testEndTime)
+        return 0;
+
+    return testEndTime - now;
+}
+
+bool WateringController::isTesting()
+{
+    return manualState != ManualState::None;
 }

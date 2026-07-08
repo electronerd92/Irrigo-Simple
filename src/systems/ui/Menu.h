@@ -35,7 +35,7 @@ public:
 
     uint8_t getSelectedIndex() const;
 
-    void setCurrentMenu(MenuObj &menu, uint8_t index = 0);
+    void setCurrentMenu(MenuObj &menu, uint8_t index = 1);
 
     bool isEditing(uint8_t index) const;
     void nextField();

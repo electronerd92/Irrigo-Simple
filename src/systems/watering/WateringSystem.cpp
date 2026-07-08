@@ -2,7 +2,7 @@
 
 WateringSystem::WateringSystem()
     : pump(PUMP_PIN, PUMP_ON),
-      tank(TANK_LEVEL_PIN, TANK_HAS_WATER),
+      tank(TANK_LOW_LEVEL_PIN, TANK_HAS_WATER),
 
       valves{
           {VALVE_PINS[0], VALVE_ON, false},

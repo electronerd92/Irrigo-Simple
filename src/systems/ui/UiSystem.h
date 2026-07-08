@@ -5,8 +5,10 @@
 #include "Menu.h"
 #include "ConfirmMenu.h"
 #include "menus/SettingsMenu.h"
+#include "menus/ActionsMenu.h"
 #include "menus/DateTimeMenu.h"
 #include "menus/ValvesMenu.h"
+#include "menus/ValveTestMenu.h"
 #include "menus/MainMenu.h"
 #include "services/DateTimeService.hpp"
 #include "services/PersistenceService.h"
@@ -22,8 +24,10 @@ private:
 
     ConfirmMenu confirmMenu;
     SettingsMenu settingsMenu;
+    ActionsMenu actionsMenu;
     DateTimeMenu dateTimeMenu;
     ValvesMenu valvesMenu;
+    ValveTestMenu valveTestMenu;
     MainMenu mainMenu;
 
 public:
@@ -36,16 +40,22 @@ public:
           menu(display, input, blinker, dateTime, buffer, sizeof(buffer)),
           confirmMenu(menu),
           settingsMenu(menu, persistence, confirmMenu),
+          actionsMenu(menu),
           dateTimeMenu(menu, settingsMenu, dateTime),
           valvesMenu(menu, settingsMenu, wateringController),
+          valveTestMenu(menu, actionsMenu, wateringController),
           mainMenu(menu)
     {
         // ----- LINK PHASE -----
         mainMenu.setSettingsMenu(settingsMenu);
+        mainMenu.setActionsMenu(actionsMenu);
 
         settingsMenu.setMainMenu(mainMenu);
         settingsMenu.setDateTimeMenu(dateTimeMenu);
         settingsMenu.setValvesMenu(valvesMenu);
+
+        actionsMenu.setMainMenu(mainMenu);
+        actionsMenu.setValveTestMenu(valveTestMenu);
     }
 
     void begin()

@@ -35,14 +35,14 @@ constexpr uint8_t VALVE_PINS[VALVE_COUNT] = {5, 6, 7, 8, 9, 10, 11, 12};
 constexpr uint8_t OUTDOOR_VALVE_PIN = 13;
 
 // Pump
-constexpr uint8_t PUMP_PIN = 22;
+constexpr uint8_t PUMP_PIN = A2;
 
 // Tank sensor
-constexpr uint8_t TANK_LEVEL_PIN = 23;
+constexpr uint8_t TANK_LOW_LEVEL_PIN = A1;
 
 // Logic levels
-constexpr bool VALVE_ON = LOW;
-constexpr bool PUMP_ON = LOW;
+constexpr bool VALVE_ON = HIGH;
+constexpr bool PUMP_ON = HIGH;
 
 // Tank sensor logic
 constexpr bool TANK_HAS_WATER = HIGH;
