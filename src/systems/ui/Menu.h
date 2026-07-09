@@ -28,8 +28,6 @@ public:
     Blinker &getBlinker();
     DateTimeService &getDateTime();
 
-    uint8_t getEditingField() const;
-
     char *getBuffer();
     uint8_t getBufferSize() const;
 
@@ -37,6 +35,8 @@ public:
 
     void setCurrentMenu(MenuObj &menu, uint8_t index = 1);
 
+    uint8_t getEditingField() const;
+    bool isEditing() const;
     bool isEditing(uint8_t index) const;
     void nextField();
     void stopEditing();

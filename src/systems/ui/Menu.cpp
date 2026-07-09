@@ -42,7 +42,7 @@ void Menu::update()
         sleepTimer.start(); // reset sleep timer on any input
     }
 
-    if (sleepTimer.timeout())
+    if (!isEditing() && sleepTimer.timeout())
     {
         sleep();
         return; // DO NOT PROCESS MENU
@@ -146,11 +146,6 @@ void Menu::drawCursorOnly()
     drawCursor();
 }
 
-uint8_t Menu::getEditingField() const
-{
-    return static_cast<uint8_t>(field);
-}
-
 IDisplay &Menu::getDisplay()
 {
     return display;
@@ -181,9 +176,19 @@ uint8_t Menu::getSelectedIndex() const
     return selected;
 }
 
+uint8_t Menu::getEditingField() const
+{
+    return static_cast<uint8_t>(field);
+}
+
+bool Menu::isEditing() const
+{
+    return field != EditingField::None;
+}
+
 bool Menu::isEditing(uint8_t index) const
 {
-    return (field != EditingField::None) && (index == selected);
+    return isEditing() && index == selected;
 }
 
 void Menu::nextField()
@@ -220,7 +225,6 @@ void Menu::setCurrentMenu(MenuObj &m, uint8_t index)
 
 void Menu::sleep()
 {
-    blinker.stopBlinking();
     display.clear();
     display.power(false);
     screenOn = false;
