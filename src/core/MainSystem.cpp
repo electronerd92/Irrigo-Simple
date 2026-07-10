@@ -4,6 +4,8 @@
 MainSystem::MainSystem(IRtc &rtc, IDisplay &display, IInputDevice &inputDevice,
                        IEEPROMWriter &writer, IEEPROMReader &reader)
     : display(display),
+      status(),
+      led(LED_RED_PIN, LED_GREEN_PIN, LED_BLUE_PIN),
       dateTimeService(rtc),
       watering(),
       persistence(watering.getController(), writer, reader),
@@ -38,6 +40,50 @@ void MainSystem::begin()
 void MainSystem::update()
 {
     uint32_t now = dateTimeService.unixTime();
+
+    updateStatus();
+    watering.getController().setAutomaticEnabled(isAutomaticWateringAllowed());
+
     watering.update(now);
     ui.update();
+
+    led.update(status.get());
+}
+
+void MainSystem::updateStatus()
+{
+    if (!watering.getTank().hasWater())
+    {
+        status.set(SystemStatusCode::TankEmpty);
+    }
+    else if (watering.getController().isTesting())
+    {
+        status.set(SystemStatusCode::ValveTestRunning);
+    }
+    else if (ui.isEditing())
+    {
+        status.set(SystemStatusCode::MenuEditing);
+    }
+    else if (watering.getController().isWatering())
+    {
+        status.set(SystemStatusCode::AutoWatering);
+    }
+    else
+    {
+        status.set(SystemStatusCode::Ok);
+    }
+}
+
+bool MainSystem::isAutomaticWateringAllowed()
+{
+    if (!watering.getTank().hasWater())
+        return false;
+
+    if (watering.getController().isTesting())
+        return false;
+
+    if (ui.isEditing())
+        return false;
+
+    return true;
 }

@@ -23,6 +23,8 @@ private:
     Pump &pump;
     Tank &tank;
 
+    bool automaticEnabled{true};
+
     ManualState manualState{ManualState::None};
     uint8_t testValve{255};
     uint32_t testEndTime{0};
@@ -56,6 +58,8 @@ public:
     void stopTest();
     uint32_t getRemainingTestTime(uint32_t now);
     bool isTesting();
+    void setAutomaticEnabled(bool enabled);
+    bool isWatering();
 
 private:
     void updateNextStart(uint8_t i, uint32_t now);

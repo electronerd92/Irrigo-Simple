@@ -67,4 +67,9 @@ public:
     {
         menu.update();
     }
+
+    bool isEditing() const
+    {
+        return menu.isEditing();
+    }
 };

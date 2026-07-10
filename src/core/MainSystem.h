@@ -1,6 +1,5 @@
 #pragma once
 #include <Arduino.h>
-#include "core/SystemState.h"
 #include "hardware/interfaces/IRtc.h"
 #include "hardware/interfaces/IDisplay.h"
 #include "hardware/interfaces/IInputDevice.h"
@@ -11,12 +10,15 @@
 #include "systems/ui/UiSystem.h"
 #include "systems/watering/WateringSystem.h"
 #include "services/PersistenceService.h"
+#include "services/SystemStatusService.h"
+#include "systems/status/StatusLed.h"
 
 class MainSystem
 {
 private:
     IDisplay &display;
-    SystemState state{SystemState::Normal};
+    SystemStatusService status;
+    StatusLed led;
 
     DateTimeService dateTimeService;
     WateringSystem watering;
@@ -24,6 +26,8 @@ private:
     UiSystem ui;
 
     void showWelcomeScreen();
+    void updateStatus();
+    bool isAutomaticWateringAllowed();
 
 public:
     MainSystem(IRtc &rtc, IDisplay &display, IInputDevice &inputDevice,

@@ -30,3 +30,8 @@ WateringController &WateringSystem::getController()
 {
     return controller;
 }
+
+Tank &WateringSystem::getTank()
+{
+    return tank;
+}

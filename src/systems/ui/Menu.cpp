@@ -1,5 +1,6 @@
 #include "Menu.h"
 #include "MenuObj.hpp"
+#include "config.h"
 
 Menu::Menu(IDisplay &display,
            IInputDevice &input,
@@ -13,7 +14,7 @@ Menu::Menu(IDisplay &display,
       dateTime(dateTime),
       buffer(buffer),
       bufferSize(bufferSize),
-      sleepTimer(60000) // 1 minute
+      sleepTimer(MENU_SLEEP_MS)
 {
 }
 

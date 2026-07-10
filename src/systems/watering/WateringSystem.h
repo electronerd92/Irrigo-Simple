@@ -23,4 +23,5 @@ public:
     void update(uint32_t now);
 
     WateringController &getController();
+    Tank &getTank();
 };

@@ -35,6 +35,11 @@ void WateringController::update(uint32_t now)
             return;
         }
 
+        if (!automaticEnabled)
+        {
+            return;
+        }
+
         for (uint8_t i = 0; i < VALVE_COUNT; i++)
         {
             if (canStart(i, now))
@@ -84,6 +89,11 @@ void WateringController::update(uint32_t now)
     }
 }
 
+void WateringController::setAutomaticEnabled(bool enabled)
+{
+    automaticEnabled = enabled;
+}
+
 bool WateringController::canStart(uint8_t i, uint32_t now)
 {
     auto &p = programs[i];
@@ -92,12 +102,7 @@ bool WateringController::canStart(uint8_t i, uint32_t now)
         return false;
 
     if (p.mode == ValveMode::Timer)
-    {
-        if (!tank.hasWater())
-            return false;
-
         return now >= p.nextStart;
-    }
 
     return false;
 }
@@ -218,4 +223,9 @@ uint32_t WateringController::getRemainingTestTime(uint32_t now)
 bool WateringController::isTesting()
 {
     return manualState != ManualState::None;
+}
+
+bool WateringController::isWatering()
+{
+    return activeValve != 255;
 }

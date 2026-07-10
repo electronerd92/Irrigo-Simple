@@ -9,11 +9,12 @@
 #define RELEASE_DATE "24/06/2026"
 
 /* =========================================================
- *  LCD Configuration
+ *  Menu LCD Configuration
  * ========================================================= */
 constexpr uint8_t I2C_ADDR_LCD = 0x27;
 constexpr uint8_t LCD_COLUMNS = 20;
 constexpr uint8_t LCD_ROWS = 4;
+constexpr uint32_t MENU_SLEEP_MS = 60000; // Time in milliseconds before the menu goes to sleep
 
 /* =========================================================
  *  Rotary Encoder Configuration
@@ -49,3 +50,11 @@ constexpr bool TANK_HAS_WATER = HIGH;
 
 // Delay between valve and pump (ms)
 constexpr uint32_t VALVE_PUMP_DELAY_MS = 500;
+
+/* =========================================================
+ *  RGB LED Configuration
+ * ========================================================= */
+
+constexpr uint8_t LED_RED_PIN = A3;
+constexpr uint8_t LED_GREEN_PIN = A4;
+constexpr uint8_t LED_BLUE_PIN = A5;
