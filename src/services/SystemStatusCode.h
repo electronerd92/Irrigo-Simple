@@ -12,4 +12,5 @@ enum class SystemStatusCode : uint16_t
     MenuEditing = 200,
     AutoWatering = 201,
     ValveTestRunning = 202,
+    TankFilling = 203,
 };

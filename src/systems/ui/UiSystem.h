@@ -9,6 +9,7 @@
 #include "menus/DateTimeMenu.h"
 #include "menus/ValvesMenu.h"
 #include "menus/ValveTestMenu.h"
+#include "menus/FillTankMenu.h"
 #include "menus/MainMenu.h"
 #include "services/DateTimeService.hpp"
 #include "services/PersistenceService.h"
@@ -28,6 +29,7 @@ private:
     DateTimeMenu dateTimeMenu;
     ValvesMenu valvesMenu;
     ValveTestMenu valveTestMenu;
+    FillTankMenu fillTankMenu;
     MainMenu mainMenu;
 
 public:
@@ -44,6 +46,7 @@ public:
           dateTimeMenu(menu, settingsMenu, dateTime),
           valvesMenu(menu, settingsMenu, wateringController),
           valveTestMenu(menu, actionsMenu, wateringController),
+          fillTankMenu(menu, actionsMenu, wateringController),
           mainMenu(menu)
     {
         // ----- LINK PHASE -----
@@ -56,6 +59,7 @@ public:
 
         actionsMenu.setMainMenu(mainMenu);
         actionsMenu.setValveTestMenu(valveTestMenu);
+        actionsMenu.setFillTankMenu(fillTankMenu);
     }
 
     void begin()

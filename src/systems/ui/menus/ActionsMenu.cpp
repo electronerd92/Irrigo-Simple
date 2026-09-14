@@ -15,6 +15,11 @@ void ActionsMenu::setValveTestMenu(MenuObj &m)
     valveTestMenu = &m;
 }
 
+void ActionsMenu::setFillTankMenu(MenuObj &m)
+{
+    fillTankMenu = &m;
+}
+
 void ActionsMenu::executeCmd(Command cmd)
 {
     if (cmd != Command::SELECT)
@@ -33,6 +38,10 @@ void ActionsMenu::handleSelect()
 
     case ActionsMenuIndex::VALVE_TEST:
         menu.setCurrentMenu(*valveTestMenu);
+        break;
+
+    case ActionsMenuIndex::FILL_TANK:
+        menu.setCurrentMenu(*fillTankMenu);
         break;
 
     default:
@@ -54,6 +63,10 @@ void ActionsMenu::printElement(uint8_t index, uint8_t row)
 
     case ActionsMenuIndex::VALVE_TEST:
         printNextMenu(F("Valve Test"), row);
+        break;
+
+    case ActionsMenuIndex::FILL_TANK:
+        printNextMenu(F("Fill Tank"), row);
         break;
 
     default:

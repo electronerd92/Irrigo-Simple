@@ -12,7 +12,8 @@ enum class ManualState : uint8_t
 {
     None,
     RunningTest,
-    StoppingTest
+    StoppingTest,
+    FillingTank
 };
 
 class WateringController
@@ -20,6 +21,8 @@ class WateringController
 private:
     Valve *valves;
     Valve &outdoorValve;
+    Valve &tankFillValve;
+    Valve &mainFeedValve;
     Pump &pump;
     Tank &tank;
 
@@ -28,6 +31,8 @@ private:
     ManualState manualState{ManualState::None};
     uint8_t testValve{255};
     uint32_t testEndTime{0};
+    uint32_t fillStartTime{0};
+    uint32_t lastFillDuration{0};
 
     ValveProgram programs[VALVE_COUNT];
 
@@ -37,7 +42,9 @@ private:
     {
         Idle,
         Opening_WaitPump,
-        Closing_StopPump
+        Closing_StopPump,
+        Opening_WaitMainFeed,
+        Closing_StopMainFeed
     };
 
     State state{State::Idle};
@@ -46,6 +53,8 @@ private:
 public:
     WateringController(Valve *valves,
                        Valve &outdoorValve,
+                       Valve &tankFillValve,
+                       Valve &mainFeedValve,
                        Pump &pump,
                        Tank &tank);
 
@@ -58,6 +67,13 @@ public:
     void stopTest();
     uint32_t getRemainingTestTime(uint32_t now);
     bool isTesting();
+    bool startFillTank(uint32_t now);
+    void stopFillTank(uint32_t now);
+    bool isFillingTank();
+    uint32_t getTankFillElapsedTime(uint32_t now);
+    uint32_t getLastTankFillDuration() const;
+    bool isTankFilled() const;
+    bool isTankEmpty() const;
     void setAutomaticEnabled(bool enabled);
     bool isWatering();
     bool isAutomaticEnabled() const;

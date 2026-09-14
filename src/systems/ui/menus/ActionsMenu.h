@@ -10,6 +10,7 @@ enum class ActionsMenuIndex : uint8_t
 {
     BACK = 0,
     VALVE_TEST,
+    FILL_TANK,
     ELEMENT_COUNT
 };
 
@@ -18,6 +19,7 @@ class ActionsMenu : public MenuObj
 private:
     MenuObj *mainMenu{nullptr};
     MenuObj *valveTestMenu{nullptr};
+    MenuObj *fillTankMenu{nullptr};
 
     void handleSelect();
 
@@ -26,6 +28,7 @@ public:
 
     void setMainMenu(MenuObj &m);
     void setValveTestMenu(MenuObj &menuObj);
+    void setFillTankMenu(MenuObj &menuObj);
 
     void executeCmd(Command cmd) override;
     void printElement(uint8_t index, uint8_t row) override;

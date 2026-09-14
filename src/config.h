@@ -35,11 +35,16 @@ constexpr uint8_t VALVE_PINS[VALVE_COUNT] = {5, 6, 7, 8, 9, 10, 11, 12};
 // Outdoor shared valve
 constexpr uint8_t OUTDOOR_VALVE_PIN = 13;
 
+// Tank filling valves
+constexpr uint8_t TANK_FILL_VALVE_PIN = 22;
+constexpr uint8_t MAIN_FEED_VALVE_PIN = 23;
+
 // Pump
 constexpr uint8_t PUMP_PIN = A2;
 
-// Tank sensor
+// Tank sensors
 constexpr uint8_t TANK_LOW_LEVEL_PIN = A1;
+constexpr uint8_t TANK_FILLED_LEVEL_PIN = A0;
 
 // Logic levels
 constexpr bool VALVE_ON = HIGH;
@@ -47,6 +52,7 @@ constexpr bool PUMP_ON = HIGH;
 
 // Tank sensor logic
 constexpr bool TANK_HAS_WATER = HIGH;
+constexpr bool TANK_IS_FILLED = HIGH;
 
 // Delay between valve and pump (ms)
 constexpr uint32_t VALVE_PUMP_DELAY_MS = 500;

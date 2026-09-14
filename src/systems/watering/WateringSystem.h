@@ -14,6 +14,8 @@ private:
 
     Valve valves[VALVE_COUNT];
     Valve outdoorValve;
+    Valve tankFillValve;
+    Valve mainFeedValve;
 
     WateringController controller;
 

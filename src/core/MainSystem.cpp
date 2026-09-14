@@ -52,7 +52,11 @@ void MainSystem::update()
 
 void MainSystem::updateStatus()
 {
-    if (!watering.getTank().hasWater())
+    if (watering.getController().isFillingTank())
+    {
+        status.set(SystemStatusCode::TankFilling);
+    }
+    else if (!watering.getTank().hasWater())
     {
         status.set(SystemStatusCode::TankEmpty);
     }
@@ -80,6 +84,9 @@ bool MainSystem::isAutomaticWateringAllowed()
         return false;
 
     if (watering.getController().isTesting())
+        return false;
+
+    if (watering.getController().isFillingTank())
         return false;
 
     if (ui.isEditing())

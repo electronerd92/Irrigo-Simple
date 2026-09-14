@@ -2,10 +2,14 @@
 
 WateringController::WateringController(Valve *valves,
                                        Valve &outdoorValve,
+                                       Valve &tankFillValve,
+                                       Valve &mainFeedValve,
                                        Pump &pump,
                                        Tank &tank)
     : valves(valves),
       outdoorValve(outdoorValve),
+      tankFillValve(tankFillValve),
+      mainFeedValve(mainFeedValve),
       pump(pump),
       tank(tank),
       delayTimer(VALVE_PUMP_DELAY_MS)
@@ -22,6 +26,13 @@ void WateringController::update(uint32_t now)
     {
     case State::Idle:
     {
+        if (manualState == ManualState::FillingTank)
+        {
+            if (tank.isFilled())
+                stopFillTank(now);
+            return;
+        }
+
         if (activeValve != 255)
         {
             if (!tank.hasWater())
@@ -50,6 +61,14 @@ void WateringController::update(uint32_t now)
         }
         break;
     }
+
+    case State::Opening_WaitMainFeed:
+        if (delayTimer.timeout())
+        {
+            mainFeedValve.open();
+            state = State::Idle;
+        }
+        break;
 
     case State::Opening_WaitPump:
         if (delayTimer.timeout())
@@ -83,6 +102,16 @@ void WateringController::update(uint32_t now)
             }
 
             activeValve = 255;
+            state = State::Idle;
+        }
+        break;
+
+    case State::Closing_StopMainFeed:
+        if (delayTimer.timeout())
+        {
+            tankFillValve.close();
+
+            manualState = ManualState::None;
             state = State::Idle;
         }
         break;
@@ -188,6 +217,9 @@ bool WateringController::startTest(uint8_t valve, uint32_t duration, uint32_t no
     if (activeValve != 255)
         return false;
 
+    if (manualState == ManualState::FillingTank)
+        return false;
+
     if (!tank.hasWater())
         return false;
 
@@ -211,7 +243,8 @@ void WateringController::stopTest()
 
 uint32_t WateringController::getRemainingTestTime(uint32_t now)
 {
-    if (manualState == ManualState::None)
+    if (manualState != ManualState::RunningTest &&
+        manualState != ManualState::StoppingTest)
         return 0;
 
     if (now >= testEndTime)
@@ -222,7 +255,69 @@ uint32_t WateringController::getRemainingTestTime(uint32_t now)
 
 bool WateringController::isTesting()
 {
-    return manualState != ManualState::None;
+    return manualState == ManualState::RunningTest ||
+           manualState == ManualState::StoppingTest;
+}
+
+bool WateringController::startFillTank(uint32_t now)
+{
+    if (activeValve != 255)
+        return false;
+
+    if (tank.isFilled())
+        return false;
+
+    fillStartTime = now;
+    manualState = ManualState::FillingTank;
+
+    tankFillValve.open();
+    delayTimer.start();
+    state = State::Opening_WaitMainFeed;
+
+    return true;
+}
+
+void WateringController::stopFillTank(uint32_t now)
+{
+    if (manualState != ManualState::FillingTank)
+        return;
+
+    lastFillDuration = now - fillStartTime;
+    mainFeedValve.close();
+
+    delayTimer.start();
+    state = State::Closing_StopMainFeed;
+}
+
+bool WateringController::isFillingTank()
+{
+    return manualState == ManualState::FillingTank;
+}
+
+uint32_t WateringController::getTankFillElapsedTime(uint32_t now)
+{
+    if (manualState != ManualState::FillingTank)
+        return 0;
+
+    if (state == State::Closing_StopMainFeed)
+        return lastFillDuration;
+
+    return now - fillStartTime;
+}
+
+uint32_t WateringController::getLastTankFillDuration() const
+{
+    return lastFillDuration;
+}
+
+bool WateringController::isTankFilled() const
+{
+    return tank.isFilled();
+}
+
+bool WateringController::isTankEmpty() const
+{
+    return !tank.hasWater();
 }
 
 bool WateringController::isWatering()

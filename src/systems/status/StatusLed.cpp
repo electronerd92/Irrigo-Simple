@@ -55,6 +55,9 @@ StatusLed::Pattern StatusLed::getPattern(SystemStatusCode status)
     case SystemStatusCode::ValveTestRunning:
         return {Color::Yellow, 500};
 
+    case SystemStatusCode::TankFilling:
+        return {Color::Yellow, 500};
+
     case SystemStatusCode::MenuEditing:
         return {Color::Yellow, 1000};
 

@@ -2,7 +2,7 @@
 
 WateringSystem::WateringSystem()
     : pump(PUMP_PIN, PUMP_ON),
-      tank(TANK_LOW_LEVEL_PIN, TANK_HAS_WATER),
+      tank(TANK_LOW_LEVEL_PIN, TANK_HAS_WATER, TANK_FILLED_LEVEL_PIN, TANK_IS_FILLED),
 
       valves{
           {VALVE_PINS[0], VALVE_ON, false},
@@ -16,8 +16,10 @@ WateringSystem::WateringSystem()
       },
 
       outdoorValve(OUTDOOR_VALVE_PIN, VALVE_ON, false),
+      tankFillValve(TANK_FILL_VALVE_PIN, VALVE_ON, false),
+      mainFeedValve(MAIN_FEED_VALVE_PIN, VALVE_ON, false),
 
-      controller(valves, outdoorValve, pump, tank)
+      controller(valves, outdoorValve, tankFillValve, mainFeedValve, pump, tank)
 {
 }
 
