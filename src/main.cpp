@@ -1,3 +1,4 @@
+#ifndef UNIT_TESTING
 #include <Arduino.h>
 #include <Wire.h>
 #include <SPI.h>
@@ -26,3 +27,4 @@ void loop()
 {
   mainSystem.update();
 }
+#endif // UNIT_TESTING

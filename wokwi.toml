@@ -1,5 +1,5 @@
 [wokwi]
 version=1
-firmware='.pio/build/nanoatmega328/firmware.hex'
-elf='.pio/build/nanoatmega328/firmware.elf'
+firmware='.pio/build/megaatmega2560/firmware.hex'
+elf='.pio/build/megaatmega2560/firmware.elf'
 gdbServerPort=3333

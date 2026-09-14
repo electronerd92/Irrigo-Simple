@@ -229,3 +229,13 @@ bool WateringController::isWatering()
 {
     return activeValve != 255;
 }
+
+bool WateringController::isAutomaticEnabled() const
+{
+    return automaticEnabled;
+}
+
+uint8_t WateringController::getActiveValve() const
+{
+    return activeValve;
+}

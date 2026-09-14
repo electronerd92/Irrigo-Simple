@@ -60,6 +60,8 @@ public:
     bool isTesting();
     void setAutomaticEnabled(bool enabled);
     bool isWatering();
+    bool isAutomaticEnabled() const;
+    uint8_t getActiveValve() const;
 
 private:
     void updateNextStart(uint8_t i, uint32_t now);
